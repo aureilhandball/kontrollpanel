@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Publikumsskjerm</title>
+
+<style>
+
+html,
+body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #000;
+    font-family: Arial, sans-serif;
+}
+
+#scene {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background: black;
+}
+
+/* Hjemmelogo */
+
+#hjemmelogo {
+    position: absolute;
+    left: 8%;
+    top: 28%;
+    transform: translateY(-50%);
+    width: 12vw;
+    max-width: 300px;
+}
+
+/* Bortelogo */
+
+#bortelaglogo {
+    position: absolute;
+    right: 8%;
+    top: 28%;
+    transform: translateY(-50%);
+    width: 12vw;
+    max-width: 300px;
+}
+
+/* Spiller */
+
+#spillerContainer {
+    position: absolute;
+    left: 50%;
+    top: 58%;
+    transform: translate(-50%, -50%);
+    z-index:10;
+}
+#spiller {
+    height: 75vh;
+    max-height: 900px;
+    width: auto;
+    display: block;
+}
+
+@keyframes testHopp {0% {transform: translate(-50%, -50%);
+    }
+
+    50% {transform: translate(-50%, -70%);
+    }
+    100% {transform: translate(-50%, -50%);
+    }
+}
+
+.testHopp {
+
+    animation: testHopp 1s ease-out;
+}
+
+/* NHF */
+
+#nhf {
+    position: absolute;
+    left: 20px;
+    bottom: 50px;
+    height: 250px;
+}
+
+/* Fairplay-logo */
+
+#fairplay {
+    position: absolute;
+    right: 20px;
+    bottom: 90px;
+    height: 150px;
+}
+
+#hjemmescore {
+
+    position: absolute;
+
+    left: 8%;
+    top: 58%;
+
+    width: 12vw;
+
+    text-align: center;
+
+    color: white;
+
+    font-size: 7vw;
+    font-weight: 900;
+}
+
+#bortescore {
+
+    position: absolute;
+
+    right: 8%;
+    top: 58%;
+
+    width: 12vw;
+
+    text-align: center;
+
+    color: white;
+
+    font-size: 7vw;
+    font-weight: 900;
+}
+
+#konfetti {
+
+    position: absolute;
+
+    inset: 0;
+
+    display: none;
+
+    pointer-events: none;
+
+    z-index: 900;
+}
+
+.konfettiBit {
+
+    position: absolute;
+
+    width: 14px;
+    height: 14px;
+
+    animation:
+        konfettiFall 5s linear forwards;
+}
+
+@keyframes konfettiFall {
+
+    from {
+
+        transform:
+            translateY(-100px)
+            rotate(0deg);
+
+        opacity: 1;
+    }
+
+    to {
+
+        transform:
+            translateY(120vh)
+            rotate(1080deg);
+
+        opacity: 0;
+    }
+}
+
+/* Overlay */
+
+#overlay {
+
+    position: absolute;
+
+    inset: 0;
+
+    display: none;
+
+    justify-content: center;
+    align-items: center;
+
+    background: rgba(0,0,0,0.75);
+
+    color: white;
+
+    font-size: 7vw;
+    font-weight: bold;
+
+    text-align: center;
+
+    z-index: 1000;
+}
+
+/* Testknapper */
+
+#testpanel {
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 10px;
+
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+
+    z-index: 2000;
+}
+
+#testpanel button {
+
+    border: none;
+    border-radius: 10px;
+
+    padding: 10px 20px;
+
+    font-size: 18px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+#maalBall {
+
+    position: absolute;
+
+    left: 48%;
+    top: 45%;
+    width: 80px;
+    display: none;
+    z-index: 500;
+    filter: drop-shadow(0 0 20px rgba(255,255,255,0.5));
+}
+@keyframes ballFlyr {
+
+    0% {
+
+        left: 38%;
+        top: 35%;
+
+        opacity: 1;
+
+        transform: 
+	scale(0.8)
+	rotate(0deg);
+    }
+
+    100% {
+
+        left: 70%;
+        top: 50%;
+
+        opacity: 1;
+
+        transform: 
+	scale(75)
+	rotate(1080deg);
+    }
+}
+
+@keyframes blinkUtvisning {
+
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.25;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.maal {
+    background: #16a34a;
+    color: white;
+}
+
+.timeout {
+    background: #2563eb;
+    color: white;
+}
+
+.fairplay {
+    background: #f59e0b;
+    color: black;
+}
+
+.skjul {
+    background: #dc2626;
+    color: white;
+}
+#kampinfo {
+    position: absolute;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 100;
+}
+
+#kampstatus {
+    color: white;
+    font-size: 2vw;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#kampklokke {
+    color: white;
+    font-size: 7vw;
+    font-weight: 900;
+    line-height: 1;
+}
+#hjemmelagnavn,
+#bortelagnavn {
+    position: absolute;
+    width: 14vw;
+    text-align: center;
+    color: white;
+    font-size: 1.8vw;
+    font-weight: bold;
+}
+#hjemmelagnavn {
+    left: 7%;
+    top: 40%;
+}
+#bortelagnavn {
+    right: 7%;
+    top: 40%;
+}
+#utvisningerHome,
+#utvisningerAway {
+    position: absolute;
+    top: 51%;
+    width: 26vw;
+    height: 90px;
+
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+#utvisningerHome {
+    left: 1%;
+}
+
+#utvisningerAway {
+    right: 1%;
+}
+
+.utvisningskort {
+
+    width: 80px;
+    height: 70px;
+
+    border: 3px solid #f2a100;
+    border-radius: 12px;
+
+    background: rgba(
+    242,
+    161,
+    0,
+    0.15
+    );
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    color: white;
+    font-weight: bold;
+}
+
+.utvisningskort.rodtkort {
+    border-color: #e52020;
+
+    background: rgba(
+        229,
+        32,
+        32,
+        0.28
+    );
+
+    box-shadow:
+        0 0 14px
+        rgba(229, 32, 32, 0.65);
+}
+
+.utvisningskort.blink {
+
+    animation:
+        blinkUtvisning
+        0.6s
+        infinite;
+}
+
+#utvisningTittelHome,
+#utvisningTittelAway {
+
+    position: absolute;
+
+    top: 49%;
+
+    color: #ff6666;
+
+    font-size: 0.8vw;
+
+    font-weight: bold;
+
+    width: 26vw;
+
+    text-align: center;
+}
+
+#utvisningTittelHome {
+    left: 1%;
+}
+
+#utvisningTittelAway {
+    right: 1%;
+}
+
+#utvisningTittelHome,
+#utvisningTittelAway,
+#utvisningerHome,
+#utvisningerAway {
+    display: none;
+}
+
+.utvisningSpillerNr {
+    font-size: 1vw;
+    font-weight: 900;
+    line-height: 1;
+}
+
+.utvisningTid {
+    font-size: 1vw;
+    font-weight: 900;
+    color: #ffffff;
+    text-shadow: 0 0 6px rgba(255,255,255,0.4);
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="scene">
+
+<div id="kampinfo">
+
+    <div id="kampstatus">
+        IKKE STARTET
+    </div>
+
+    <div id="kampklokke">
+        00:00
+    </div>
+
+</div>
+    <!-- Hjemmelogo -->
+<img
+    id="hjemmelogo"
+    src="logoer/default.png"
+    alt="Hjemmelag">
+<div id="hjemmelagnavn">
+    HJEMMELAG
+</div>
+
+<div id="utvisningTittelHome">
+UTVIST
+</div>
+
+<div id="utvisningerHome">
+</div>
+
+<div id="hjemmescore">
+0
+</div>
+
+    <!-- Bortelag -->
+<img
+    id="bortelaglogo"
+    src="logoer/default.png"
+    alt="Bortelag">
+<div id="bortelagnavn">
+    BORTELAG
+</div>
+
+<div id="utvisningTittelAway">
+UTVIST
+</div>
+
+<div id="utvisningerAway">
+</div>
+
+<div id="bortescore">
+0
+</div>
+
+    <!-- Spiller -->
+<div id="spillerContainer">
+<img
+    id="spiller"
+    src="bilder/spiller.png"
+    alt="Spiller">
+</div>
+    <!-- Ball -->
+<img
+    id="maalBall"
+    src="bilder/ball.png"
+    alt="maalball">
+
+    <!-- Fairplay -->
+<img
+    id="fairplay"
+    src="bilder/fairplay.png"
+    alt="fairplay">
+
+    <!-- NHF -->
+<img
+    id="nhf"
+    src="bilder/nhf.png"
+    alt="NHF">
+
+    <!-- Konfetti -->
+    <div id="konfetti"></div>
+
+    <!-- Overlay -->
+<div id="overlay"></div>
+
+<!-- Fair Play video -->
+<video
+    id="fairplayVideo"
+    preload="auto"
+    style="
+        display:none;
+        position:absolute;
+        inset:0;
+        width:100%;
+        height:100%;
+        object-fit:contain;
+        background:black;
+        z-index:5000;
+    "
+>
+    <source
+        src="video/fairplay.mp4"
+        type="video/mp4">
+</video>
+
+<!-- Testknapper -->
+<div id="testpanel">
+
+        <button class="maal" onclick="visMaal()">
+            MÅL
+        </button>
+
+        <button class="timeout" onclick="visTimeout()">
+            TIMEOUT
+        </button>
+
+        <button class="fairplay" onclick="spillFairplayVideo()">
+            FAIR PLAY
+        </button>
+
+        <button class="skjul" onclick="skjulOverlay()">
+            SKJUL
+        </button>
+	<button class="maal" onclick="testSpiller()">
+	    TEST SPILLER
+	</button>
+	<button class="timeout" onclick="testBall()">
+    	   TEST BALL
+	</button>
+
+    </div>
+
+</div>
+
+<script>
+
+let hjemmemaal = 0;
+let bortemaal = 0;
+const debugMode = false;
+
+function oppdaterScore() {
+
+    document.getElementById(
+        "hjemmescore"
+    ).textContent = hjemmemaal;
+
+    document.getElementById(
+        "bortescore"
+    ).textContent = bortemaal;
+}
+
+const overlay =
+    document.getElementById("overlay");
+
+if (!debugMode) {
+
+    document.getElementById(
+        "testpanel"
+    ).style.display = "none";
+
+}
+
+function visOverlay(tekst) {
+
+    overlay.innerHTML = tekst;
+
+    overlay.style.display = "flex";
+
+    setTimeout(() => {
+
+        overlay.style.display = "none";
+
+    }, 5000);
+}
+
+function skjulOverlay() {
+
+    overlay.style.display = "none";
+}
+
+function visMaal(
+    lagnavn
+) {
+
+    maalFeiring(
+        lagnavn
+    );
+}
+
+function maalFeiring(
+    lagnavn
+) {
+
+    testSpiller();
+
+    setTimeout(() => {
+
+        testBall();
+
+    }, 950);
+
+    setTimeout(() => {
+
+    startKonfetti();
+ 
+    }, 600);
+
+    setTimeout(() => {
+
+        visOverlay(
+    "⚽ MÅL ⚽<br><br>" +
+    lagnavn
+);
+
+    }, 1800);
+
+}
+
+function visTimeout() {
+
+    visOverlay("⏱ TIMEOUT");
+}
+
+function visFairPlay() {
+
+    visOverlay("🤝 FAIR PLAY");
+}
+
+/*
+Klar for kobling mot hovedappen senere
+*/
+
+window.addEventListener(
+    "message",
+    function(event) {
+
+        if (
+            !event.data ||
+            typeof event.data !== "object"
+        ) {
+            return;
+        }
+
+        switch(event.data.type) {
+
+            case "kampklokke":
+
+                document
+                    .getElementById(
+                        "kampklokke"
+                    )
+                    .textContent =
+                    event.data.tid;
+
+                break;
+
+            case "kampstatus":
+
+                document
+                    .getElementById(
+                        "kampstatus"
+                    )
+                    .textContent =
+                    event.data.status;
+
+                break;
+
+	    case "score":
+
+   		 document
+       		 .getElementById("hjemmescore")
+        	.textContent =
+ 	         event.data.hjemme;
+
+	         document
+        	 .getElementById("bortescore")
+                 .textContent =
+                 event.data.borte;
+
+    		break;
+
+                case "maal":
+
+    		visMaal(
+        	event.data.lag
+    		);
+
+    		break;
+
+            case "timeout":
+                visTimeout();
+                break;
+
+	    case "timeoutinfo":
+
+    		visOverlay(
+        	event.data.tekst
+    		);
+
+    		break;
+
+            case "fairplay":
+
+    	    spillFairplayVideo();
+
+	    break;
+
+	    case "utvisninger":
+
+    		oppdaterUtvisninger(
+        	event.data.hjemmelag,
+        	event.data.bortelag
+    		);
+
+    		break;
+
+	    case "lag":
+
+    	    document
+       	        .getElementById("hjemmelogo")
+        	.src =
+        	event.data.hjemmelogo;
+
+    	    document
+        	.getElementById("bortelaglogo")
+        	.src =
+        	event.data.bortelogo;
+
+	    document
+    		.getElementById(
+        	"hjemmelagnavn"
+    		)
+    		.textContent =
+    		event.data.hjemmenavn;
+
+	    document
+    		.getElementById(
+        	"bortelagnavn"
+    		)
+    		.textContent =
+    		event.data.bortenavn;
+
+    	    break;
+        }
+    }
+);
+
+function testSpiller() {
+
+    const spiller =
+        document.getElementById(
+            "spillerContainer"
+        );
+
+    spiller.classList.add(
+        "testHopp"
+    );
+
+    setTimeout(() => {
+
+        spiller.classList.remove(
+            "testHopp"
+        );
+
+    }, 1000);
+}
+
+function testBall() {
+
+    const ball =
+        document.getElementById(
+            "maalBall"
+        );
+
+    ball.style.display = "block";
+
+    ball.style.animation =
+        "ballFlyr 2s linear";
+
+    setTimeout(() => {
+
+        ball.style.display = "none";
+
+        ball.style.animation = "";
+
+    }, 1000);
+}
+
+function maalAnimasjon() {
+
+    testSpiller();
+
+    setTimeout(() => {
+
+        testBall();
+
+    }, 300);
+}
+
+function startKonfetti() {
+
+    const felt =
+        document.getElementById(
+            "konfetti"
+        );
+
+    felt.innerHTML = "";
+
+    felt.style.display = "block";
+
+    const farger = [
+
+        "#00d4ff",
+        "#ffcc00",
+        "#ffffff",
+        "#ff6600"
+    ];
+
+    for (let i = 0; i < 120; i++) {
+
+        const bit =
+            document.createElement("div");
+
+        bit.classList.add(
+            "konfettiBit"
+        );
+
+        bit.style.left =
+            Math.random() * 100 + "%";
+
+        bit.style.background =
+            farger[
+                Math.floor(
+                    Math.random() *
+                    farger.length
+                )
+            ];
+
+        bit.style.animationDelay =
+            Math.random() * 2 + "s";
+
+        felt.appendChild(bit);
+    }
+
+    setTimeout(() => {
+
+        felt.style.display = "none";
+
+    }, 5000);
+}
+
+document.getElementById(
+    "utvisningerHome"
+).innerHTML =
+`
+<div class="utvisningskort">
+    <div>#8</div>
+    <div>01:34</div>
+</div>
+
+<div class="utvisningskort">
+    <div>#15</div>
+    <div>00:27</div>
+</div>
+
+<div class="utvisningskort">
+    <div>#12</div>
+    <div>01:58</div>
+</div>
+`;
+
+function oppdaterUtvisninger(
+    hjemmelag,
+    bortelag
+) {
+
+    const homeTittel =
+        document.getElementById(
+            "utvisningTittelHome"
+        );
+
+    const awayTittel =
+        document.getElementById(
+            "utvisningTittelAway"
+        );
+
+    const homeListe =
+        document.getElementById(
+            "utvisningerHome"
+        );
+
+    const awayListe =
+        document.getElementById(
+            "utvisningerAway"
+        );
+
+    /* Hjemmelag */
+
+    if (hjemmelag.length === 0) {
+
+        homeTittel.style.display =
+            "none";
+
+        homeListe.style.display =
+            "none";
+
+        homeListe.innerHTML = "";
+    }
+    else {
+
+        homeTittel.style.display =
+            "block";
+
+        homeListe.style.display =
+            "flex";
+
+        homeListe.innerHTML = "";
+
+        hjemmelag.forEach(
+            utvisning => {
+
+                const minutter =
+                    Math.floor(
+                        utvisning.sekunder / 60
+                    );
+
+                const sekunder =
+                    utvisning.sekunder % 60;
+
+                const tid =
+                    String(minutter)
+                    .padStart(2,"0") +
+                    ":" +
+                    String(sekunder)
+                    .padStart(2,"0");
+
+                let kortKlasse =
+    utvisning.antallUtvisninger >= 3
+        ? "utvisningskort rodtkort"
+        : "utvisningskort";
+
+if (
+    utvisning.sekunder <= 5
+) {
+    kortKlasse += " blink";
+}
+
+homeListe.innerHTML += `
+<div class="${kortKlasse}">
+    <div class="utvisningSpillerNr">
+        #${utvisning.spiller}
+    </div>
+
+    <div class="utvisningTid">
+        ${tid}
+    </div>
+</div>
+`;
+            }
+        );
+    }
+
+    /* Bortelag */
+
+    if (bortelag.length === 0) {
+
+        awayTittel.style.display =
+            "none";
+
+        awayListe.style.display =
+            "none";
+
+        awayListe.innerHTML = "";
+    }
+    else {
+
+        awayTittel.style.display =
+            "block";
+
+        awayListe.style.display =
+            "flex";
+
+        awayListe.innerHTML = "";
+
+        bortelag.forEach(
+            utvisning => {
+
+                const minutter =
+                    Math.floor(
+                        utvisning.sekunder / 60
+                    );
+
+                const sekunder =
+                    utvisning.sekunder % 60;
+
+                const tid =
+                    String(minutter)
+                    .padStart(2,"0") +
+                    ":" +
+                    String(sekunder)
+                    .padStart(2,"0");
+
+                let kortKlasse =
+    utvisning.antallUtvisninger >= 3
+        ? "utvisningskort rodtkort"
+        : "utvisningskort";
+
+if (
+    utvisning.sekunder <= 5
+) {
+    kortKlasse += " blink";
+}
+
+awayListe.innerHTML += `
+<div class="${kortKlasse}">
+    <div class="utvisningSpillerNr">
+        #${utvisning.spiller}
+    </div>
+
+    <div class="utvisningTid">
+        ${tid}
+    </div>
+</div>`;
+            }
+        );
+    }
+}
+
+function spillFairplayVideo() {
+
+    const video =
+        document.getElementById(
+            "fairplayVideo"
+        );
+
+    video.style.display =
+        "block";
+
+    video.currentTime = 0;
+
+    video.play();
+
+    video.onerror = function () {
+
+        video.style.display =
+            "none";
+
+        console.log(
+            "Kunne ikke spille Fair Play-video"
+        );
+    };
+video.onended = function () {
+
+    video.style.display =
+        "none";
+
+    if (
+        window.opener &&
+        !window.opener.closed
+    ) {
+        window.opener.postMessage(
+            {
+                type: "fairplayFerdig"
+            },
+            "*"
+        );
+    }
+
+};
+}
+</script>
+
+</body>
+</html>
