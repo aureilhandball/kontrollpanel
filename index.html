@@ -1778,6 +1778,47 @@ const arsklasser = [
 
 let aktivSide = "";
 
+async function lastInnKlubber() {
+
+    try {
+
+        const svar =
+            await fetch(
+                "data/klubber.json"
+            );
+
+        if (!svar.ok) {
+
+            throw new Error(
+                "Kunne ikke laste klubber.json"
+            );
+
+        }
+
+        klubber =
+            await svar.json();
+
+        console.log(
+            `${klubber.length} lag lastet`
+        );
+
+    }
+
+    catch (feil) {
+
+        console.error(
+            "Feil ved lasting av klubber:",
+            feil
+        );
+
+        alert(
+            "Kunne ikke laste laglisten."
+        );
+
+    }
+
+}
+	
 /* ==========================
    LAGVELGER
 ========================== */
@@ -4174,6 +4215,7 @@ document
         }
     );
 
+lastInnKlubber();	
 
 </script>
 
