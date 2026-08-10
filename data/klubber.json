@@ -1,154 +1,154 @@
 [
     {
-    navn: "Aure",
-    logo: "logoer/aure.png"
+    "navn": "Aure",
+    "logo": "logoer/aure.png"
     },
     {
-    navn: "Træff",
-    logo: "logoer/traeff.png"
+    "navn": "Træff",
+    "logo": "logoer/traeff.png"
     },
     {
-	navn: "Molde",
-	logo: "logoer/molde.png"
+	"navn": "Molde",
+	"logo": "logoer/molde.png"
     },
     {
-	navn: "Kristiansund",
-	logo: "logoer/khk.png"
+	"navn": "Kristiansund",
+	"logo": "logoer/khk.png"
     },
 	{
-	navn: "Aksla",
-	logo: "logoer/aksla.png"
+	"navn": "Aksla",
+	"logo": "logoer/aksla.png"
     },
 	{
-	navn: "Bergsøy",
-	logo: "logoer/bergsoy.png"
+	"navn": "Bergsøy",
+	"logo": "logoer/bergsoy.png"
     },
 	{
-	navn: "Byåsen",
-	logo: "logoer/byasen.png"
+	"navn": "Byåsen",
+	"logo": "logoer/byasen.png"
     },
 	{
-	navn: "Byneset",
-	logo: "logoer/byneset.png"
+	"navn": "Byneset",
+	"logo": "logoer/byneset.png"
     },
 	{
-	navn: "Charlottenlund",
-	logo: "logoer/charlottenlund.png"
+	"navn": "Charlottenlund",
+	"logo": "logoer/charlottenlund.png"
     },
 	{
-	navn: "Frøya",
-	logo: "logoer/froya.png"
+	"navn": "Frøya",
+	"logo": "logoer/froya.png"
     },
 	{
-	navn: "Godøy",
-	logo: "logoer/godoy.png"
+	"navn": "Godøy",
+	"logo": "logoer/godoy.png"
     },
 	{
-	navn: "Halsa",
-	logo: "logoer/halsabk.png"
+	"navn": "Halsa",
+	"logo": "logoer/halsabk.png"
     },
 	{
-	navn: "Haram",
-	logo: "logoer/haram.png"
+	"navn": "Haram",
+	"logo": "logoer/haram.png"
     },
 	{
-	navn: "Hitra",
-	logo: "logoer/hitra.png"
+	"navn": "Hitra",
+	"logo": "logoer/hitra.png"
     },
 	{
-	navn: "Hødd",
-	logo: "logoer/hodd.png"
+	"navn": "Hødd",
+	"logo": "logoer/hodd.png"
     },
 	{
-	navn: "Kattem",
-	logo: "logoer/kattem.png"
+	"navn": "Kattem",
+	"logo": "logoer/kattem.png"
     },
 	{
-	navn: "Klæbu",
-	logo: "logoer/klabu.png"
+	"navn": "Klæbu",
+	"logo": "logoer/klabu.png"
     },
 	{
-	navn: "Kyrksæterøra",
-	logo: "logoer/kyrksaterora.png"
+	"navn": "Kyrksæterøra",
+	"logo": "logoer/kyrksaterora.png"
     },
 	{
-	navn: "Leik",
-	logo: "logoer/leik.png"
+	"navn": "Leik",
+	"logo": "logoer/leik.png"
     },
 	{
-	navn: "Lensvik",
-	logo: "logoer/lensvik.png"
+	"navn": "Lensvik",
+	"logo": "logoer/lensvik.png"
     },
 	{
-	navn: "Melhus",
-	logo: "logoer/melhus.png"
+	"navn": "Melhus",
+	"logo": "logoer/melhus.png"
     },
 	{
-	navn: "Midsund",
-	logo: "logoer/midsund.png"
+	"navn": "Midsund",
+	"logo": "logoer/midsund.png"
     },
 	{
-	navn: "NTNUI",
-	logo: "logoer/ntnui.png"
+	"navn": "NTNUI",
+	"logo": "logoer/ntnui.png"
     },
 	{
-	navn: "Oppdal",
-	logo: "logoer/oppdal.png"
+	"navn": "Oppdal",
+	"logo": "logoer/oppdal.png"
     },
 	{
-	navn: "Orkanger",
-	logo: "logoer/orkanger.png"
+	"navn": "Orkanger",
+	"logo": "logoer/orkanger.png"
     },
 	{
-	navn: "Orkanger/Orkdal",
-	logo: "logoer/orkangerorkdal.png"
+	"navn": "Orkanger/Orkdal",
+	"logo": "logoer/orkangerorkdal.png"
     },
 	{
-	navn: "Orkdal",
-	logo: "logoer/orkdal.png"
+	"navn": "Orkdal",
+	"logo": "logoer/orkdal.png"
     },
 	{
-	navn: "Rival",
-	logo: "logoer/rival.png"
+	"navn": "Rival",
+	"logo": "logoer/rival.png"
     },
 	{
-	navn: "Sjetne",
-	logo: "logoer/sjetne.png"
+	"navn": "Sjetne",
+	"logo": "logoer/sjetne.png"
     },
 	{
-	navn: "Skaun",
-	logo: "logoer/skaun.png"
+	"navn": "Skaun",
+	"logo": "logoer/skaun.png"
     },
 	{
-	navn: "Skaun/Leik",
-	logo: "logoer/skaunleik.png"
+	"navn": "Skaun/Leik",
+	"logo": "logoer/skaunleik.png"
     },
 	{
-	navn: "Stranda",
-	logo: "logoer/stranda.png"
+	"navn": "Stranda",
+	"logo": "logoer/stranda.png"
     },
 	{
-	navn: "Surnadal",
-	logo: "logoer/surnadal.png"
+	"navn": "Surnadal",
+	"logo": "logoer/surnadal.png"
     },
 	{
-	navn: "Sverresborg",
-	logo: "logoer/sverresborg.png"
+	"navn": "Sverresborg",
+	"logo": "logoer/sverresborg.png"
     },
 	{
-	navn: "Tiller",
-	logo: "logoer/tiller.png"
+	"navn": "Tiller",
+	"logo": "logoer/tiller.png"
     },
 	{
-	navn: "Trønder-Lyn",
-	logo: "logoer/tronderlyn.png"
+	"navn": "Trønder-Lyn",
+	"logo": "logoer/tronderlyn.png"
     },
 	{
-	navn: "Utleira",
-	logo: "logoer/utleira.png"
+	"navn": "Utleira",
+	"logo": "logoer/utleira.png"
     },
 	{
-	navn: "Valder",
-	logo: "logoer/valder.png"
+	"navn": "Valder",
+	"logo": "logoer/valder.png"
     }
 ]
