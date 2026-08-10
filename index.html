@@ -1284,9 +1284,11 @@ Trykk for å velge lag
 </button>
         <div class="button-grid">
 
-    <button class="action-btn"
-        style="background:#2f64e2;"
-        onclick="apneArsklasseModal()">
+    <button
+    id="arsklasseBtn"
+    class="action-btn"
+    style="background:#2f64e2;"
+    onclick="apneArsklasseModal()">
 
         VELG ÅRSKLASSE
 
@@ -2365,6 +2367,12 @@ document
         );
 
     });
+
+document
+    .getElementById(
+        "arsklasseBtn"
+    )
+    .disabled = true;
 
 }
 else if (
@@ -3468,6 +3476,12 @@ document
 
     });
 
+document
+    .getElementById(
+        "arsklasseBtn"
+    )
+    .disabled = false;
+
 oppdaterPublikumsskjerm();
 
 leggTilLogg(
@@ -3542,6 +3556,17 @@ VELG ÅRSKLASSE
 =====================*/
 function apneArsklasseModal() {
 
+    if (
+        kampFase !== "ikkeStartet"
+    ) {
+
+        leggTilLogg(
+            "Årsklasse er låst etter kampstart"
+        );
+
+        return;
+    }
+
     document
         .getElementById(
             "arsklasseModal"
@@ -3549,6 +3574,7 @@ function apneArsklasseModal() {
         .style.display = "block";
 
     byggArsklasseListe();
+
 }
 
 function lukkArsklasseModal() {
