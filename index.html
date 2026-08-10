@@ -1098,6 +1098,10 @@ body.high-contrast
     opacity: 0.7;
     cursor: not-allowed;
 }
+	.arsklasse-lock {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
 </style>
 </head>
 
@@ -2373,7 +2377,14 @@ document
         "arsklasseBtn"
     )
     .disabled = true;
-
+	
+document
+    .getElementById(
+        "arsklasseBtn"
+    )
+    .classList.add(
+        "arsklasse-lock"
+    );
 }
 else if (
     kampFase === "klarForOmgang2"
@@ -3481,6 +3492,14 @@ document
         "arsklasseBtn"
     )
     .disabled = false;
+	
+document
+    .getElementById(
+        "arsklasseBtn"
+    )
+    .classList.remove(
+        "arsklasse-lock"
+    );
 
 oppdaterPublikumsskjerm();
 
