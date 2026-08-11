@@ -3,7 +3,6 @@ const CACHE_NAVN =
 
 const FILER = [
 
-    "/",
     "/index.html",
     "/publikum.html",
     "/manifest.json",
@@ -20,11 +19,33 @@ self.addEventListener(
             caches.open(
                 CACHE_NAVN
             )
-            .then(cache => {
+            .then(async cache => {
 
-                return cache.addAll(
-                    FILER
-                );
+                for (const fil of FILER) {
+
+                    try {
+
+                        await cache.add(
+                            fil
+                        );
+
+                        console.log(
+                            "Cached:",
+                            fil
+                        );
+
+                    }
+
+                    catch(error) {
+
+                        console.error(
+                            "Kunne ikke cache:",
+                            fil
+                        );
+
+                    }
+
+                }
 
             })
 
