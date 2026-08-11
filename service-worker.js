@@ -3,10 +3,21 @@ const CACHE_NAVN =
 
 const FILER = [
 
-    "/index.html",
-    "/publikum.html",
-    "/manifest.json",
-    "/data/klubber.json"
+    const FILER = [
+
+    "./",
+    "./index.html",
+    "./publikum.html",
+    "./manifest.json",
+    "./data/klubber.json",
+
+    "./bilder/spiller.png",
+    "./bilder/nhf.png",
+    "./bilder/fairplay.png",
+    "./logoer/default.png",
+
+    "./bilder/icon-192.png",
+    "./bilder/icon-512.png"
 
 ];
 
