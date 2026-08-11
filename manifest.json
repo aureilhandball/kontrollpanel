@@ -1,0 +1,31 @@
+{
+    "name": "Aure IL Håndball Kontrollpanel",
+
+    "short_name": "Håndballkamp",
+
+    "description":
+        "Kontrollpanel for håndballkamper med måltavle, musikkstyring, utvisninger og publikumsskjerm.",
+
+    "start_url": "/",
+
+    "display": "standalone",
+
+    "background_color": "#06132b",
+
+    "theme_color": "#06132b",
+
+    "orientation": "landscape",
+
+    "icons": [
+        {
+            "src": "bilder/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "bilder/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
