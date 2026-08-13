@@ -1597,7 +1597,7 @@ LYDER
 const LYDER = {
     horn: "lyd/Horn.mp3"
 };
-
+let lydbibliotek = {};
 /*==================
 KAMPVARIABLER
 ==================*/
@@ -1757,6 +1757,44 @@ async function lastInnKlubber() {
 
     }
 
+}
+
+	async function lastInnMusikk() {
+
+    try {
+
+        const svar =
+            await fetch(
+                "data/musikk.json"
+            );
+
+        if (!svar.ok) {
+
+            throw new Error(
+                "Kunne ikke laste musikk.json"
+            );
+        }
+
+        lydbibliotek =
+            await svar.json();
+
+        console.log(
+            "Musikkbibliotek lastet"
+        );
+
+    }
+
+    catch (feil) {
+
+        console.error(
+            "Feil ved lasting av musikk:",
+            feil
+        );
+
+        alert(
+            "Kunne ikke laste musikkbiblioteket."
+        );
+    }
 }
 	
 /* ==========================
@@ -4159,6 +4197,7 @@ document
     );
 
 lastInnKlubber();	
+lastInnMusikk();
 
 if (
     "serviceWorker"
