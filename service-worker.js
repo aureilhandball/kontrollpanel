@@ -3,8 +3,6 @@ const CACHE_NAVN =
 
 const FILER = [
 
-    const FILER = [
-
     "./",
     "./index.html",
     "./publikum.html",
