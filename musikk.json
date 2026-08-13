@@ -1,0 +1,27 @@
+{
+  "maal": [
+    {
+      "navn": "Fraglene",
+      "fil": "lyd/Spritney Bears - Fraglene.mp3",
+      "start": 30.5,
+      "stopp": 42,
+      "volum": 1,
+      "fadeIn": 0.5,
+      "fadeOut": 3,
+      "loop": false
+    }
+  ],
+
+  "timeout": [
+    {
+      "navn": "Snakke litt",
+      "fil": "lyd/Snakke litt.mp3",
+      "start": 0,
+      "stopp": 33,
+      "volum": 0.7,
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "loop": true
+    }
+  ]
+}
