@@ -1,8 +1,7 @@
-const CACHE_NAVN =
-    "aure-handball-v1";
+const CACHE_VERSION = "1.0.1";
+const CACHE_NAME = `aure-handball-${CACHE_VERSION}`;
 
 const FILER = [
-
     "./",
     "./index.html",
     "./publikum.html",
@@ -16,52 +15,28 @@ const FILER = [
 
     "./bilder/icon-192.png",
     "./bilder/icon-512.png"
-
 ];
 
-self.addEventListener(
-    "install",
-    event => {
+self.addEventListener("install", event => {
+    self.skipWaiting();
 
-        event.waitUntil(
-
-            caches.open(
-                CACHE_NAVN
-            )
-            .then(async cache => {
-
-                for (const fil of FILER) {
-
-                    try {
-
-                        await cache.add(
-                            fil
-                        );
-
-                        console.log(
-                            "Cached:",
-                            fil
-                        );
-
-                    }
-
-                    catch(error) {
-
-                        console.error(
-                            "Kunne ikke cache:",
-                            fil
-                        );
-
-                    }
-
+    event.waitUntil(
+        caches.open(CACHE_NAME).then(async cache => {
+            for (const fil of FILER) {
+                try {
+                    await cache.add(fil);
+                    console.log("Cached:", fil);
                 }
-
-            })
-
-        );
-
-    }
-);
+                catch (error) {
+                    console.error(
+                        "Kunne ikke cache:",
+                        fil
+                    );
+                }
+            }
+        })
+    );
+});
 
 self.addEventListener(
     "fetch",
@@ -99,3 +74,14 @@ self.addEventListener(
 
     }
 );
+self.addEventListener("activate", event => {
+    event.waitUntil(
+        caches.keys().then(cacheNames =>
+            Promise.all(
+                cacheNames
+                    .filter(name => name !== CACHE_NAME)
+                    .map(name => caches.delete(name))
+            )
+        ).then(() => self.clients.claim())
+    );
+});
