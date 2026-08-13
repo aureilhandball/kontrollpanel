@@ -1,77 +1,77 @@
 {
         "maal": [
-            {navn: "Fraglene", fil: "lyd/Spritney Bears - Fraglene.mp3", start: 30.5, stopp: 42, volum: 1.0, fadeIn: 0.5, fadeOut: 3, loop: false},
-	    {navn: "Lullaby", fil: "lyd/Galaxee - Lullaby.mp3", start: 157, stopp: 173, volum: 1.0, fadeIn: 2, fadeOut: 3, loop: false},
-            {navn: "Unbelivable", fil: "lyd/EMF - Unbelivable.mp3", start: 77, stopp: 91, volum: 1.0, fadeIn: 0, fadeOut: 3, loop: false},
-	    {navn: "As good as you", fil: "lyd/Secilia - As Good As You.mp3", start: 67.8, stopp: 83, volum: 1.0, fadeIn: 1, fadeOut: 3, loop: false},
-	    {navn: "Heaven", fil: "lyd/U96  -   Heaven.mp3", start: 128, stopp: 141, volum: 1.0, fadeIn: 1, fadeOut: 3, loop: false},
-	    {navn: "Freestyler", fil: "lyd/Bomfunk MC's - Freestyler.mp3", start: 237, stopp: 250, volum: 1.0, fadeIn: 1, fadeOut: 2, loop: false},
-            {navn: "Who let the dogs out", fil: "lyd/Baha Men - Who Let The Dogs Out.mp3", start: 0, stopp: 13, volum: 1.0, fadeIn: 0, fadeOut: 3, loop: false},
-	    {navn: "Woodpeckers from space", fil: "lyd/Spritney Bears - Woodpeckers From Space.mp3", start: 21.5, stopp: 32, volum: 1.0, fadeIn: 1.5, fadeOut: 3, loop: false},
-	    {navn: "Feeling fine", fil: "lyd/Ultrabeat - Feeling Fine (CJ Stone Edit).mp3", start: 55, stopp: 65, volum: 1.0, fadeIn: 0, fadeOut: 3, loop: false},
-	    {navn: "I wanna mmmmmm", fil: "lyd/The Lawyer - I Wanna Mmmmm.mp3", start: 5, stopp: 15, volum: 1.0, fadeIn: 0, fadeOut: 1, loop: false},
-	    {navn: "Get me", fil: "lyd/Reset - Get Me.mp3", start: 0, stopp: 13, volum: 1.0, fadeIn: 0, fadeOut: 3, loop: false},
-	    {navn: "I'm so exited", fil: "lyd/Pointer Sisters - I'm So Excited.mp3", start: 57, stopp: 68, volum: 1.0, fadeIn: 1, fadeOut: 3, loop: false},
-	    {navn: "Whistler", fil: "lyd/John The Wisthler  - I'm In Love (Mythos Remix).mp3", start: 255.5, stopp: 268.5, volum: 1.0, fadeIn: 1, fadeOut: 3, loop: false},
-	    {navn: "Ikke komme her og komme her", fil: "lyd/Sunde.mp3", start: 32, stopp: 45, volum: 1.0, fadeIn: 0.5, fadeOut: 3, loop: false},
-	    {navn: "Woah song", fil: "lyd/DJ Daz - The Woah Song.mp3", start: 7.9, stopp: 21.5, volum: 1.0, fadeIn: 0.5, fadeOut: 3, loop: false},
-	    {navn: "Speedy gonsales", fil: "lyd/Monkey Circus - Speedy Gonsales.mp3", start: 14, stopp: 27, volum: 1.0, fadeIn: 0.5, fadeOut: 3, loop: false},
-	    {navn: "Hamster dance", fil: "lyd/Hampsterdance - Hamsterdance.mp3", start: 16, stopp: 29, volum: 1.0, fadeIn: 1, fadeOut: 3, loop: false},
-	    {navn: "Sleeping my day away", fil: "lyd/infinity-sleeping_my_day_away-cig.mp3", start: 0.5, stopp: 13.5, volum: 1.0, fadeIn: 0, fadeOut: 3, loop: false},
-	    {navn: "Tetris", fil: "lyd/2PM - tetris.mp3", start: 33, stopp: 46, volum: 1.0, fadeIn: 0, fadeOut: 3, loop: false},
-	    {navn: "I'll be ready", fil: "lyd/SUNBLOCK - I'll Be Ready (radio version).mp3", start: 37, stopp: 50, volum: 1.0, fadeIn: 0.5, fadeOut: 3, loop: false},
-	    {navn: "Blow", fil: "lyd/Kesha-Blow (Cirkut Remix).mp3", start: 2, stopp: 15, volum: 1.0, fadeIn: 1, fadeOut: 3, loop: false},
-	    {navn: "Het", fil: "lyd/Bjorn Rosenstrom - Het (Remix).mp3", start: 196.5, stopp: 210, volum: 1.0, fadeIn: 0.5, fadeOut: 3, loop: false},
-	    {navn: "Dangerous", fil: "lyd/Da Buzz - Dangerous 2.mp3", start: 42.7, stopp: 57, volum: 1.0, fadeIn: 0.5, fadeOut: 3, loop: false},
-	    {navn: "Something going on", fil: "lyd/Bomfunk MCs feat. Jessica Folcker - (Crack It) Something Goi.mp3", start: 32.5, stopp: 46, volum: 1.0, fadeIn: 0.5, fadeOut: 3, loop: false},
-	    {navn: "Nocturne", fil: "lyd/Dusty Cowshit - Nocturne.mp3", start: 46.5, stopp: 60, volum: 1.0, fadeIn: 0, fadeOut: 3, loop: false},
-	    {navn: "Boom!Boom!Boom!Boom!", fil: "lyd/Vengaboys - Boom! Boom! Boom! Boom!.mp3", start: 54.5, stopp: 67, volum: 1.0, fadeIn: 1, fadeOut: 3, loop: false},
-	    {navn: "In my dreams", fil: "lyd/Wig Wam - In My Dreams.mp3", start: 2, stopp: 15, volum: 1.0, fadeIn: 0, fadeOut: 3, loop: false}
+            {"navn": "Fraglene", fil: "lyd/Spritney Bears - Fraglene.mp3", start: 30.5, stopp: 42, volum: 1.0, fadeIn: 0.5, fadeOut: 3, loop: false},
+	    {"navn": "Lullaby", fil: "lyd/Galaxee - Lullaby.mp3", start: 157, stopp: 173, volum: 1.0, fadeIn: 2, fadeOut: 3, loop: false},
+            {"navn": "Unbelivable", fil: "lyd/EMF - Unbelivable.mp3", start: 77, stopp: 91, volum: 1.0, fadeIn: 0, fadeOut: 3, loop: false},
+	    {"navn": "As good as you", fil: "lyd/Secilia - As Good As You.mp3", start: 67.8, stopp: 83, volum: 1.0, fadeIn: 1, fadeOut: 3, loop: false},
+	    {"navn": "Heaven", fil: "lyd/U96  -   Heaven.mp3", start: 128, stopp: 141, volum: 1.0, fadeIn: 1, fadeOut: 3, loop: false},
+	    {"navn": "Freestyler", fil: "lyd/Bomfunk MC's - Freestyler.mp3", start: 237, stopp: 250, volum: 1.0, fadeIn: 1, fadeOut: 2, loop: false},
+            {"navn": "Who let the dogs out", fil: "lyd/Baha Men - Who Let The Dogs Out.mp3", start: 0, stopp: 13, volum: 1.0, fadeIn: 0, fadeOut: 3, loop: false},
+	    {"navn": "Woodpeckers from space", fil: "lyd/Spritney Bears - Woodpeckers From Space.mp3", start: 21.5, stopp: 32, volum: 1.0, fadeIn: 1.5, fadeOut: 3, loop: false},
+	    {"navn": "Feeling fine", fil: "lyd/Ultrabeat - Feeling Fine (CJ Stone Edit).mp3", start: 55, stopp: 65, volum: 1.0, fadeIn: 0, fadeOut: 3, loop: false},
+	    {"navn": "I wanna mmmmmm", fil: "lyd/The Lawyer - I Wanna Mmmmm.mp3", start: 5, stopp: 15, volum: 1.0, fadeIn: 0, fadeOut: 1, loop: false},
+	    {"navn": "Get me", fil: "lyd/Reset - Get Me.mp3", start: 0, stopp: 13, volum: 1.0, fadeIn: 0, fadeOut: 3, loop: false},
+	    {"navn": "I'm so exited", fil: "lyd/Pointer Sisters - I'm So Excited.mp3", start: 57, stopp: 68, volum: 1.0, fadeIn: 1, fadeOut: 3, loop: false},
+	    {"navn": "Whistler", fil: "lyd/John The Wisthler  - I'm In Love (Mythos Remix).mp3", start: 255.5, stopp: 268.5, volum: 1.0, fadeIn: 1, fadeOut: 3, loop: false},
+	    {"navn": "Ikke komme her og komme her", fil: "lyd/Sunde.mp3", start: 32, stopp: 45, volum: 1.0, fadeIn: 0.5, fadeOut: 3, loop: false},
+	    {"navn": "Woah song", fil: "lyd/DJ Daz - The Woah Song.mp3", start: 7.9, stopp: 21.5, volum: 1.0, fadeIn: 0.5, fadeOut: 3, loop: false},
+	    {"navn": "Speedy gonsales", fil: "lyd/Monkey Circus - Speedy Gonsales.mp3", start: 14, stopp: 27, volum: 1.0, fadeIn: 0.5, fadeOut: 3, loop: false},
+	    {"navn": "Hamster dance", fil: "lyd/Hampsterdance - Hamsterdance.mp3", start: 16, stopp: 29, volum: 1.0, fadeIn: 1, fadeOut: 3, loop: false},
+	    {"navn": "Sleeping my day away", fil: "lyd/infinity-sleeping_my_day_away-cig.mp3", start: 0.5, stopp: 13.5, volum: 1.0, fadeIn: 0, fadeOut: 3, loop: false},
+	    {"navn": "Tetris", fil: "lyd/2PM - tetris.mp3", start: 33, stopp: 46, volum: 1.0, fadeIn: 0, fadeOut: 3, loop: false},
+	    {"navn": "I'll be ready", fil: "lyd/SUNBLOCK - I'll Be Ready (radio version).mp3", start: 37, stopp: 50, volum: 1.0, fadeIn: 0.5, fadeOut: 3, loop: false},
+	    {"navn": "Blow", fil: "lyd/Kesha-Blow (Cirkut Remix).mp3", start: 2, stopp: 15, volum: 1.0, fadeIn: 1, fadeOut: 3, loop: false},
+	    {"navn": "Het", fil: "lyd/Bjorn Rosenstrom - Het (Remix).mp3", start: 196.5, stopp: 210, volum: 1.0, fadeIn: 0.5, fadeOut: 3, loop: false},
+	    {"navn": "Dangerous", fil: "lyd/Da Buzz - Dangerous 2.mp3", start: 42.7, stopp: 57, volum: 1.0, fadeIn: 0.5, fadeOut: 3, loop: false},
+	    {"navn": "Something going on", fil: "lyd/Bomfunk MCs feat. Jessica Folcker - (Crack It) Something Goi.mp3", start: 32.5, stopp: 46, volum: 1.0, fadeIn: 0.5, fadeOut: 3, loop: false},
+	    {"navn": "Nocturne", fil: "lyd/Dusty Cowshit - Nocturne.mp3", start: 46.5, stopp: 60, volum: 1.0, fadeIn: 0, fadeOut: 3, loop: false},
+	    {"navn": "Boom!Boom!Boom!Boom!", fil: "lyd/Vengaboys - Boom! Boom! Boom! Boom!.mp3", start: 54.5, stopp: 67, volum: 1.0, fadeIn: 1, fadeOut: 3, loop: false},
+	    {"navn": "In my dreams", fil: "lyd/Wig Wam - In My Dreams.mp3", start: 2, stopp: 15, volum: 1.0, fadeIn: 0, fadeOut: 3, loop: false}
         ],
 
         "timeout": [
-            { navn: "Snakke litt", fil: "lyd/Snakke litt.mp3", start: 0, stopp: 33, volum: 0.7, fadeIn: 0, fadeOut: 0, loop: true },
-	    { navn: "Bear necessities", fil: "lyd/Disney-The bare necessities (The jungle book).mp3", start: 40, stopp: 108, volum: 0.7, fadeIn: 1, fadeOut: 3, loop: false }
+            { "navn": "Snakke litt", fil: "lyd/Snakke litt.mp3", start: 0, stopp: 33, volum: 0.7, fadeIn: 0, fadeOut: 0, loop: true },
+	    { "navn": "Bear necessities", fil: "lyd/Disney-The bare necessities (The jungle book).mp3", start: 40, stopp: 108, volum: 0.7, fadeIn: 1, fadeOut: 3, loop: false }
         ],
         "utvisning": [
-            {navn: "Oops I did it again", fil: "lyd/Britney Spears - Oops I Did It Again.mp3", start: 101,stopp: 113, volum: 1.0, fadeIn: 1, fadeOut: 3, loop: false},
-            {navn: "Beat it", fil: "lyd/Michael Jackson - Beat It.mp3", start: 38, stopp: 52, volum: 1.0, fadeIn: 1, fadeOut: 3, loop: false},
-	    {navn: "Snickerboa", fil: "lyd/Poppis! - Kära Lilla Snickerboa.mp3", start: 0.0, stopp: 17.0, volum: 1.0, fadeIn: 0, fadeOut: 2.5, loop: false},
- 	    {navn: "Bye Bye Bye", fil: "lyd/N'Sync - Bye Bye Bye.mp3", start: 9, stopp: 22, volum: 1.0, fadeIn: 1, fadeOut: 3, loop: false},
-	    {navn: "Olsenbanden", fil: "lyd/Olsen Banden 1 - Intromusik (main theme).mp3", start: 0, stopp: 15, volum: 1.0, fadeIn: 1, fadeOut: 3, loop: false},
-	    {navn: "Jailhouse rock", fil: "lyd/Elvis Presley - Jailhouse Rock (Official Audio).mp3", start: 0, stopp: 15, volum: 1.0, fadeIn: 1, fadeOut: 3, loop: false}
+            {"navn": "Oops I did it again", fil: "lyd/Britney Spears - Oops I Did It Again.mp3", start: 101,stopp: 113, volum: 1.0, fadeIn: 1, fadeOut: 3, loop: false},
+            {"navn": "Beat it", fil: "lyd/Michael Jackson - Beat It.mp3", start: 38, stopp: 52, volum: 1.0, fadeIn: 1, fadeOut: 3, loop: false},
+	    {"navn": "Snickerboa", fil: "lyd/Poppis! - Kära Lilla Snickerboa.mp3", start: 0.0, stopp: 17.0, volum: 1.0, fadeIn: 0, fadeOut: 2.5, loop: false},
+ 	    {"navn": "Bye Bye Bye", fil: "lyd/N'Sync - Bye Bye Bye.mp3", start: 9, stopp: 22, volum: 1.0, fadeIn: 1, fadeOut: 3, loop: false},
+	    {"navn": "Olsenbanden", fil: "lyd/Olsen Banden 1 - Intromusik (main theme).mp3", start: 0, stopp: 15, volum: 1.0, fadeIn: 1, fadeOut: 3, loop: false},
+	    {"navn": "Jailhouse rock", fil: "lyd/Elvis Presley - Jailhouse Rock (Official Audio).mp3", start: 0, stopp: 15, volum: 1.0, fadeIn: 1, fadeOut: 3, loop: false}
         ],
         "fairplay": [
-            {navn: "FairPlay-hilsen", fil: "lyd/fairplay.mp3", volum: 1.0, fadeIn: 0, fadeOut: 0, loop: false },
-	    {navn: "FairPlay-hilsen 2", fil: "lyd/hei-alle-i-hallen_reistad.mp3", volum: 1.0, fadeIn: 0, fadeOut: 0, loop: false },
-	    {navn: "FairPlay-hilsen 3", fil: "lyd/hei-alle-i-hallen_aardahl.mp3", volum: 1.0, fadeIn: 0, fadeOut: 0, loop: false }
+            {"navn": "FairPlay-hilsen", fil: "lyd/fairplay.mp3", volum: 1.0, fadeIn: 0, fadeOut: 0, loop: false },
+	    {"navn": "FairPlay-hilsen 2", fil: "lyd/hei-alle-i-hallen_reistad.mp3", volum: 1.0, fadeIn: 0, fadeOut: 0, loop: false },
+	    {"navn": "FairPlay-hilsen 3", fil: "lyd/hei-alle-i-hallen_aardahl.mp3", volum: 1.0, fadeIn: 0, fadeOut: 0, loop: false }
         ],
         "straffe": [
-            {navn: "Pink Panther", fil: "lyd/The Pink Panther Theme Music.mp3", volum: 1.0, fadeIn: 1, fadeOut: 3, loop: false },
-            {navn: "Mission impossible", fil: "lyd/Limp Bizkit - Mission Impossible.mp3", start: 0, stopp: 35, volum: 1.0, fadeIn: 1, fadeOut: 3, loop: false },
-  	    {navn: "The good the bad..", fil: "lyd/The Good, the Bad and the Ugly - The Danish National Symphony Orchestra (Live).mp3", volum: 1.0, fadeIn: 1, fadeOut: 3, loop: false}
+            {"navn": "Pink Panther", fil: "lyd/The Pink Panther Theme Music.mp3", volum: 1.0, fadeIn: 1, fadeOut: 3, loop: false },
+            {"navn": "Mission impossible", fil: "lyd/Limp Bizkit - Mission Impossible.mp3", start: 0, stopp: 35, volum: 1.0, fadeIn: 1, fadeOut: 3, loop: false },
+  	    {"navn": "The good the bad..", fil: "lyd/The Good, the Bad and the Ugly - The Danish National Symphony Orchestra (Live).mp3", volum: 1.0, fadeIn: 1, fadeOut: 3, loop: false}
         ],
        "skapliv": [
-            {navn: "A little less conversation", fil: "lyd/Elvis Presley vs JXL - A Little Less Conversation (Remix Rad.mp3", volum: 1.0, fadeIn: 1, fadeOut: 3, loop: false },
-            {navn: "Let's get ready to rumble!", fil: "lyd/Space jam- Let's get ready to rumble.mp3", start: 20, volum: 1.0, fadeIn: 1.5, fadeOut: 3, loop: false },
-            {navn: "I will survive", fil: "lyd/Hermes House Band - I Will Survive (Complete Version) 2.mp3", start: 270, stopp: 380, volum: 1.0, fadeIn: 5, fadeOut: 10, loop: false},
-	    {navn: "Titanium", fil: "lyd/Titanium.mp3", volum: 1.0, fadeIn: 1.5, fadeOut: 2, loop: false},
-	    {navn: "Cotton eye joe", fil: "lyd/Rednex - Cotton Eye Joe 2002 (Dance Nation Remix).mp3", start: 306, stopp: 450, volum: 1.0, fadeIn: 2, fadeOut: 3, loop: false},
-	    {navn: "Never can tell", fil: "lyd/Bruce Springsteen - You Never Can Tell (Leipzig 7713).mp3", start: 165, volum: 1.0, fadeIn: 1, fadeOut: 3, loop: false},
-	    {navn: "Levva livet", fil: "lyd/Age Aleksandersen - Leva Livet.mp3", start: 70, volum: 1.0, fadeIn: 1, fadeOut: 3, loop: false},
-	    {navn: "Hey baby", fil: "lyd/DJ Ötzi - Hey Baby.mp3", start: 0, volum: 1.0, fadeIn: 1, fadeOut: 3, loop: false}
+            {"navn": "A little less conversation", fil: "lyd/Elvis Presley vs JXL - A Little Less Conversation (Remix Rad.mp3", volum: 1.0, fadeIn: 1, fadeOut: 3, loop: false },
+            {"navn": "Let's get ready to rumble!", fil: "lyd/Space jam- Let's get ready to rumble.mp3", start: 20, volum: 1.0, fadeIn: 1.5, fadeOut: 3, loop: false },
+            {"navn": "I will survive", fil: "lyd/Hermes House Band - I Will Survive (Complete Version) 2.mp3", start: 270, stopp: 380, volum: 1.0, fadeIn: 5, fadeOut: 10, loop: false},
+	    {"navn": "Titanium", fil: "lyd/Titanium.mp3", volum: 1.0, fadeIn: 1.5, fadeOut: 2, loop: false},
+	    {"navn": "Cotton eye joe", fil: "lyd/Rednex - Cotton Eye Joe 2002 (Dance Nation Remix).mp3", start: 306, stopp: 450, volum: 1.0, fadeIn: 2, fadeOut: 3, loop: false},
+	    {"navn": "Never can tell", fil: "lyd/Bruce Springsteen - You Never Can Tell (Leipzig 7713).mp3", start: 165, volum: 1.0, fadeIn: 1, fadeOut: 3, loop: false},
+	    {"navn": "Levva livet", fil: "lyd/Age Aleksandersen - Leva Livet.mp3", start: 70, volum: 1.0, fadeIn: 1, fadeOut: 3, loop: false},
+	    {"navn": "Hey baby", fil: "lyd/DJ Ötzi - Hey Baby.mp3", start: 0, volum: 1.0, fadeIn: 1, fadeOut: 3, loop: false}
         ],
         "pause": [
-            {navn: "80s rock anthems", fil: "lyd/80s Rock Anthems Megamix_ [Harris Mashup).mp3", start: 0, volum: 1.0, fadeIn: 2, fadeOut: 4, loop: false },
-            {navn: "TikTok song 2025", fil: "lyd/TikTok Songs 2025  Top TikTok Songs Playlist  Top Songs 2025.mp3", start: 0, volum: 1.0, fadeIn: 2, fadeOut: 4, loop: false }
+            {"navn": "80s rock anthems", fil: "lyd/80s Rock Anthems Megamix_ [Harris Mashup).mp3", start: 0, volum: 1.0, fadeIn: 2, fadeOut: 4, loop: false },
+            {"navn": "TikTok song 2025", fil: "lyd/TikTok Songs 2025  Top TikTok Songs Playlist  Top Songs 2025.mp3", start: 0, volum: 1.0, fadeIn: 2, fadeOut: 4, loop: false }
         ],
        " oppvarming": [
-            {navn: "2000-2010 popmix", fil: "lyd/2000s2010s Pop Mix  Best Throwback Hits (Nonstop Party Mix).mp3", start: 0, volum: 1.0, fadeIn: 0, fadeOut: 3, loop: false},
-	    {navn: "80s megamix", fil: "lyd/80s Mix.mp3", start: 37.5, volum: 1.0, fadeIn: 0, fadeOut: 3, loop: false},
-	    {navn: "80s energy", fil: "lyd/Best 80s MIX Energy Songs  Rock, Dance, and Pop Legends.mp3", start: 0, volum: 1.0, fadeIn: 0, fadeOut: 3, loop: false}
+            {"navn": "2000-2010 popmix", fil: "lyd/2000s2010s Pop Mix  Best Throwback Hits (Nonstop Party Mix).mp3", start: 0, volum: 1.0, fadeIn: 0, fadeOut: 3, loop: false},
+	    {"navn": "80s megamix", fil: "lyd/80s Mix.mp3", start: 37.5, volum: 1.0, fadeIn: 0, fadeOut: 3, loop: false},
+	    {"navn": "80s energy", fil: "lyd/Best 80s MIX Energy Songs  Rock, Dance, and Pop Legends.mp3", start: 0, volum: 1.0, fadeIn: 0, fadeOut: 3, loop: false}
         ],
        "innmarsj": [
-            { navn: "Eye of the tiger", fil: "lyd/Survivor - Eye Of the Tiger.mp3", start: 0, stopp: 120, volum: 1, fadeIn: 0, fadeOut: 0, loop: false },
-            { navn: "Thunderstruck", fil: "lyd/ACDC - Thunderstruck (Official Video).mp3", start: 0, stopp: 120, volum: 1, fadeIn: 0, fadeOut: 0, loop: false}
+            { "navn": "Eye of the tiger", fil: "lyd/Survivor - Eye Of the Tiger.mp3", start: 0, stopp: 120, volum: 1, fadeIn: 0, fadeOut: 0, loop: false },
+            { "navn": "Thunderstruck", fil: "lyd/ACDC - Thunderstruck (Official Video).mp3", start: 0, stopp: 120, volum: 1, fadeIn: 0, fadeOut: 0, loop: false}
         ]
     }
