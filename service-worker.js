@@ -7,6 +7,7 @@ const FILER = [
     "./publikum.html",
     "./manifest.json",
     "./data/klubber.json",
+    "./data/musikk.json",
 
     "./bilder/spiller.png",
     "./bilder/nhf.png",
