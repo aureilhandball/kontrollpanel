@@ -1,4 +1,3 @@
-{
         "maal": [
             {"navn": "Fraglene", "fil": "lyd/Spritney Bears - Fraglene.mp3", "start": 30.5, "stopp": 42, "volum": 1.0, "fadeIn": 0.5, "fadeOut": 3, "loop": false},
 	    {"navn": "Lullaby", "fil": "lyd/Galaxee - Lullaby.mp3", "start": 157, "stopp": 173, "volum": 1.0, "fadeIn": 2, "fadeOut": 3, "loop": false},
@@ -63,9 +62,8 @@
         ],
         "pause": [
             {"navn": "80s rock anthems", "fil": "lyd/80s Rock Anthems Megamix_ [Harris Mashup).mp3", "start": 0, "volum": 1.0, "fadeIn": 2, "fadeOut": 4, "loop": false },
-            {"navn": "TikTok song 2025", "fil": "lyd/TikTok Songs 2025  Top TikTok Songs Playlist  Top Songs 2025.mp3", "start": 0, "volum": 1.0, "fadeIn": 2, "fadeOut": 4, "loop": false }
         ],
-       " oppvarming": [
+       "oppvarming": [
             {"navn": "2000-2010 popmix", "fil": "lyd/2000s2010s Pop Mix  Best Throwback Hits (Nonstop Party Mix).mp3", "start": 0, "volum": 1.0, "fadeIn": 0, "fadeOut": 3, "loop": false},
 	    {"navn": "80s megamix", "fil": "lyd/80s Mix.mp3", "start": 37.5, "volum": 1.0, "fadeIn": 0, "fadeOut": 3, "loop": false},
 	    {"navn": "80s energy", "fil": "lyd/Best 80s MIX Energy Songs  Rock, Dance, and Pop Legends.mp3", "start": 0, "volum": 1.0, "fadeIn": 0, "fadeOut": 3, "loop": false}
