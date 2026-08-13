@@ -472,7 +472,7 @@ body{
 
 .dark{background:#08142f;color:white;}
 .green{background:#29c658;}
-cyan{background:#28d4cc;}
+.cyan{background:#28d4cc;}
 .purple{background:#7544e9;color:white;}
 .orange{background:#f4a000;}
 .white{background:white;}
@@ -4072,14 +4072,6 @@ function stoppHallmusikk(
 
     if (!aktivHallLyd) {
 
-    if (oppdaterStatus) {
-
-        leggTilLogg(
-            "Avspilling stoppet"
-        );
-
-    }
-
     ryddHallmusikk();
     return;
 }
@@ -4099,13 +4091,6 @@ function stoppHallmusikk(
                 lydSomStoppes.pause();
                 lydSomStoppes.currentTime = 0;
 
-if (oppdaterStatus) {
-
-    leggTilLogg(
-        "Avspilling stoppet"
-    );
-
-}
 
 ryddHallmusikk();
             }
@@ -4117,26 +4102,11 @@ ryddHallmusikk();
     lydSomStoppes.pause();
 lydSomStoppes.currentTime = 0;
 
-if (oppdaterStatus) {
-
-    leggTilLogg(
-        "Avspilling stoppet"
-    );
-
-}
-
 ryddHallmusikk();
 }
 
-function ryddHallmusikk(
-oppdaterStatus = false
-) {
- 
-if (oppdaterStatus) {
-leggTilLogg(
-"Avspilling stoppet"
-);
-}
+function ryddHallmusikk() {
+
     clearTimeout(hallStoppTimer);
     clearInterval(hallFadeTimer);
 
