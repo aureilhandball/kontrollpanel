@@ -2759,22 +2759,16 @@ spillLyd(
     "lyd/Horn.mp3"
 );
 
-settKampstatus("TIMEOUT FERDIG");
+spillLyd("lyd/Horn.mp3");
+
+kampSekunder = lagretKampTid;
+oppdaterKlokkeVisning();
+
+settKampstatus("KLAR TIL Å FORTSETTE");
+
 sendTimeoutTilPublikum(
     "KLAR TIL Å FORTSETTE"
 );
-
-/* Vent 3 sekunder før kamptiden vises igjen */
-setTimeout(() => {
-
-    kampSekunder =
-        lagretKampTid;
-
-    oppdaterKlokkeVisning();
-
-    settKampstatus("KLAR TIL Å FORTSETTE");
-
-}, 3000);
 
     oppdaterTimeoutStatus(
         timeoutLag,
