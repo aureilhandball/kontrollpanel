@@ -2008,6 +2008,7 @@ PUBLIKUMSVINDU
 =================*/
 
 let publikumsvindu = null;
+let automatiskPublikumForsokt = false;
 
 function apnePublikumsskjerm() {
 
@@ -2041,11 +2042,37 @@ function apnePublikumsskjerm() {
         return;
     }
 
-    setTimeout(() => {
-      oppdaterPublikumsskjerm();
-    }, 500);
+setTimeout(() => {
+
+    oppdaterPublikumsskjerm();
+
+    publikumsvindu.postMessage(
+        {
+            type: "fullscreen"
+        },
+        "*"
+    );
+
+}, 500);
 }
 
+function forsokAutomatiskPublikumsskjerm() {
+
+    if (automatiskPublikumForsokt) {
+        return;
+    }
+
+    automatiskPublikumForsokt = true;
+
+    if (
+        !publikumsvindu ||
+        publikumsvindu.closed
+    ) {
+        apnePublikumsskjerm();
+    }
+
+}
+	
 function sendKampklokkeTilPublikum() {
 
     if (
@@ -4195,6 +4222,16 @@ document
 
         }
     );
+
+document.addEventListener(
+    "pointerdown",
+    function() {
+
+        forsokAutomatiskPublikumsskjerm();
+
+    },
+    { once: true }
+);
 
 lastInnKlubber();	
 lastInnMusikk();
