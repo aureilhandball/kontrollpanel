@@ -8,7 +8,6 @@ const FILER = [
     "./manifest.json",
     "./data/klubber.json",
     "./data/musikk.json",
-
     "./bilder/spiller.png",
     "./bilder/nhf.png",
     "./bilder/ball.png",
@@ -16,7 +15,6 @@ const FILER = [
     "./bilder/icon-192.png",
     "./bilder/icon-512.png",
     "./bilder/favicon.png",
-    
     "./logoer/default.png",
     ".logoer/aure.png",
     ".logoer/traeff.png",
@@ -56,9 +54,7 @@ const FILER = [
     ".logoer/tronderlyn.png",
     ".logoer/utleira.png",
     ".logoer/valder.png",
-
     ".video/fairplay.mp4"
-
 ];
 
 self.addEventListener("install", event => {
