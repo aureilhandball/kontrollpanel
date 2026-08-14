@@ -1119,33 +1119,7 @@ if (
 
 }
 
-window.addEventListener(
-    "message",
-    async function(event) {
 
-        if (
-            event.data &&
-            event.data.type ===
-            "fullscreen"
-        ) {
-
-            try {
-
-                await document
-                    .documentElement
-                    .requestFullscreen();
-
-            } catch (e) {
-
-                console.log(e);
-
-            }
-
-        }
-
-    }
-);
-	
 </script>
 
 </body>
