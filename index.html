@@ -4262,6 +4262,16 @@ if (
 
 }
 
+console.log(window.getScreenDetails);
+
+	navigator.permissions.query({
+    name: "window-management"
+})
+.then(result => {
+    console.log(result.state);
+})
+.catch(console.error);
+	
 </script>
 
 <!-- ===== TILBAKESTILL ALT ===== -->
