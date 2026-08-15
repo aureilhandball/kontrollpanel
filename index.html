@@ -1599,8 +1599,9 @@ const LYDER = {
 };
 let lydbibliotek = {};
 /*==================
-KAMPVARIABLER
+GLOBALE VARIABLER
 ==================*/
+const DEBUG = false;
 let hjemmeScore = 0;
 let borteScore = 0;
 let kampSekunder = 0;
@@ -1613,7 +1614,6 @@ let pauseLengde = 10;
 let timeoutAktiv = false;
 let timeoutIntervall = null;
 let timeoutForsinkelse = null;
-
 let aktivHallLyd = null;
 let aktivHallKategori = null;
 let aktivHallKnapp = null;
@@ -1626,17 +1626,14 @@ const kontinuerligeKategorier = [
 
 let hallStoppTimer = null;
 let hallFadeTimer = null;
-
 let aktiveUtvisninger = [];
 let nesteUtvisningId = 1;
 let utvisningerPerSpiller = {};
 const utvisningLengdeSekunder = 120;
 let utvisningSide = null;
-
 let timeoutSekunder = 60;
 let lagretKampTid = 0;
 let timeoutLag = null;
-
 let timeoutBrukt = {
     home: {
         omgang1: false,
@@ -1711,7 +1708,8 @@ const arsklasser = [
     {
     navn: "TEST (1 min)",
     omgangLengde: 1,
-    pauseLengde: 1
+    pauseLengde: 1,
+	debug: true,
     }
 
 ];
