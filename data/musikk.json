@@ -60,12 +60,12 @@
 	    {"navn": "Hey baby", "fil": "lyd/DJ Ötzi - Hey Baby.mp3", "start": 0, "volum": 1.0, "fadeIn": 1, "fadeOut": 3, "loop": false}
         ],
     "pause": [
-        {"navn": The Rox Medley", "fil": "lyd/Roxette-The Rox Medley.mp3", "start": 0, "volum": 1.0, "fadeIn": 0, "fadeOut": 3, "loop": false},
+        {"navn": "The Rox Medley", "fil": "lyd/Roxette-The Rox Medley.mp3", "start": 0, "volum": 1.0, "fadeIn": 0, "fadeOut": 3, "loop": false},
 		{"navn": "80s rock anthems", "fil": "lyd/80s Rock Anthems Megamix_ [Harris Mashup).mp3", "start": 0, "volum": 1.0, "fadeIn": 2, "fadeOut": 4, "loop": false}
         ],
     "oppvarming": [
         {"navn": "2000-2010 popmix", "fil": "lyd/2000s2010s Pop Mix  Best Throwback Hits (Nonstop Party Mix).mp3", "start": 0, "volum": 1.0, "fadeIn": 0, "fadeOut": 3, "loop": false},
-		{"navn": "Looney Tunes Party Mix", "fil": "lyd/jive bunny - Looney Tunes Party Mix.mp3, "start": 0, "volum": 1.0, "fadeIn": 0, "fadeOut": 3, "loop": false},
+		{"navn": "Looney Tunes Party Mix", "fil": "lyd/jive bunny - Looney Tunes Party Mix.mp3", "start": 0, "volum": 1.0, "fadeIn": 0, "fadeOut": 3, "loop": false},
 		{"navn": "Aqua megamix", "fil": "lyd/Aqua - Megamix.mp3", "start": 0, "volum": 1.0, "fadeIn": 0, "fadeOut": 3, "loop": false},
 	    {"navn": "80s megamix", "fil": "lyd/80s Mix.mp3", "start": 37.5, "volum": 1.0, "fadeIn": 0, "fadeOut": 3, "loop": false},
 	    {"navn": "80s energy", "fil": "lyd/Best 80s MIX Energy Songs  Rock, Dance, and Pop Legends.mp3", "start": 0, "volum": 1.0, "fadeIn": 0, "fadeOut": 3, "loop": false}
