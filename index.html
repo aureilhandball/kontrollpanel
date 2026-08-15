@@ -3598,7 +3598,6 @@ function lukkArsklasseModal() {
 }
 
 function byggArsklasseListe() {
-
     const liste =
         document.getElementById(
             "arsklasseListe"
@@ -3606,22 +3605,20 @@ function byggArsklasseListe() {
 
     liste.innerHTML = "";
 
-    arsklasser.forEach(klasse => {
+    arsklasser
+        .filter(klasse =>
+            DEBUG || !klasse.debug
+        )
+        .forEach(klasse => {
 
-        liste.innerHTML += `
-
-            <div
-                class="lag-rad"
-                onclick="velgArsklasse('${klasse.navn}')">
-
-                ${klasse.navn}
-
-            </div>
-
-        `;
-
-    });
-
+            liste.innerHTML += `
+                <div
+                    class="lag-rad"
+                    onclick="velgArsklasse('${klasse.navn}')">
+                    ${klasse.navn}
+                </div>
+            `;
+        });
 }
 function velgArsklasse(navn) {
 
