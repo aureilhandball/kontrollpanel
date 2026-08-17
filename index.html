@@ -1602,6 +1602,7 @@ let lydbibliotek = {};
 GLOBALE VARIABLER
 ==================*/
 const DEBUG = false;
+const CACHE_NAME = "aure-handball-1.2.0";
 let hjemmeScore = 0;
 let borteScore = 0;
 let kampSekunder = 0;
@@ -1793,6 +1794,84 @@ async function lastInnKlubber() {
             "Kunne ikke laste musikkbiblioteket."
         );
     }
+}
+
+	async function cacheManglendeMusikk() {
+
+    try {
+
+        const cache = await caches.open(CACHE_NAME);
+
+        const lydfiler = [];
+
+        Object.values(lydbibliotek).forEach(kategori => {
+
+            kategori.forEach(spor => {
+
+                if (spor.fil) {
+                    lydfiler.push(spor.fil);
+                }
+
+            });
+
+        });
+
+        const unikeLydfiler = [...new Set(lydfiler)];
+
+        console.log(
+            `Kontrollerer ${unikeLydfiler.length} lydfiler`
+        );
+
+        for (const fil av unikeLydfiler) {
+
+            const finnesICache =
+                await cache.match(fil);
+
+            if (!finnesICache) {
+
+                try {
+
+                    const respons =
+                        await fetch(fil);
+
+                    if (respons.ok) {
+
+                        await cache.put(
+                            fil,
+                            respons.clone()
+                        );
+
+                        console.log(
+                            "Cached:",
+                            fil
+                        );
+
+                    }
+
+                }
+                catch (error) {
+
+                    console.warn(
+                        "Kunne ikke cache:",
+                        fil
+                    );
+
+                }
+
+            }
+
+        }
+
+    }
+    catch (error) {
+
+        console.error(
+            "Feil ved caching av musikk",
+            error
+        );
+
+    }
+
 }
 	
 /* ==========================
@@ -4228,8 +4307,15 @@ document.addEventListener(
     { once: true }
 );
 
-lastInnKlubber();	
-lastInnMusikk();
+(async () => {
+
+    await lastInnKlubber();
+
+    await lastInnMusikk();
+
+    await cacheManglendeMusikk();
+
+})();
 
 if (
     "serviceWorker"
