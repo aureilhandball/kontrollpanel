@@ -958,8 +958,15 @@ function oppdaterUtvisninger(
                     String(sekunder)
                     .padStart(2,"0");
 
-                let kortKlasse =
-    utvisning.antallUtvisninger >= 3
+               const harRodtKort =
+
+    utvisning.antallUtvisninger >= 3 ||
+
+    utvisning.direkteRodtKort;
+
+let kortKlasse =
+
+    harRodtKort
         ? "utvisningskort rodtkort"
         : "utvisningskort";
 
@@ -972,8 +979,9 @@ if (
 homeListe.innerHTML += `
 <div class="${kortKlasse}">
     <div class="utvisningSpillerNr">
-        #${utvisning.spiller}
-    </div>
+    #${utvisning.spiller}
+    ${harRodtKort ? "🟥" : ""}
+</div>
 
     <div class="utvisningTid">
         ${tid}
@@ -1024,10 +1032,18 @@ homeListe.innerHTML += `
                     String(sekunder)
                     .padStart(2,"0");
 
-                let kortKlasse =
-    utvisning.antallUtvisninger >= 3
+               const harRodtKort =
+
+    utvisning.antallUtvisninger >= 3 ||
+
+    utvisning.direkteRodtKort;
+
+let kortKlasse =
+
+    harRodtKort
         ? "utvisningskort rodtkort"
         : "utvisningskort";
+`
 
 if (
     utvisning.sekunder <= 5
@@ -1037,9 +1053,10 @@ if (
 
 awayListe.innerHTML += `
 <div class="${kortKlasse}">
-    <div class="utvisningSpillerNr">
-        #${utvisning.spiller}
-    </div>
+   <div class="utvisningSpillerNr">
+    #${utvisning.spiller}
+    ${harRodtKort ? "🟥" : ""}
+</div>
 
     <div class="utvisningTid">
         ${tid}
