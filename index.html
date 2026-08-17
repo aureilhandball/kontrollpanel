@@ -2950,6 +2950,10 @@ spillMusikkKategori(
         )
         .value = "";
 
+	document.getElementById(
+    		"direkteRodtKort"
+		).checked = false;
+
     document
         .getElementById(
             "utvisningModal"
@@ -2975,6 +2979,13 @@ function bekreftUtvisning() {
             )
             .value
             .trim();
+	
+	const direkteRodtKort =
+    document
+        .getElementById(
+            "direkteRodtKort"
+        )
+        .checked;
 
 const spillerNokkel =
     utvisningSide + "_" + nummer;
@@ -3030,6 +3041,7 @@ if (
     spiller: nummer,
     spillerNokkel: spillerNokkel,
     sekunder: 120
+	direkteRodtKort: direkteRodtKort
 };
 
     nesteUtvisningId++;
@@ -3037,6 +3049,13 @@ if (
     aktiveUtvisninger.push(
         nyUtvisning
     );
+	if (direkteRodtKort) {
+
+    leggTilLogg(
+        `Direkte rødt kort #${nummer}`
+    );
+
+}
 
     oppdaterUtvisningVisning();
     sendUtvisningerTilPublikum();
@@ -3133,9 +3152,13 @@ function byggUtvisningListe(
         : "";
 
 const rodtKortVarsel =
-    utvisningerPerSpiller[
-        utvisning.spillerNokkel
-    ] >= 3
+    (
+        utvisningerPerSpiller[
+            utvisning.spillerNokkel
+        ] >= 3
+        ||
+        utvisning.direkteRodtKort
+    )
         ? "utvisning-rodtkort"
         : "";
 
@@ -3149,6 +3172,7 @@ liste.insertAdjacentHTML(
 
                     <div class="utvisning-spiller">
     #${utvisning.spiller}
+	${utvisning.direkteRodtKort ? " 🟥" : ""}
     (${utvisningerPerSpiller[utvisning.spillerNokkel]})
 </div>
 
@@ -4443,16 +4467,23 @@ console.log(window.getScreenDetails);
                 type="number"
                 id="utvisningSpiller"
                 min="1"
-                max="99"
+                max="999"
                 style="
                     width:100%;
                     padding:12px;
                     margin-top:8px;
                     font-size:20px;
                 ">
-
-        </div>
-
+		        </div>
+<div style="margin-top:15px;">
+    <label>
+        <input
+            type="checkbox"
+            id="direkteRodtKort">
+        Direkte rødt kort
+    </label>
+</div>
+		
         <div class="lag-modal-footer">
 
             <div></div>
