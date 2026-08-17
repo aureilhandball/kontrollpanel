@@ -1822,7 +1822,7 @@ async function lastInnKlubber() {
             `Kontrollerer ${unikeLydfiler.length} lydfiler`
         );
 
-        for (const fil av unikeLydfiler) {
+        for (const fil of unikeLydfiler) {
 
             const finnesICache =
                 await cache.match(fil);
