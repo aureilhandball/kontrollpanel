@@ -35,15 +35,12 @@
         {"navn": "Oops I did it again", "fil": "lyd/Britney Spears - Oops I Did It Again.mp3", "start": 101,"stopp": 113, "volum": 1.0, "fadeIn": 1, "fadeOut": 3, "loop": false},
         {"navn": "Beat it", "fil": "lyd/Michael Jackson - Beat It.mp3", "start": 38, "stopp": 52, "volum": 1.0, "fadeIn": 1, "fadeOut": 3, "loop": false},
 	    {"navn": "Snickerboa", "fil": "lyd/Poppis! - Kära Lilla Snickerboa.mp3", "start": 0.0, "stopp": 17.0, "volum": 1.0, "fadeIn": 0, "fadeOut": 2.5, "loop": false},
- 	    {"navn": "Bye Bye Bye", "fil": "lyd/N'Sync - Bye Bye Bye.mp3", "start": 9, "stopp": 22, "volum": 1.0, "fadeIn": 1, "fadeOut": 3, "loop": false},
+ 	    {"navn": "Bye Bye Bye", "fil": "lyd/N'Sync - Bye Bye Bye.MP3", "start": 9, "stopp": 22, "volum": 1.0, "fadeIn": 1, "fadeOut": 3, "loop": false},
 	    {"navn": "Olsenbanden", "fil": "lyd/Olsen Banden 1 - Intromusik (main theme).mp3", "start": 0, "stopp": 15, "volum": 1.0, "fadeIn": 1, "fadeOut": 3, "loop": false},
 	    {"navn": "Jailhouse rock", "fil": "lyd/Elvis Presley - Jailhouse Rock (Official Audio).mp3", "start": 0, "stopp": 15, "volum": 1.0, "fadeIn": 1, "fadeOut": 3, "loop": false}
         ],
     "fairplay": [
-        {"navn": "FairPlay-hilsen", "fil": "lyd/fairplay.mp3", "volum": 1.0, "fadeIn": 0, "fadeOut": 0, "loop": false},
-	    {"navn": "FairPlay-hilsen 2", "fil": "lyd/hei-alle-i-hallen_reistad.mp3", "volum": 1.0, "fadeIn": 0, "fadeOut": 0, "loop": false },
-	    {"navn": "FairPlay-hilsen 3", "fil": "lyd/hei-alle-i-hallen_aardahl.mp3", "volum": 1.0, "fadeIn": 0, "fadeOut": 0, "loop": false }
-        ],
+                ],
     "straffe": [
         {"navn": "Pink Panther", "fil": "lyd/The Pink Panther Theme Music.mp3", "volum": 1.0, "fadeIn": 1, "fadeOut": 3, "loop": false},
         {"navn": "Mission impossible", "fil": "lyd/Limp Bizkit - Mission Impossible.mp3", "start": 0, "stopp": 35, "volum": 1.0, "fadeIn": 1, "fadeOut": 3, "loop": false},
