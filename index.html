@@ -2302,9 +2302,9 @@ function sendUtvisningerTilPublikum() {
                     sekunder: utvisning.sekunder,
 
                     antallUtvisninger:
-                        utvisningerPerSpiller[
-                            utvisning.spiller
-                        ] || 0
+    					utvisningerPerSpiller[
+        			utvisning.spillerNokkel
+    				] || 0
                 })
             );
 
@@ -2321,9 +2321,9 @@ function sendUtvisningerTilPublikum() {
                     sekunder: utvisning.sekunder,
 
                     antallUtvisninger:
-                        utvisningerPerSpiller[
-                            utvisning.spiller
-                        ] || 0
+    					utvisningerPerSpiller[
+        			utvisning.spillerNokkel
+    				] || 0
                 })
             );
 
@@ -2976,10 +2976,14 @@ function bekreftUtvisning() {
             .value
             .trim();
 
+const spillerNokkel =
+    utvisningSide + "_" + nummer;
+
 const alleredeUtvist =
     aktiveUtvisninger.some(
         utvisning =>
-            utvisning.spiller === nummer
+            utvisning.spiller === nummer &&
+            utvisning.side === utvisningSide
     );
 
 if (alleredeUtvist) {
@@ -3000,14 +3004,14 @@ if (!nummer) {
         return;
     }
 
-if (!utvisningerPerSpiller[nummer]) {
-    utvisningerPerSpiller[nummer] = 0;
+if (!utvisningerPerSpiller[spillerNokkel]) {
+    utvisningerPerSpiller[spillerNokkel] = 0;
 }
 
-utvisningerPerSpiller[nummer]++;
+utvisningerPerSpiller[spillerNokkel]++;
 
 if (
-    utvisningerPerSpiller[nummer] === 3
+    utvisningerPerSpiller[spillerNokkel] === 3
 ) {
 
     alert(
@@ -3021,15 +3025,12 @@ if (
 
     
     const nyUtvisning = {
-
-        id: nesteUtvisningId,
-
-        side: utvisningSide,
-
-        spiller: nummer,
-
-        sekunder: 120
-    };
+    id: nesteUtvisningId,
+    side: utvisningSide,
+    spiller: nummer,
+    spillerNokkel: spillerNokkel,
+    sekunder: 120
+};
 
     nesteUtvisningId++;
 
@@ -3133,7 +3134,7 @@ function byggUtvisningListe(
 
 const rodtKortVarsel =
     utvisningerPerSpiller[
-        utvisning.spiller
+        utvisning.spillerNokkel
     ] >= 3
         ? "utvisning-rodtkort"
         : "";
@@ -3148,7 +3149,7 @@ liste.insertAdjacentHTML(
 
                     <div class="utvisning-spiller">
     #${utvisning.spiller}
-    (${utvisningerPerSpiller[utvisning.spiller]})
+    (${utvisningerPerSpiller[utvisning.spillerNokkel]})
 </div>
 
                     <div class="utvisning-tid">
