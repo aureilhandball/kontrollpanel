@@ -2296,17 +2296,20 @@ function sendUtvisningerTilPublikum() {
                     utvisning.side === "home"
             )
             .map(
-                utvisning => ({
-                    id: utvisning.id,
-                    spiller: utvisning.spiller,
-                    sekunder: utvisning.sekunder,
+    			utvisning => ({
+        			id: utvisning.id,
+        			spiller: utvisning.spiller,
+        			sekunder: utvisning.sekunder,
 
-                    antallUtvisninger:
-    					utvisningerPerSpiller[
-        			utvisning.spillerNokkel
-    				] || 0
-                })
-            );
+        			antallUtvisninger:
+            			utvisningerPerSpiller[
+                		utvisning.spillerNokkel
+            			] || 0,
+
+        			direkteRodtKort:
+            			utvisning.direkteRodtKort || false
+    })
+);
 
     const bortelag =
         aktiveUtvisninger
@@ -2315,17 +2318,20 @@ function sendUtvisningerTilPublikum() {
                     utvisning.side === "away"
             )
             .map(
-                utvisning => ({
-                    id: utvisning.id,
-                    spiller: utvisning.spiller,
-                    sekunder: utvisning.sekunder,
+    			utvisning => ({
+        			id: utvisning.id,
+        			spiller: utvisning.spiller,
+        			sekunder: utvisning.sekunder,
 
-                    antallUtvisninger:
-    					utvisningerPerSpiller[
-        			utvisning.spillerNokkel
-    				] || 0
-                })
-            );
+        			antallUtvisninger:
+            			utvisningerPerSpiller[
+                		utvisning.spillerNokkel
+            			] || 0,
+
+        			direkteRodtKort:
+            			utvisning.direkteRodtKort || false
+    })
+);
 
     publikumsvindu.postMessage(
         {
