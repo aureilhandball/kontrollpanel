@@ -2832,21 +2832,24 @@ function startTimeoutNedtelling() {
         oppdaterKlokkeVisning();
 
         /* Horn når 10 sekunder gjenstår */
-        if (timeoutSekunder === 10) {
+       if (timeoutSekunder === 10) {
 
-            spillLyd(
-                "lyd/Horn.mp3"
-            );
+    		spillLyd("lyd/Horn.mp3");
 
-            oppdaterTimeoutStatus(
-                timeoutLag,
-                "10 sekunder igjen"
-            );
+    		oppdaterTimeoutStatus(
+        		timeoutLag,
+        		"10 sekunder igjen"
+    		);
+
+}
+
 		if (timeoutSekunder === 7) {
 
     		fadeUtTimeoutMusikk(
-        		5000
+       		 5000
     		);
+
+}
 
 }
         }
