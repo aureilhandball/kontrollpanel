@@ -576,6 +576,7 @@ UTVIST
 
 <script>
 
+let overlayTimer = null;
 let hjemmemaal = 0;
 let bortemaal = 0;
 const debugMode = false;
@@ -595,10 +596,9 @@ const overlay =
     document.getElementById("overlay");
 
 
-function visOverlay(
-    tekst,
-    varighet = 5000
-) {
+function visOverlay(tekst, varighet = 5000) {
+
+    clearTimeout(overlayTimer);
 
     if (!tekst) {
         overlay.style.display = "none";
@@ -609,10 +609,10 @@ function visOverlay(
     overlay.innerHTML = tekst;
     overlay.style.display = "flex";
 
-    setTimeout(() => {
+    overlayTimer = setTimeout(() => {
         overlay.style.display = "none";
+        overlay.innerHTML = "";
     }, varighet);
-
 }
 
 
