@@ -1650,6 +1650,45 @@ const timeoutMusikk =
     new Audio("lyd/Snakke litt.mp3");
 
 timeoutMusikk.loop = true;
+	function fadeUtTimeoutMusikk(
+    varighet = 3000
+) {
+    const intervall = 50;
+
+    const steg =
+        Math.max(
+            1,
+            Math.round(
+                varighet / intervall
+            )
+        );
+
+    const volumPerSteg =
+        timeoutMusikk.volume / steg;
+
+    const fadeTimer =
+        setInterval(() => {
+
+        timeoutMusikk.volume =
+            Math.max(
+                0,
+                timeoutMusikk.volume -
+                volumPerSteg
+            );
+
+        if (
+            timeoutMusikk.volume <= 0
+        ) {
+            clearInterval(
+                fadeTimer
+            );
+
+            timeoutMusikk.pause();
+            timeoutMusikk.currentTime = 0;
+        }
+
+    }, intervall);
+}
 
 /* ==========================
    DATA
@@ -2760,7 +2799,8 @@ sendTimeoutTilPublikum(
         oppdaterKlokkeVisning();
 
         timeoutMusikk.currentTime = 0;
-
+		timeoutMusikk.volume = 1;
+		
         timeoutMusikk.play().catch(error => {
             console.log(
                 "Kunne ikke spille timeoutmusikk:",
@@ -2802,6 +2842,13 @@ function startTimeoutNedtelling() {
                 timeoutLag,
                 "10 sekunder igjen"
             );
+		if (timeoutSekunder === 7) {
+
+    		fadeUtTimeoutMusikk(
+        		5000
+    		);
+
+}
         }
 
         /* Timeout ferdig */
@@ -2812,6 +2859,7 @@ function startTimeoutNedtelling() {
 
     }, 1000);
 }
+	
 
 function avsluttTimeout() {
 
@@ -2824,8 +2872,12 @@ function avsluttTimeout() {
     oppdaterKlokkeVisning();
 
     /* Stopp timeoutmusikken */
+    if (!timeoutMusikk.paused) {
     timeoutMusikk.pause();
-    timeoutMusikk.currentTime = 0;
+	}
+
+	timeoutMusikk.currentTime = 0;
+	timeoutMusikk.volume = 1;
 
     /* Horn ved avsluttet timeout */
 spillLyd(
@@ -2837,11 +2889,10 @@ spillLyd("lyd/Horn.mp3");
 kampSekunder = lagretKampTid;
 oppdaterKlokkeVisning();
 
-settKampstatus("KLAR TIL Å FORTSETTE");
+settKampstatus("STOPPET");
 
-sendTimeoutTilPublikum(
-    "KLAR TIL Å FORTSETTE"
-);
+sendTimeoutTilPublikum("");
+``
 
     oppdaterTimeoutStatus(
         timeoutLag,
