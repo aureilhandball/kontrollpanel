@@ -600,13 +600,19 @@ function visOverlay(
     varighet = 5000
 ) {
 
-    overlay.innerHTML = tekst;
+    if (!tekst) {
+        overlay.style.display = "none";
+        overlay.innerHTML = "";
+        return;
+    }
 
+    overlay.innerHTML = tekst;
     overlay.style.display = "flex";
 
     setTimeout(() => {
         overlay.style.display = "none";
     }, varighet);
+
 }
 
 
@@ -727,11 +733,20 @@ window.addEventListener(
 
 	    case "timeoutinfo":
 
-    		visOverlay(
-        	event.data.tekst
-    		);
+    		if (!event.data.tekst) {
 
-    		break;
+        	overlay.style.display = "none";
+        	overlay.innerHTML = "";
+
+    	} else {
+
+        	visOverlay(
+           	 event.data.tekst
+        );
+
+    }
+
+    break;
 
             case "fairplay":
 
