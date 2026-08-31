@@ -329,9 +329,11 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+	padding: 8px;
+	box-sizing: border-box;
 
     color: white;
-    font-weight: bold;
+    font-weight: bold;	
 }
 
 .utvisningskort.rodtkort {
@@ -386,14 +388,13 @@ body {
 }
 
 .utvisningSpillerNr {
-    font-size: 1vw;
-    font-weight: 900;
-    line-height: 1;
+font-size: clamp(22px, 2vw, 48px);
+line-height: 1;
 }
 
 .utvisningTid {
-    font-size: 1vw;
-    font-weight: 900;
+    font-size: clamp(18px, 1.8vw, 42px);
+	line-height: 1;
     color: #ffffff;
     text-shadow: 0 0 6px rgba(255,255,255,0.4);
 }
@@ -401,8 +402,6 @@ body {
 	/* ==================================================
    STORSKJERMJUSTERING AUGUST 2026
    ================================================== */
-
-/* Lagnavn */
 
 /* =====================================
    LAGNAVN
