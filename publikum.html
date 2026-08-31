@@ -69,7 +69,7 @@ body {
 /* NHF */
 #nhf {
     position: absolute;
-    left: 44%;
+    left: 41%;
     bottom: 20px;
     height: 80px;
 }
@@ -77,8 +77,8 @@ body {
 /* Fairplay */
 #fairplay {
     position: absolute;
-    left: 44%;
-    bottom: 20px;
+    left: 50%;
+    bottom: 30px;
     height: 45px;
 }
 
@@ -494,15 +494,14 @@ body {
 #utvisningerHome,
 #utvisningerAway {
     position: absolute;
-
     top: 77%;
 
-    width: 28vw;
+    width: 40vw;
 
     display: flex;
     justify-content: center;
 
-    gap: clamp(12px, 1.5vw, 30px);
+    gap: clamp(12px, 1.2vw, 24px);
 }
 
 #utvisningerHome {
@@ -518,11 +517,11 @@ body {
 /* Selve kortene */
 
 .utvisningskort {
-    width: clamp(120px, 12.5vw, 240px);
-    height: clamp(105px, 10.9vw, 210px);
+    width: clamp(100px, 9vw, 180px);
+    height: clamp(90px, 8vw, 170px);
 
-    border-width: clamp(5px, 0.4vw, 9px);
-    border-radius: clamp(18px, 1.8vw, 36px);
+    border-width: clamp(4px, 0.4vw, 8px);
+    border-radius: clamp(15px, 1.5vw, 30px);
 
     flex-shrink: 0;
 }
@@ -538,7 +537,7 @@ body {
 .utvisningTid {
     font-size: clamp(28px, 3vw, 64px);
 }
-``
+
 </style>
 </head>
 
@@ -961,26 +960,6 @@ function startKonfetti() {
 
     }, 5000);
 }
-
-document.getElementById(
-    "utvisningerHome"
-).innerHTML =
-`
-<div class="utvisningskort">
-    <div>#8</div>
-    <div>01:34</div>
-</div>
-
-<div class="utvisningskort">
-    <div>#15</div>
-    <div>00:27</div>
-</div>
-
-<div class="utvisningskort">
-    <div>#12</div>
-    <div>01:58</div>
-</div>
-`;
 
 function oppdaterUtvisninger(
     hjemmelag,
