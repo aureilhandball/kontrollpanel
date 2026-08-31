@@ -66,29 +66,35 @@ body {
     animation: testHopp 1s ease-out;
 }
 
-/* NHF */
-#nhf {
-position: absolute;
- 
-left: 50%;
-bottom: 20px;
- 
-height: clamp(100px, 6vh, 160px);
- 
-transform: translateX(-140%);
+/* Sponsorfelt */
+
+#sponsorContainer {
+    position: absolute;
+
+    bottom: 20px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: clamp(25px, 3vw, 70px);
+
+    z-index: 20;
 }
 
-/* Fairplay */
-#fairplay {
-position: absolute;
- 
-left: 50%;
-bottom: 30px;
- 
-height: clamp(70px, 4.5vh, 110px);
- 
-transform: translateX(40%);
+#nhf {
+    height: clamp(100px, 6vh, 160px);
+    width: auto;
 }
+
+#fairplay {
+    height: clamp(70px, 4.5vh, 110px);
+    width: auto;
+}
+``
 
 #hjemmescore {
 
@@ -602,17 +608,21 @@ UTVIST
     src="bilder/ball.png"
     alt="maalball">
 
-    <!-- Fairplay -->
-<img
-    id="fairplay"
+   <!-- Sponsorfelt -->
+
+<div id="sponsorContainer">
+
+    <img
+        id="nhf"
+        src="bilder/nhfrn1.png"
+        alt="NHF">
+
+    <img
+        id="fairplay"
     src="bilder/fairplay.png"
     alt="fairplay">
-
-    <!-- NHF -->
-<img
-    id="nhf"
-    src="bilder/nhfrn1.png"
-    alt="NHF">
+	
+</div>
 
     <!-- Konfetti -->
     <div id="konfetti"></div>
