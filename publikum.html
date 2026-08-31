@@ -69,17 +69,18 @@ body {
 /* NHF */
 #nhf {
     position: absolute;
-    left: 41%;
+    left: 44%;
     bottom: 20px;
-    height: 80px;
+    height: clamp(100px, 6vh, 160px);
+
 }
 
 /* Fairplay */
 #fairplay {
     position: absolute;
-    left: 50%;
+    left: 54%;
     bottom: 30px;
-    height: 45px;
+    height: clamp(70px, 4.5vh, 110px);
 }
 
 #hjemmescore {
@@ -388,12 +389,12 @@ body {
 }
 
 .utvisningSpillerNr {
-font-size: clamp(20px, 2vw, 48px);
+font-size: clamp(18px, 2vw, 45px);
 line-height: 1;
 }
 
 .utvisningTid {
-    font-size: clamp(18px, 1.8vw, 42px);
+    font-size: clamp(16px, 1.8vw, 38px);
 	line-height: 1;
     color: #ffffff;
     text-shadow: 0 0 6px rgba(255,255,255,0.4);
