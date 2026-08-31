@@ -10,6 +10,7 @@ const FILER = [
     "./data/musikk.json",
     "./bilder/spiller.png",
     "./bilder/nhf.png",
+    "./bilder/nhfrn1.png",
     "./bilder/ball.png",
     "./bilder/fairplay.png",
     "./bilder/icon-192.png",
