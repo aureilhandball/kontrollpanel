@@ -335,18 +335,13 @@ body {
 }
 
 .utvisningskort.rodtkort {
-    border-color: #e52020;
-
-    background: rgba(
-        229,
-        32,
-        32,
-        0.28
-    );
+    border-color: #ff3030;
+    background: rgba(160,0,0,0.45);
 
     box-shadow:
-        0 0 14px
-        rgba(229, 32, 32, 0.65);
+        0 0 25px rgba(255,0,0,0.8);
+
+    color: white;
 }
 
 .utvisningskort.blink {
@@ -505,19 +500,20 @@ body {
 }
 
 #utvisningerHome {
-    left: 14%;
-    transform: translateX(-50%);
+    left: 2%;
+    justify-content: flex-start;
 }
 
 #utvisningerAway {
-    left: 86%;
-    transform: translateX(-50%);
+    right: 2%;
+    left: auto;
+    justify-content: flex-end;
 }
 
 /* Selve kortene */
 
 .utvisningskort {
-    width: clamp(100px, 9vw, 180px);
+    width: clamp(90px, 7vw, 150px);
     height: clamp(90px, 8vw, 170px);
 
     border-width: clamp(4px, 0.4vw, 8px);
@@ -1048,7 +1044,6 @@ homeListe.innerHTML += `
 <div class="${kortKlasse}">
     <div class="utvisningSpillerNr">
     #${utvisning.spiller}
-    ${harRodtKort ? "🟥" : ""}
 </div>
 
     <div class="utvisningTid">
