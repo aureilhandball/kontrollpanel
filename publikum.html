@@ -34,31 +34,6 @@ body {
     background: black;
 }
 
-/* Hjemmelogo og bortelogo */
-
-#hjemmelogo,
-#bortelaglogo {
-    position: absolute;
-    top: 28%;
-    transform: translateY(-50%);
-
-    width: 12vw;
-    height: 12vw;
-
-    max-width: 320px;
-    max-height: 320px;
-
-    object-fit: contain;
-}
-
-#hjemmelogo {
-    left: 8%;
-}
-
-#bortelaglogo {
-    right: 8%;
-}
-
 /* Spiller */
 
 #spillerContainer {
@@ -335,43 +310,6 @@ body {
     font-weight: 900;
     line-height: 1;
 }
-#hjemmelagnavn,
-#bortelagnavn {
-    position: absolute;
-    width: 14vw;
-    text-align: center;
-    color: white;
-    font-size: 1.8vw;
-    font-weight: bold;
-}
-#hjemmelagnavn {
-    left: 7%;
-    top: 40%;
-}
-#bortelagnavn {
-    right: 7%;
-    top: 40%;
-}
-#utvisningerHome,
-#utvisningerAway {
-    position: absolute;
-    top: 62%;
-    width: 36vw;
-    min-height: 220px;
-
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-}
-
-#utvisningerHome {
-    left: 1%;
-}
-
-#utvisningerAway {
-    right: 1%;
-}
-
 .utvisningskort {
 
     width: 80px;
@@ -471,72 +409,110 @@ body {
 
 /* Lagnavn */
 
+/* =====================================
+   LAGNAVN
+   ===================================== */
+
 #hjemmelagnavn,
 #bortelagnavn {
+    position: absolute;
     top: 11%;
+
     width: 18vw;
+
+    color: white;
+    text-align: center;
     font-size: clamp(18px, 2.4vw, 58px);
+    font-weight: bold;
     line-height: 1.05;
 }
 
 #hjemmelagnavn {
-    left: 5%;
+    left: 14%;
+    transform: translateX(-50%);
 }
 
 #bortelagnavn {
-    right: 5%;
+    left: 86%;
+    transform: translateX(-50%);
 }
 
-/* Logoer */
+/* =====================================
+   LOGOER
+   ===================================== */
 
 #hjemmelogo,
 #bortelaglogo {
+    position: absolute;
+
     top: 30%;
+
     width: clamp(110px, 13vw, 416px);
     height: clamp(110px, 13vw, 416px);
+
+    object-fit: contain;
+
+    transform: translate(-50%, -50%);
 }
 
 #hjemmelogo {
-    left: 6%;
+    left: 14%;
 }
 
 #bortelaglogo {
-    right: 6%;
+    left: 86%;
 }
 
-/* Utvisningstitler */
+/* =====================================
+   UTVISNINGER
+   ===================================== */
 
 #utvisningTittelHome,
 #utvisningTittelAway {
-    top: 72%;
-    width: 42vw;
+    position: absolute;
+
+    top: 71%;
+
+    width: 28vw;
+
+    color: #ff6666;
+    text-align: center;
     font-size: clamp(24px, 2.4vw, 52px);
+    font-weight: bold;
 }
 
 #utvisningTittelHome {
-    left: 1%;
+    left: 14%;
+    transform: translateX(-50%);
 }
 
 #utvisningTittelAway {
-    right: 1%;
+    left: 86%;
+    transform: translateX(-50%);
 }
-
-/* Utvisningsområder */
 
 #utvisningerHome,
 #utvisningerAway {
+    position: absolute;
+
     top: 77%;
-    width: 42vw;
-    height: auto;
+
+    width: 28vw;
+
+    display: flex;
+    justify-content: center;
+
     gap: clamp(12px, 1.5vw, 30px);
 }
 
 #utvisningerHome {
-    left: 1%;
+    left: 14%;
+    transform: translateX(-50%);
 }
 
 #utvisningerAway {
-    right: 1%;
+    left: 86%;
+    transform: translateX(-50%);
 }
 
 /* Selve kortene */
