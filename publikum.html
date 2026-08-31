@@ -500,14 +500,15 @@ body {
 }
 
 #utvisningerHome {
-    left: 2%;
-    justify-content: flex-start;
+    left: 14%;
+    transform: translateX(-50%);
+    justify-content: center;
 }
 
 #utvisningerAway {
-    right: 2%;
-    left: auto;
-    justify-content: flex-end;
+    left: 86%;
+    transform: translateX(-50%);
+    justify-content: center;
 }
 
 /* Selve kortene */
@@ -1117,9 +1118,7 @@ awayListe.innerHTML += `
 <div class="${kortKlasse}">
    <div class="utvisningSpillerNr">
     #${utvisning.spiller}
-    ${harRodtKort ? "🟥" : ""}
-</div>
-
+ </div>
     <div class="utvisningTid">
         ${tid}
     </div>
