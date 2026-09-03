@@ -137,58 +137,49 @@ body{
 
 /* ===== LAGKORT ===== */
 
-.team-card {
-
-    width: 220px;
-    height: 180px;
+..team-card {
+    width: clamp(170px, 75%, 240px);
+    height: clamp(120px, 16vh, 170px);
 
     background: white;
-
     border: 4px solid black;
-
     border-radius: 20px;
 
-    margin: 0 auto 20px auto;
+    margin: 0 auto 12px auto;
 
     display: flex;
     flex-direction: column;
-
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
 
     cursor: pointer;
-
     text-align: center;
 
-    padding-top: 15px;
+    padding: clamp(6px, 1vh, 12px);
 }
 
 .team-logo {
-
-    width: 80px;
-    height: 80px;
+    width: clamp(45px, 5vw, 80px);
+    height: clamp(45px, 5vw, 80px);
 
     object-fit: contain;
 
-    margin-bottom: 10px;
+    margin-bottom: clamp(4px, 0.5vh, 8px);
 }
 #homeName,
 #awayName {
-
-    font-size: 24px;
+    font-size: clamp(18px, 1.8vw, 24px);
     font-weight: bold;
-
-    margin-top: 5px;
+    margin-top: 2px;
+    line-height: 1.05;
 }
 
 .team-card small {
-
-    margin-top: 0px;
-
+    margin-top: 2px;
     color: #666;
-
-    font-size: 12px;
+    font-size: clamp(10px, 0.8vw, 12px);
 }
+
 
 .team-card {
 
@@ -702,7 +693,7 @@ body{
     grid-template-columns: 1fr;
     }
 .team-card {
-height: 170px;
+    height: clamp(110px, 14vh, 140px);
 }
  
 .score {
