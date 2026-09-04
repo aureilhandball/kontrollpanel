@@ -138,7 +138,8 @@ body{
 /* ===== LAGKORT ===== */
 
 .team-card {
-    width: clamp(180px, 18vw, 240px);
+    width: 100%;
+    max-width: 240px;
     height: clamp(120px, 16vh, 170px);
 
     background: white;
@@ -151,7 +152,7 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
+	gap: 2px;
     cursor: pointer;
     text-align: center;
 
@@ -161,10 +162,8 @@ body{
 .team-logo {
     width: clamp(45px, 5vw, 80px);
     height: clamp(45px, 5vw, 80px);
-
     object-fit: contain;
-
-    margin-bottom: clamp(4px, 0.5vh, 8px);
+    margin-bottom: 0;
 }
 #homeName,
 #awayName {
@@ -294,7 +293,7 @@ body{
 
     font-weight:bold;
 
-    margin-top:100px;
+    margin-top:20px;
 }
 
 .score-controls{
