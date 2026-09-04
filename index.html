@@ -140,7 +140,7 @@ body{
 .team-card {
     width: 100%;
     max-width: 240px;
-    height: clamp(120px, 16vh, 170px);
+    height: clamp(135px, 17vh, 170px);
 
     background: white;
     border: 4px solid black;
@@ -152,7 +152,9 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-	gap: 2px;
+	
+	gap: 4px;
+	
     cursor: pointer;
     text-align: center;
 
@@ -160,17 +162,17 @@ body{
 }
 
 .team-logo {
-    width: clamp(45px, 5vw, 80px);
-    height: clamp(45px, 5vw, 80px);
+    width: clamp(40px, 3.5vw, 55px);
+    height: clamp(40px, 3.5vw, 55px);
     object-fit: contain;
     margin-bottom: 0;
 }
 #homeName,
 #awayName {
-    font-size: clamp(18px, 1.8vw, 24px);
+    font-size: clamp(16px, 1.4vw, 22px);
     font-weight: bold;
-    margin-top: 2px;
-    line-height: 1.05;
+    margin: 0;
+	line-height: 1;
 }
 
 .team-card small {
@@ -703,12 +705,14 @@ font-size: 72px;
 .match-clock {
 font-size: 80px;
 margin-bottom: 10px;
-}
+} 
  
 .action-btn,
 
 }
-
+.team-card small {
+display: none;
+}
 .lag-modal {
 
     display: none;
