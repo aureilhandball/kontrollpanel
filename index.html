@@ -138,20 +138,14 @@ body{
 /* ===== LAGKORT ===== */
 
 .team-score-row {
-    width: 100%;
-
-    display: grid;
-    grid-template-columns:
-        minmax(170px, 240px)
-        minmax(65px, 95px);
-
+    display: flex;
     align-items: center;
     justify-content: center;
-
-    column-gap: clamp(12px, 1.5vw, 26px);
-
+    gap: 24px;
+    width: 100%;
     margin-bottom: clamp(8px, 1vh, 12px);
 }
+
 
 	
 .team-card {
