@@ -152,6 +152,15 @@ body{
 
     margin-bottom: clamp(8px, 1vh, 12px);
 }
+
+.away-row .team-card {
+    grid-column: 2;
+}
+
+.away-row .score {
+    grid-column: 1;
+}
+
 	
 .team-card {
     width: 100%;
@@ -1483,7 +1492,7 @@ body.high-contrast
 
 <div class="side">
 
-    <div class="team-score-row">
+    <div class="team-score-row away-row">
 		<div class="score"
             id="awayScore">
             0
@@ -3195,7 +3204,6 @@ function bekreftUtvisning() {
     }
 
     const nyUtvisning = {
-       const nyUtvisning = {
     id: nesteUtvisningId,
     side: utvisningSide,
     spiller: nummer,
