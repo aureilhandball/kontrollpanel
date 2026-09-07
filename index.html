@@ -149,8 +149,10 @@ body{
 
 	
 .team-card {
-    width: 100%;
+    width: 240px;
     max-width: 240px;
+	flex-shrink: 0;
+	
     height: clamp(135px, 17vh, 170px);
 
     background: white;
@@ -287,9 +289,9 @@ body{
 /* ===== SCORE ===== */
 
 .score {
-    min-width: 0;
-    width: 100%;
-    height: 100%;
+    flex: 0 0 auto;
+
+    min-width: 80px;
 
     margin: 0;
 
@@ -302,9 +304,9 @@ body{
     font-size: clamp(60px, 5vw, 90px);
     font-weight: bold;
     line-height: 1;
-
     font-variant-numeric: tabular-nums;
 }
+`
 
 .score-controls{
 
