@@ -304,7 +304,7 @@ body{
 
     text-align: center;
 
-    font-size: clamp(54px, 4.3vw, 82px);
+    font-size: clamp(60px, 5vw, 90px);
     font-weight: bold;
     line-height: 1;
 
@@ -1484,10 +1484,13 @@ body.high-contrast
 <div class="side">
 
     <div class="team-score-row">
-
-        <div
-            class="team-card"
-            onclick="apneLagvelger('away')">
+		<div class="score"
+            id="awayScore">
+            0
+        </div>
+    <div
+        class="team-card"
+		onclick="apneLagvelger('away')">
 		<img
         	id="awayLogo"
         	class="team-logo"
@@ -1503,14 +1506,7 @@ body.high-contrast
             </small>
 
         </div>
-
-        <div
-            class="score"
-            id="awayScore">
-            0
-        </div>
-
-    </div>
+  </div>
 
     <div class="timeout-panel">
 
