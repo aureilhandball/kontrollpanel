@@ -1655,6 +1655,7 @@ let hallFadeTimer = null;
 let aktiveUtvisninger = [];
 let nesteUtvisningId = 1;
 let utvisningerPerSpiller = {};
+let spillereMedRodtKort = new Set();
 const utvisningLengdeSekunder = 120;
 let utvisningSide = null;
 let timeoutSekunder = 60;
@@ -3052,43 +3053,26 @@ spillMusikkKategori(
     }, 50);
 }
 function bekreftUtvisning() {
-
-    const nummer =
+    const nummerInput =
         document
             .getElementById(
                 "utvisningSpiller"
             )
             .value
             .trim();
-	
-	const direkteRodtKort =
-    document
-        .getElementById(
-            "direkteRodtKort"
-        )
-        .checked;
 
-const spillerNokkel =
-    utvisningSide + "_" + nummer;
+    const direkteRodtKort =
+        document
+            .getElementById(
+                "direkteRodtKort"
+            )
+            .checked;
 
-const alleredeUtvist =
-    aktiveUtvisninger.some(
-        utvisning =>
-            utvisning.spiller === nummer &&
-            utvisning.side === utvisningSide
-    );
-
-if (alleredeUtvist) {
-
-    alert(
-        `Spiller #${nummer} har allerede en aktiv utvisning.`
-    );
-
-    return;
-}
-
-if (!nummer) {
-
+    /*
+    Kontroller at spillernummer er angitt før
+    spillerNokkel opprettes.
+    */
+    if (!nummerInput) {
         alert(
             "Angi spillernummer."
         );
@@ -3096,56 +3080,152 @@ if (!nummer) {
         return;
     }
 
-if (!utvisningerPerSpiller[spillerNokkel]) {
-    utvisningerPerSpiller[spillerNokkel] = 0;
-}
+    /*
+    Normaliserer for eksempel 08 til 8, slik at samme
+    spiller ikke kan registreres under ulike skrivemåter.
+    */
+    const nummerVerdi =
+        Number(nummerInput);
 
-utvisningerPerSpiller[spillerNokkel]++;
+    if (
+        !Number.isInteger(nummerVerdi) ||
+        nummerVerdi < 1 ||
+        nummerVerdi > 999
+    ) {
+        alert(
+            "Angi et gyldig spillernummer mellom 1 og 999."
+        );
 
-if (
-    utvisningerPerSpiller[spillerNokkel] === 3
-) {
+        return;
+    }
 
-    alert(
-        `Spiller #${nummer} har nå fått sin tredje utvisning.\n\nKontroller med dommer at rødt kort skal registreres.`
-    );
+    const nummer =
+        String(nummerVerdi);
 
-    leggTilLogg(
-        `⚠ Tredje utvisning på #${nummer} - rødt kort`
-    );
-}
+    /*
+    Nøkkelen skiller mellom samme spillernummer
+    på hjemme- og bortelag.
+    */
+    const spillerNokkel =
+        utvisningSide + "_" + nummer;
 
-    
+    /*
+    En spiller med rødt kort skal være sperret
+    resten av kampen, også etter at utvisningstiden
+    er ferdig eller kortet er fjernet manuelt.
+    */
+    if (
+        spillereMedRodtKort.has(
+            spillerNokkel
+        )
+    ) {
+        alert(
+            `Spiller #${nummer} har rødt kort og kan ikke registreres med ny utvisning.`
+        );
+
+        leggTilLogg(
+            `Avvist utvisning: spiller #${nummer} har rødt kort`
+        );
+
+        return;
+    }
+
+    /*
+    Hindrer samtidig aktiv utvisning på samme spiller.
+    */
+    const alleredeUtvist =
+        aktiveUtvisninger.some(
+            utvisning =>
+                utvisning.spiller === nummer &&
+                utvisning.side === utvisningSide
+        );
+
+    if (alleredeUtvist) {
+        alert(
+            `Spiller #${nummer} har allerede en aktiv utvisning.`
+        );
+
+        return;
+    }
+
+    if (
+        !utvisningerPerSpiller[
+            spillerNokkel
+        ]
+    ) {
+        utvisningerPerSpiller[
+            spillerNokkel
+        ] = 0;
+    }
+
+    utvisningerPerSpiller[
+        spillerNokkel
+    ]++;
+
+    const antallUtvisninger =
+        utvisningerPerSpiller[
+            spillerNokkel
+        ];
+
+    const tredjeUtvisning =
+        antallUtvisninger >= 3;
+
+    /*
+    Spilleren får rødt kort enten ved direkte rødt
+    eller ved tredje utvisning.
+    */
+    const harRodtKort =
+        direkteRodtKort ||
+        tredjeUtvisning;
+
+    if (harRodtKort) {
+        spillereMedRodtKort.add(
+            spillerNokkel
+        );
+    }
+
+    if (tredjeUtvisning) {
+        alert(
+            `Spiller #${nummer} har nå fått sin tredje utvisning og er registrert med rødt kort.`
+        );
+
+        leggTilLogg(
+            `⚠ Tredje utvisning på #${nummer} - rødt kort`
+        );
+    }
+
     const nyUtvisning = {
+       const nyUtvisning = {
     id: nesteUtvisningId,
     side: utvisningSide,
     spiller: nummer,
     spillerNokkel: spillerNokkel,
-    sekunder: 120,
-	direkteRodtKort: direkteRodtKort
+    sekunder: utvisningLengdeSekunder,
+    direkteRodtKort: direkteRodtKort,
+    tredjeUtvisning: tredjeUtvisning,
+    harRodtKort: harRodtKort
 };
+    };
 
     nesteUtvisningId++;
 
     aktiveUtvisninger.push(
         nyUtvisning
     );
-	if (direkteRodtKort) {
 
-    leggTilLogg(
-        `Direkte rødt kort #${nummer}`
-    );
-
-}
+    if (direkteRodtKort) {
+        leggTilLogg(
+            `Direkte rødt kort #${nummer}`
+        );
+    }
+    else if (!tredjeUtvisning) {
+        leggTilLogg(
+            `Utvisning #${nummer}`
+        );
+    }
 
     oppdaterUtvisningVisning();
     sendUtvisningerTilPublikum();
-
-    leggTilLogg(
-        "Utvisning #" +
-        nummer
-    );
-
     lukkUtvisningModal();
 }
 function lukkUtvisningModal() {
@@ -3233,13 +3313,7 @@ function byggUtvisningListe(
         : "";
 
 const rodtKortVarsel =
-    (
-        utvisningerPerSpiller[
-            utvisning.spillerNokkel
-        ] >= 3
-        ||
-        utvisning.direkteRodtKort
-    )
+    utvisning.harRodtKort
         ? "utvisning-rodtkort"
         : "";
 
@@ -3253,7 +3327,7 @@ liste.insertAdjacentHTML(
 
                     <div class="utvisning-spiller">
     #${utvisning.spiller}
-	${utvisning.direkteRodtKort ? " 🟥" : ""}
+	${utvisning.harRodtKort ? " 🟥" : ""}
     (${utvisningerPerSpiller[utvisning.spillerNokkel]})
 </div>
 
@@ -3329,7 +3403,6 @@ function tellNedUtvisninger() {
 }
 
 function fjernUtvisningManuelt(id) {
-
     const utvisning =
         aktiveUtvisninger.find(
             element =>
@@ -3340,19 +3413,89 @@ function fjernUtvisningManuelt(id) {
         return;
     }
 
+    const spillerNokkel =
+        utvisning.spillerNokkel;
+
+   const harRodtKort =
+    utvisning.harRodtKort === true ||
+    spillereMedRodtKort.has(
+        spillerNokkel
+    );
+
+    /*
+    Rødt kort krever en ekstra bekreftelse fordi
+    handlingen også opphever spillerens sperre.
+    */
+    if (harRodtKort) {
+        const bekreftet =
+            window.confirm(
+                `Spiller #${utvisning.spiller} er registrert med rødt kort.\n\n` +
+                `Vil du kansellere det røde kortet og gjøre spilleren tilgjengelig igjen?`
+            );
+
+        if (!bekreftet) {
+            return;
+        }
+    }
+
+    /*
+    Fjern det aktive utvisningskortet.
+    */
     aktiveUtvisninger =
         aktiveUtvisninger.filter(
             element =>
                 element.id !== id
         );
 
+    /*
+    En manuelt kansellert utvisning skal ikke telle
+    i spillerens totale antall utvisninger.
+    */
+    if (
+        utvisningerPerSpiller[
+            spillerNokkel
+        ] > 0
+    ) {
+        utvisningerPerSpiller[
+            spillerNokkel
+        ]--;
+    }
+
+    /*
+    Fjern nøkkelen helt dersom spilleren ikke lenger
+    har noen registrerte utvisninger.
+    */
+    if (
+        utvisningerPerSpiller[
+            spillerNokkel
+        ] <= 0
+    ) {
+        delete utvisningerPerSpiller[
+            spillerNokkel
+        ];
+    }
+
+    /*
+    Hvis det kansellerte kortet ga rødt kort,
+    fjernes spillerens kampvarige sperre.
+    */
+    if (harRodtKort) {
+        spillereMedRodtKort.delete(
+            spillerNokkel
+        );
+
+        leggTilLogg(
+            `Rødt kort kansellert: spiller #${utvisning.spiller}`
+        );
+    }
+    else {
+        leggTilLogg(
+            `Utvisning kansellert: spiller #${utvisning.spiller}`
+        );
+    }
+
     oppdaterUtvisningVisning();
     sendUtvisningerTilPublikum();
-
-    leggTilLogg(
-        "Utvisning fjernet manuelt: spiller " +
-        utvisning.spiller
-    );
 }
 
 /*===========================
@@ -3535,8 +3678,6 @@ document
     hjemmeScore = 0;
     borteScore = 0;
 
-    historikk = [];
-
     oppdaterScore();
 
     /* Nullstill lag */
@@ -3637,19 +3778,13 @@ document
     .textContent =
     "Ingen aktiv timeout";
 
-/* Nullstill utvisninger */
-
+/* Nullstill utvisninger og røde kort */
 aktiveUtvisninger = [];
-
 nesteUtvisningId = 1;
+utvisningerPerSpiller = {};
+spillereMedRodtKort.clear();
 
 oppdaterUtvisningVisning();
-
-utvisningerPerSpiller = {};
-
-aktiveUtvisninger = [];
-nesteUtvisningId = 1;
-
 /* Stopp musikk og hall */
 stoppHallmusikk(false);
 
