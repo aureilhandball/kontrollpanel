@@ -153,14 +153,6 @@ body{
     margin-bottom: clamp(8px, 1vh, 12px);
 }
 
-.away-row .team-card {
-    grid-column: 2;
-}
-
-.away-row .score {
-    grid-column: 1;
-}
-
 	
 .team-card {
     width: 100%;
@@ -1492,25 +1484,30 @@ body.high-contrast
 
 <div class="side">
 
-   <div class="team-score-row away-row">
+  <div class="team-score-row">
+
+    <div class="score" id="awayScore">
+        0
+    </div>
 
     <div
         class="team-card"
         onclick="apneLagvelger('away')">
-		<img
-        id="awayLogo"
-        class="team-logo"
-        src="logoer/default.png"
-        alt="Bortelag">
-    </div>
 
-    <div
-        class="score"
-        id="awayScore">
-        0
-    </div>
+        <img
+            id="awayLogo"
+            class="team-logo"
+            src="logoer/default.png"
+            alt="Bortelag">
 
-</div>
+        <div id="awayName">
+            Velg bortelag
+		</div>
+    	<small>
+            Trykk for å velge lag
+        </small>
+  </div>
+  </div>
 
 
     <div class="timeout-panel">
@@ -3208,7 +3205,6 @@ function bekreftUtvisning() {
     direkteRodtKort: direkteRodtKort,
     tredjeUtvisning: tredjeUtvisning,
     harRodtKort: harRodtKort
-};
     };
 
     nesteUtvisningId++;
