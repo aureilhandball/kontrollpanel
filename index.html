@@ -79,26 +79,45 @@ body{
     cursor:pointer;
 }
 
-.contrast-box{
-
-    background:white;
-
-    padding:15px;
-
-    border-radius:10px;
-
-    color:black;
-
-    min-width:300px;
-}
-
-.switch{
-
+.header-tools{
     display:flex;
     align-items:center;
     gap:10px;
+    flex-wrap:wrap;
 }
 
+.contrast-box{
+    background:white;
+    padding:8px 12px;
+    border-radius:10px;
+    color:black;
+
+    display:flex;
+    align-items:center;
+}
+
+
+.switch{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-wrap:wrap;
+}
+
+.top-link{
+    background:#2f64e2;
+    color:white;
+    text-decoration:none;
+    padding:6px 10px;
+    border-radius:8px;
+    font-size:12px;
+    font-weight:bold;
+    white-space:nowrap;
+}
+
+.top-link:hover{
+    opacity:0.9;
+}
 /* ===== MAIN ===== */
 
 .main {
@@ -1161,26 +1180,44 @@ body.high-contrast
         <h1>Aure IL håndball kontrollpanel</h1>
 
         <div class="beta">
-            Beta-versjon under utvikling
+            Beta-versjon utviklet av Mats Langtinn
         </div>
 
     </div>
 
-    <div class="contrast-box">
+    <div class="header-tools">
+	<div class="contrast-box">
+    <div class="switch">
 
-        <div class="switch">
+        <input type="checkbox" id="contrast">
 
-            <input
-                type="checkbox"
-                id="contrast">
+        <label for="contrast">
+            HC
+        </label>
 
-            <label for="contrast">
-                Høykontrastmodus
-            </label>
+        <a
+            href="https://www.handball.no/regioner/region-nord/kampaktivitet/seriereglement-20262027/seriereglement-20262027/"
+            target="_blank"
+            class="top-link">
+            Seriereglement 26/27
+        </a>
 
-        </div>
+        <a
+            href="https://www.handball.no/regioner/nhf-sentralt/praktisk-info/praktiske-verktoy/administrative-bestemmelser/"
+            target="_blank"
+            class="top-link">
+            Aldersbestemmelser, spilletider og ballstørrelser
+        </a>
 
+        <a
+            href="https://www.handball.no/regioner/nhf-sentralt/praktisk-info/lover-og-regler/spilleregler-handball/"
+            target="_blank"
+            class="top-link">
+            Spilleregler
+        </a>
+	</div>
     </div>
+</div>
 
 </div>
 
