@@ -32,8 +32,19 @@
     box-sizing:border-box;
 }
 
+html,
 body{
+    width:100%;
+    height:100%;
     margin:0;
+}
+
+body{
+    min-height:100vh;
+
+    display:flex;
+    flex-direction:column;
+
     font-family:Arial, sans-serif;
     background:#e6e6e6;
 }
@@ -44,11 +55,31 @@ body{
     background:var(--mork);
     color:white;
 
-    display:flex;
+    display:grid;
+    grid-template-columns:1fr auto 1fr;
     align-items:center;
-    justify-content:space-between;
 
     padding:15px 25px;
+}
+
+.header-button{
+    justify-self:start;
+
+    background:white;
+    color:black;
+
+    border:none;
+    border-radius:10px;
+
+    padding:14px 20px;
+
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.header-center{
+    justify-self:center;
+    text-align:center;
 }
 
 .header h1{
@@ -56,71 +87,51 @@ body{
     text-align:center;
 }
 
-.header-center{
-    flex:1;
-    text-align:center;
-}
-
 .beta{
+    margin-top:2px;
     font-size:14px;
-    opacity:.8;
-}
-
-.header-button{
-
-    background:white;
-    border:none;
-
-    padding:14px 20px;
-
-    border-radius:10px;
-
-    font-weight:bold;
-    cursor:pointer;
+    opacity:0.8;
 }
 
 .header-tools{
+    justify-self:end;
+
     display:flex;
     align-items:center;
-    gap:10px;
-    flex-wrap:wrap;
 }
 
 .contrast-box{
     background:white;
-    padding:8px 12px;
-    border-radius:10px;
     color:black;
 
     display:flex;
     align-items:center;
-}
 
+    padding:6px 9px;
+    border-radius:8px;
+}
 
 .switch{
     display:flex;
     align-items:center;
-    gap:8px;
-    flex-wrap:wrap;
+    gap:6px;
 }
 
-.top-link{
-    background:#2f64e2;
-    color:white;
-    text-decoration:none;
-    padding:6px 10px;
-    border-radius:8px;
+.switch input{
+    margin:0;
+}
+
+.switch label{
     font-size:12px;
     font-weight:bold;
-    white-space:nowrap;
+    cursor:pointer;
 }
-
-.top-link:hover{
-    opacity:0.9;
-}
+	
 /* ===== MAIN ===== */
 
-.main {
+.main{
+    flex:1;
+    min-height:0;
 
     display:grid;
 
@@ -128,8 +139,6 @@ body{
         minmax(300px,30%)
         minmax(400px,40%)
         minmax(300px,30%);
-
-    height: calc(100vh - 90px);
 }
 /* ===== KOLONNER ===== */
 
@@ -325,7 +334,6 @@ body{
     line-height: 1;
     font-variant-numeric: tabular-nums;
 }
-`
 
 .score-controls{
 
@@ -1162,6 +1170,59 @@ body.high-contrast
     opacity: 0.7;
     cursor: not-allowed;
 }
+.quick-toolbar{
+    background:#f5f5f5;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-wrap:wrap;
+
+    gap:12px;
+
+    padding:8px 12px;
+
+    border-bottom:1px solid #ccc;
+}
+
+.toolbar-link{
+    background:var(--bla);
+    color:white;
+
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    text-decoration:none;
+    white-space:nowrap;
+
+    padding:8px 14px;
+
+    border-radius:8px;
+
+    font-size:13px;
+    font-weight:bold;
+}
+
+.toolbar-link:hover{
+    filter:brightness(1.05);
+}
+
+body.high-contrast .quick-toolbar{
+    background:#000;
+    border-bottom:2px solid white;
+}
+
+body.high-contrast .toolbar-link{
+    background:#000;
+    color:#ffff00;
+    border:2px solid white;
+}
+
+body.high-contrast .toolbar-link:hover{
+    background:#222;
+}
+
 </style>
 </head>
 
@@ -1185,42 +1246,54 @@ body.high-contrast
 
     </div>
 
-    <div class="header-tools">
-	<div class="contrast-box">
-    <div class="switch">
+   <div class="header-tools">
 
-        <input type="checkbox" id="contrast">
+    <div class="contrast-box">
 
-        <label for="contrast">
-            HC
-        </label>
+        <div class="switch">
 
-        <a
-            href="https://www.handball.no/regioner/region-nord/kampaktivitet/seriereglement-20262027/seriereglement-20262027/"
-            target="_blank"
-            class="top-link">
-            Seriereglement 26/27
-        </a>
+            <input type="checkbox" id="contrast">
 
-        <a
-            href="https://www.handball.no/regioner/nhf-sentralt/praktisk-info/praktiske-verktoy/administrative-bestemmelser/"
-            target="_blank"
-            class="top-link">
-            Aldersbestemmelser, spilletider og ballstørrelser
-        </a>
+            <label for="contrast">
+                HC
+            </label>
 
-        <a
-            href="https://www.handball.no/regioner/nhf-sentralt/praktisk-info/lover-og-regler/spilleregler-handball/"
-            target="_blank"
-            class="top-link">
-            Spilleregler
-        </a>
-	</div>
-    </div>
+        </div>
+
+   </div>
 </div>
 
 </div>
+	
+<div class="quick-toolbar">
 
+    <a
+        href="https://www.handball.no/regioner/region-nord/kampaktivitet/seriereglement-20262027/seriereglement-20262027/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="toolbar-link">
+        📋 Seriereglement 2026/2027
+    </a>
+
+    <a
+        href="https://www.handball.no/regioner/nhf-sentralt/praktisk-info/praktiske-verktoy/administrative-bestemmelser/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="toolbar-link">
+        ⏱ Aldersregler og spilletider
+    </a>
+
+    <a
+        href="https://www.handball.no/regioner/nhf-sentralt/praktisk-info/lover-og-regler/spilleregler-handball/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="toolbar-link">
+        📖 Spilleregler
+    </a>
+
+</div>
+
+	
 <div class="main">
 
     <!-- VENSTRE -->
