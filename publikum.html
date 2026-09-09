@@ -71,7 +71,7 @@ body {
 #sponsorContainer {
     position: absolute;
 
-    bottom: 20px;
+    bottom: clamp(20px, 2vh, 50px);
     left: 50%;
 
     transform: translateX(-50%);
@@ -80,19 +80,23 @@ body {
     align-items: center;
     justify-content: center;
 
-    gap: clamp(25px, 3vw, 70px);
+    gap: clamp(35px, 3.5vw, 90px);
 
     z-index: 20;
 }
 
 #nhf {
-    height: clamp(180px, 14vh, 320px);
+    height: clamp(220px, 18vh, 420px);
     width: auto;
+	display:block;
+	objectfit:contain;
 }
 
 #fairplay {
-    height: clamp(160px, 12vh, 300px);
+    height: clamp(200px, 16vh, 400px);
     width: auto;
+	display:block;
+	objectfit:contain;
 }
 
 #hjemmescore {
