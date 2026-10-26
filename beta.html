@@ -1801,15 +1801,24 @@ const kontinuerligeKategorier = [
 
 let hallStoppTimer = null;
 let hallFadeTimer = null;
+
 let aktiveUtvisninger = [];
 let nesteUtvisningId = 1;
 let utvisningerPerSpiller = {};
 let spillereMedRodtKort = new Set();
+
 const utvisningLengdeSekunder = 120;
 let utvisningSide = null;
+
 let timeoutSekunder = 60;
 let lagretKampTid = 0;
 let timeoutLag = null;
+let timeoutOmgang = null;
+
+let timeoutIntervall = null;
+let timeoutForsinkelse = null;
+let timeoutFadeIntervall = null;
+
 let timeoutBrukt = {
     home: {
         omgang1: false,
@@ -1825,13 +1834,18 @@ const timeoutMusikk =
     new Audio("lyd/Snakke litt.mp3");
 
 timeoutMusikk.loop = true;
+
 function fadeUtTimeoutMusikk(
     varighet = 3000
 ) {
-    clearInterval(timeoutFadeIntervall);
+    clearInterval(
+        timeoutFadeIntervall
+    );
+
     timeoutFadeIntervall = null;
 
     const intervall = 50;
+
     const steg = Math.max(
         1,
         Math.round(
@@ -1849,10 +1863,13 @@ function fadeUtTimeoutMusikk(
             volumPerSteg
         );
 
-        if (timeoutMusikk.volume <= 0) {
+        if (
+            timeoutMusikk.volume <= 0
+        ) {
             clearInterval(
                 timeoutFadeIntervall
             );
+
             timeoutFadeIntervall = null;
 
             timeoutMusikk.pause();
@@ -1860,43 +1877,10 @@ function fadeUtTimeoutMusikk(
         }
     }, intervall);
 }
-F
-    const intervall = 50;
 
-    const steg =
-        Math.max(
-            1,
-            Math.round(
-                varighet / intervall
-            )
-        );
-
-    const volumPerSteg =
-        timeoutMusikk.volume / steg;
-
-    const fadeTimer =
-        setInterval(() => {
-
-        timeoutMusikk.volume =
-            Math.max(
-                0,
-                timeoutMusikk.volume -
-                volumPerSteg
-            );
-
-        if (
-            timeoutMusikk.volume <= 0
-        ) {
-            clearInterval(
-                fadeTimer
-            );
-
-            timeoutMusikk.pause();
-            timeoutMusikk.currentTime = 0;
-        }
-
-    }, intervall);
-};
+/* ==========================
+   DATA
+========================== */
 /* ==========================
    DATA
 ========================== */
