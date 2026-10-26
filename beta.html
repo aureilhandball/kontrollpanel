@@ -501,6 +501,30 @@ body{
     cursor: pointer;
 }
 
+	.timeout-angre-btn {
+    display: none;
+    width: 100%;
+    margin-top: 8px;
+    padding: 12px;
+    background: #f2a100;
+    color: black;
+    border: 2px solid #9a6500;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.timeout-angre-btn:hover {
+    filter: brightness(1.05);
+}
+
+body.high-contrast .timeout-angre-btn {
+    background: #ffff00;
+    color: black;
+    border: 3px solid white;
+}
+
 .dark{background:#08142f;color:white;}
 .green{background:#29c658;}
 .cyan{background:#28d4cc;}
@@ -1337,6 +1361,13 @@ body.high-contrast .toolbar-link:hover{
             TIMEOUT
         </button>
 
+		<button
+    id="angreTimeoutHome"
+    class="timeout-angre-btn"
+    onclick="angreTimeout()">
+    ↶ ANGRE TIMEOUT
+		</button>
+
         <div class="timeout-omganger">
 
             <div>
@@ -1624,6 +1655,14 @@ body.high-contrast .toolbar-link:hover{
             TIMEOUT
         </button>
 
+		<button
+    id="angreTimeoutAway"
+    class="timeout-angre-btn"
+    onclick="angreTimeout()">
+    ↶ ANGRE TIMEOUT
+		</button>
+
+
         <div class="timeout-omganger">
 
             <div>
@@ -1748,6 +1787,8 @@ let pauseLengde = 10;
 let timeoutAktiv = false;
 let timeoutIntervall = null;
 let timeoutForsinkelse = null;
+let timeoutFadeIntervall = null;
+let timeoutOmgang = null;
 let aktivHallLyd = null;
 let aktivHallKategori = null;
 let aktivHallKnapp = null;
@@ -1784,9 +1825,42 @@ const timeoutMusikk =
     new Audio("lyd/Snakke litt.mp3");
 
 timeoutMusikk.loop = true;
-	function fadeUtTimeoutMusikk(
+function fadeUtTimeoutMusikk(
     varighet = 3000
 ) {
+    clearInterval(timeoutFadeIntervall);
+    timeoutFadeIntervall = null;
+
+    const intervall = 50;
+    const steg = Math.max(
+        1,
+        Math.round(
+            varighet / intervall
+        )
+    );
+
+    const volumPerSteg =
+        timeoutMusikk.volume / steg;
+
+    timeoutFadeIntervall = setInterval(() => {
+        timeoutMusikk.volume = Math.max(
+            0,
+            timeoutMusikk.volume -
+            volumPerSteg
+        );
+
+        if (timeoutMusikk.volume <= 0) {
+            clearInterval(
+                timeoutFadeIntervall
+            );
+            timeoutFadeIntervall = null;
+
+            timeoutMusikk.pause();
+            timeoutMusikk.currentTime = 0;
+        }
+    }, intervall);
+}
+F
     const intervall = 50;
 
     const steg =
@@ -2836,8 +2910,69 @@ function settKampstatus(nyStatus) {
 /* ==========================
    TIMEOUT
 ========================== */
+function visAngreTimeoutKnapp(side) {
+    const knappId =
+        side === "home"
+            ? "angreTimeoutHome"
+            : "angreTimeoutAway";
 
-function startTimeout(side) {
+    document
+        .getElementById(knappId)
+        .style.display = "block";
+}
+
+function skjulAngreTimeoutKnapper() {
+    document
+        .getElementById(
+            "angreTimeoutHome"
+        )
+        .style.display = "none";
+
+    document
+        .getElementById(
+            "angreTimeoutAway"
+        )
+        .style.display = "none";
+}
+
+function nullstillTimeoutMarkering(
+    side,
+    omgang
+) {
+    let indikatorId;
+
+    if (
+        side === "home" &&
+        omgang === "omgang1"
+    ) {
+        indikatorId = "timeout1Home";
+    }
+    else if (
+        side === "home" &&
+        omgang === "omgang2"
+    ) {
+        indikatorId = "timeout2Home";
+    }
+    else if (
+        side === "away" &&
+        omgang === "omgang1"
+    ) {
+        indikatorId = "timeout1Away";
+    }
+    else {
+        indikatorId = "timeout2Away";
+    }
+
+    const indikator =
+        document.getElementById(
+            indikatorId
+        );
+
+    indikator.textContent = "○";
+    indikator.style.color = "";
+}
+
+	function startTimeout(side) {
 stoppHallmusikk(
     false,
     false
@@ -2863,6 +2998,8 @@ stoppHallmusikk(
         kampFase === "omgang1"
             ? "omgang1"
             : "omgang2";
+		
+		timeoutOmgang = omgang;
 
     /* Kontroller om laget har brukt timeouten */
     if (timeoutBrukt[side][omgang]) {
@@ -2890,7 +3027,7 @@ stoppHallmusikk(
     spillLyd("lyd/Horn.mp3");
 
     markerTimeout(side, omgang);
-
+	visAngreTimeoutKnapp(side);
     settKampstatus("TIMEOUT");
 
 const lagnavn =
@@ -2994,38 +3131,93 @@ function startTimeoutNedtelling() {
     }, 1000);
 }
 	
+function angreTimeout() {
+    if (
+        !timeoutAktiv ||
+        !timeoutLag ||
+        !timeoutOmgang
+    ) {
+        return;
+    }
 
-function avsluttTimeout() {
+    const avbruttLag = timeoutLag;
+    const avbruttOmgang = timeoutOmgang;
 
     clearInterval(timeoutIntervall);
     timeoutIntervall = null;
 
-    timeoutSekunder = 0;
-    kampSekunder = 0;
+    clearTimeout(timeoutForsinkelse);
+    timeoutForsinkelse = null;
 
+    clearInterval(timeoutFadeIntervall);
+    timeoutFadeIntervall = null;
+
+    timeoutMusikk.pause();
+    timeoutMusikk.currentTime = 0;
+    timeoutMusikk.volume = 1;
+
+    timeoutBrukt[
+        avbruttLag
+    ][
+        avbruttOmgang
+    ] = false;
+
+    nullstillTimeoutMarkering(
+        avbruttLag,
+        avbruttOmgang
+    );
+
+    kampSekunder = lagretKampTid;
     oppdaterKlokkeVisning();
 
-    /* Stopp timeoutmusikken */
-    if (!timeoutMusikk.paused) {
+    timeoutSekunder = 60;
+    timeoutAktiv = false;
+    timeoutLag = null;
+    timeoutOmgang = null;
+
+    skjulAngreTimeoutKnapper();
+
+    oppdaterTimeoutStatus(
+        avbruttLag,
+        "Timeout angret"
+    );
+
+    settKampstatus("STOPPET");
+    sendTimeoutTilPublikum("");
+
+    leggTilLogg(
+        avbruttLag === "home"
+            ? "Timeout hjemmelag angret"
+            : "Timeout bortelag angret"
+    );
+}
+
+	
+function avsluttTimeout() {
+    clearInterval(timeoutIntervall);
+    timeoutIntervall = null;
+
+    clearTimeout(timeoutForsinkelse);
+    timeoutForsinkelse = null;
+
+    clearInterval(timeoutFadeIntervall);
+    timeoutFadeIntervall = null;
+
+    timeoutSekunder = 0;
+    kampSekunder = 0;
+    oppdaterKlokkeVisning();
+
     timeoutMusikk.pause();
-	}
+    timeoutMusikk.currentTime = 0;
+    timeoutMusikk.volume = 1;
 
-	timeoutMusikk.currentTime = 0;
-	timeoutMusikk.volume = 1;
+    spillLyd(LYDER.horn);
 
-    /* Horn ved avsluttet timeout */
-spillLyd(
-    "lyd/Horn.mp3"
-);
+    kampSekunder = lagretKampTid;
+    oppdaterKlokkeVisning();
 
-spillLyd("lyd/Horn.mp3");
-
-kampSekunder = lagretKampTid;
-oppdaterKlokkeVisning();
-
-settKampstatus("STOPPET");
-
-sendTimeoutTilPublikum("");
+    settKampstatus("STOPPET");
+    sendTimeoutTilPublikum("");
 
     oppdaterTimeoutStatus(
         timeoutLag,
@@ -3038,6 +3230,9 @@ sendTimeoutTilPublikum("");
 
     timeoutAktiv = false;
     timeoutLag = null;
+    timeoutOmgang = null;
+
+    skjulAngreTimeoutKnapper();
 
     /*
     Kampklokken startes ikke her.
@@ -3819,17 +4014,23 @@ document
 /* Nullstill timeout */
 clearInterval(timeoutIntervall);
 clearTimeout(timeoutForsinkelse);
+clearInterval(timeoutFadeIntervall);
 
 timeoutIntervall = null;
 timeoutForsinkelse = null;
+timeoutFadeIntervall = null;
 
 timeoutMusikk.pause();
 timeoutMusikk.currentTime = 0;
+timeoutMusikk.volume = 1;
 
 timeoutAktiv = false;
 timeoutSekunder = 60;
 lagretKampTid = 0;
 timeoutLag = null;
+timeoutOmgang = null;
+
+skjulAngreTimeoutKnapper();
 
 timeoutBrukt = {
     home: {
