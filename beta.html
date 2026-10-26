@@ -1,0 +1,4827 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>Aure IL håndball kontrollpanel</title>
+	
+<link
+    rel="manifest"
+    href="manifest.json">
+	
+<link
+    rel="icon"
+    type="image/png"
+    href="bilder/favicon.png">
+	
+<style>
+
+:root{
+    --mork:#06132b;
+    --gronn:#18b142;
+    --rod:#e52020;
+    --bla:#2f64e2;
+    --svart:#081022;
+    --turkis:#28d4cc;
+    --lilla:#7a3eea;
+    --oransje:#f2a100;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+html,
+body{
+    width:100%;
+    height:100%;
+    margin:0;
+}
+
+body{
+    min-height:100vh;
+
+    display:flex;
+    flex-direction:column;
+
+    font-family:Arial, sans-serif;
+    background:#e6e6e6;
+}
+
+/* ===== HEADER ===== */
+
+.header{
+    background:var(--mork);
+    color:white;
+
+    display:grid;
+    grid-template-columns:1fr auto 1fr;
+    align-items:center;
+
+    padding:15px 25px;
+}
+
+.header-button{
+    justify-self:start;
+
+    background:white;
+    color:black;
+
+    border:none;
+    border-radius:10px;
+
+    padding:14px 20px;
+
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.header-center{
+    justify-self:center;
+    text-align:center;
+}
+
+.header h1{
+    margin:0;
+    text-align:center;
+}
+
+.beta{
+    margin-top:2px;
+    font-size:14px;
+    opacity:0.8;
+}
+
+.header-tools{
+    justify-self:end;
+
+    display:flex;
+    align-items:center;
+}
+
+.contrast-box{
+    background:white;
+    color:black;
+
+    display:flex;
+    align-items:center;
+
+    padding:6px 9px;
+    border-radius:8px;
+}
+
+.switch{
+    display:flex;
+    align-items:center;
+    gap:6px;
+}
+
+.switch input{
+    margin:0;
+}
+
+.switch label{
+    font-size:12px;
+    font-weight:bold;
+    cursor:pointer;
+}
+	
+/* ===== MAIN ===== */
+
+.main{
+    flex:1;
+    min-height:0;
+
+    display:grid;
+
+    grid-template-columns:
+        minmax(300px,30%)
+        minmax(400px,40%)
+        minmax(300px,30%);
+}
+/* ===== KOLONNER ===== */
+
+.side {
+
+    padding:20px;
+
+    min-height:0;
+
+    overflow-y:auto;
+}
+
+.center {
+
+    padding:20px;
+
+    min-height:0;
+
+    border-left:3px solid black;
+    border-right:3px solid black;
+
+    overflow-y:auto;
+}
+
+/* ===== LAGKORT ===== */
+
+.team-score-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    width: 100%;
+    margin-bottom: clamp(8px, 1vh, 12px);
+}
+
+
+	
+.team-card {
+    width: 240px;
+    max-width: 240px;
+	flex-shrink: 0;
+	
+    height: clamp(135px, 17vh, 170px);
+
+    background: white;
+    border: 4px solid black;
+    border-radius: 20px;
+
+    margin: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+	
+	gap: 4px;
+	
+    cursor: pointer;
+    text-align: center;
+
+    padding: clamp(6px, 1vh, 12px);
+}
+
+.team-logo {
+    width: clamp(40px, 3.5vw, 55px);
+    height: clamp(40px, 3.5vw, 55px);
+    object-fit: contain;
+    margin-bottom: 0;
+}
+#homeName,
+#awayName {
+    font-size: clamp(16px, 1.4vw, 22px);
+    font-weight: bold;
+    margin: 0;
+	line-height: 1;
+}
+
+.team-card small {
+    margin-top: 2px;
+    color: #666;
+    font-size: clamp(10px, 0.8vw, 12px);
+}
+
+.team-card:hover {
+
+    background: #f3f3f3;
+}
+
+
+/* ===== TIMEOUT ===== */
+
+.timeout-panel {
+    margin-top: clamp(8px, 1vh, 15px);
+}
+
+.timeout-omganger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: clamp(18px, 3vw, 50px);
+
+    margin-top: clamp(8px, 1vh, 12px);
+
+    text-align: center;
+    font-weight: bold;
+    font-size: clamp(14px, 1vw, 17px);
+    line-height: 1.2;
+}
+
+.timeout-status {
+    margin-top: clamp(8px, 1vh, 12px);
+
+    background: white;
+    border-radius: 10px;
+
+    padding: clamp(7px, 0.8vh, 10px);
+    min-height: clamp(38px, 5vh, 46px);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+    font-size: clamp(13px, 0.95vw, 16px);
+    font-weight: bold;
+    line-height: 1.15;
+}
+
+/* ===== UTVISNING ===== */
+
+.utvisning-btn {
+    width: 100%;
+
+    margin-top: clamp(14px, 1.8vh, 22px);
+    padding: clamp(14px, 1.6vh, 18px);
+
+    background: #07142f;
+    color: white;
+
+    border: none;
+    border-radius: 14px;
+
+    font-size: clamp(18px, 1.3vw, 21px);
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.utvisning-rodtkort {
+    border: 3px solid #e52020;
+    box-shadow: 0 0 8px rgba(229,32,32,0.4);
+}
+
+/* ===== UTVISNING STATUS ===== */
+
+.utvisning-status {
+    margin-top: 8px;
+
+    min-height: clamp(36px, 4.5vh, 44px);
+    padding: 6px 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: white;
+    border-radius: 10px;
+
+    text-align: center;
+    font-size: clamp(13px, 0.95vw, 16px);
+    font-weight: bold;
+    line-height: 1.15;
+}
+
+/* ===== SCORE ===== */
+
+.score {
+    flex: 0 0 auto;
+
+    min-width: 80px;
+
+    margin: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    font-size: clamp(60px, 5vw, 90px);
+    font-weight: bold;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+}
+
+.score-controls{
+
+    display:grid;
+
+    grid-template-columns:
+        1fr
+        2fr
+        1fr;
+
+    gap:0;
+}
+
+.score-controls button{
+
+    border:none;
+
+    background:var(--gronn);
+
+    color:white;
+
+    font-size:36px;
+
+    font-weight:bold;
+
+    padding:20px;
+
+    cursor:pointer;
+}
+
+.score-title{
+
+    background:var(--gronn);
+
+    color:white;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:24px;
+    font-weight:bold;
+}
+
+/* ===== KAMPKLOKKE ===== */
+
+.match-phase{
+
+    text-align:center;
+
+    font-size:28px;
+
+    font-weight:bold;
+}
+
+.kamp-info {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        1fr
+        1fr;
+
+    align-items: center;
+
+    margin-bottom: 10px;
+
+    font-weight: bold;
+
+    font-size: 20px;
+}
+
+#aktivArsklasse {
+
+    text-align: left;
+}
+
+#kampstatus {
+
+    text-align: center;
+}
+
+#omgangLengde {
+
+    text-align: right;
+}
+
+.match-clock {
+    margin: clamp(4px, 0.8vh, 10px) 0
+            clamp(10px, 1.5vh, 16px);
+
+    text-align: center;
+
+    font-size: clamp(68px, 6vw, 96px);
+    font-weight: 900;
+    line-height: 1;
+
+    font-variant-numeric: tabular-nums;
+}
+
+/* ===== KNAPPER ===== */
+
+.button-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        1fr
+        1fr;
+
+    gap:12px;
+}
+.musikk-panel{
+    margin-top:25px;
+    padding:18px;
+    background:#f5f5f5;
+    border:2px solid #dcdcdc;
+    border-radius:15px;
+}
+
+.musikk-panel h3{
+    margin:0 0 15px 0;
+    text-align:center;
+    color:#06132b;
+    font-size:18px;
+}
+
+.musikk-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+.action-btn{
+
+    border:none;
+
+    border-radius:15px;
+
+    padding:22px;
+
+    font-size:20px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+}
+.timeout-btn{
+
+    background: var(--bla);
+
+    color: white;
+
+    width: 100%;
+
+    border: none;
+
+    border-radius: 15px;
+
+    padding: 20px;
+
+    font-size: 22px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.dark{background:#08142f;color:white;}
+.green{background:#29c658;}
+.cyan{background:#28d4cc;}
+.purple{background:#7544e9;color:white;}
+.orange{background:#f4a000;}
+.white{background:white;}
+
+.btn-cyan{
+    background:#28d4cc;
+}
+
+.btn-purple{
+    background:#7544e9;
+    color:white;
+}
+
+.btn-orange{
+    background:#f4a000;
+}
+
+.btn-green{
+    background:#29c658;
+}
+
+.start-btn{
+
+    background:#18b142;
+
+    color:white;
+
+    margin-top:15px;
+
+    width:100%;
+
+    border:none;
+
+    border-radius:15px;
+
+    padding:22px;
+
+    font-size:22px;
+
+    font-weight:bold;
+
+    cursor: pointer;
+}
+
+.stop-btn{
+
+    background:#e52020;
+
+    color:white;
+
+    margin-top:10px;
+
+    width:100%;
+
+    border:none;
+
+    border-radius:15px;
+
+    padding:22px;
+
+    font-size:22px;
+
+    font-weight:bold;
+
+    cursor: pointer;
+}
+
+.pause-avslutt-btn {
+
+    display: block;
+
+    width: 320px;
+
+    max-width: 100%;
+
+    margin: 2px auto 0 auto;
+
+    padding: 10px 15px;
+
+    border: 1px solid #999;
+
+    border-radius: 8px;
+
+    background: #f5f5f5;
+
+    color: #333;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.pause-avslutt-btn:hover {
+
+    background: #eaeaea;
+}
+
+.reset-btn {
+
+    background: #dc2626;
+
+    color: white;
+
+    margin-top: 10px;
+
+    width: 100%;
+
+    border: none;
+
+    border-radius: 15px;
+
+    padding: 22px;
+
+    font-size: 20px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.reset-buttons {
+
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 20px;
+}
+
+.goal-register-btn {
+    display: block;
+
+    width: clamp(200px, 52%, 260px);
+    height: clamp(82px, 10vh, 105px);
+
+    margin: clamp(14px, 1.8vh, 20px) auto 0;
+
+    background: #18b142;
+    color: white;
+
+    border: none;
+    border-radius: 18px;
+
+    font-size: clamp(23px, 1.6vw, 27px);
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.goal-register-btn:hover {
+
+    filter:brightness(1.05);
+}
+
+.goal-correct-btn {
+
+    display:block;
+
+    width:220px;
+
+    margin:20px auto 0 auto;
+
+    background:#666;
+    color:white;
+
+    border:none;
+    border-radius:12px;
+
+    padding:12px;
+
+    font-size:14px;
+    font-weight:bold;
+
+    cursor:pointer;
+}
+
+.goal-correct-btn:hover {
+
+    background:#555;
+}
+
+/* ===== STATUS ===== */
+
+.status{
+
+    margin-top:20px;
+
+    background:white;
+
+    padding:20px;
+
+    border-radius:15px;
+}
+
+.status h3{
+    margin-top:0;
+}
+
+.status-row{
+
+    margin-bottom:8px;
+}
+
+/* ===== RESPONSIV ===== */
+
+@media (max-height: 950px) {
+
+    .main {
+        grid-template-columns:
+            30%
+            40%
+            30%;
+    }
+
+    .center {
+        border-left: none;
+        border-right: none;
+        border-top: 3px solid black;
+        border-bottom: 3px solid black;
+    }
+
+    .button-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .team-card {
+        height: clamp(110px, 14vh, 140px);
+    }
+
+    .team-card small {
+        display: none;
+    }
+}
+
+@media (max-width: 1450px) {
+
+    .team-score-row {
+        grid-template-columns:
+            minmax(155px, 205px)
+            minmax(55px, 75px);
+
+        column-gap: 10px;
+    }
+
+    .score {
+        font-size: clamp(48px, 4.3vw, 66px);
+    }
+}
+
+.lag-modal {
+
+    display: none;
+
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0,0,0,0.6);
+
+    z-index: 9999;
+}
+
+.lag-modal-content {
+
+    width: 500px;
+
+    max-width: 90vw;
+
+    max-height: 80vh;
+
+    overflow-y: auto;
+
+    margin: 50px auto;
+
+    background: white;
+
+    border-radius: 20px;
+
+    padding: 20px;
+}
+
+#lagSearch {
+
+    width: 100%;
+
+    padding: 12px;
+
+    margin-bottom: 15px;
+
+    font-size: 18px;
+}
+
+.lag-rad {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 10px;
+
+    cursor: pointer;
+
+    border-bottom: 1px solid #ddd;
+}
+
+.lag-rad:hover {
+
+    background: #f2f2f2;
+}
+
+.lag-rad img {
+
+    width: 50px;
+    height: 50px;
+
+    object-fit: contain;
+}
+
+.lag-logo {
+
+    width: 40px;
+    height: 40px;
+
+    object-fit: contain;
+
+    flex-shrink: 0;
+}
+
+.fjern-lag {
+
+    background: #fff3f3;
+
+    font-weight: bold;
+
+    color: #c00000;
+}
+
+.fjern-lag:hover {
+
+    background: #ffe0e0;
+}
+
+.lag-modal-footer {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-top: 20px;
+
+    padding-top: 15px;
+
+    border-top: 1px solid #ddd;
+}
+
+.reset-lagvalg {
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+    color: #c00000;
+}
+
+.reset-lagvalg:hover {
+
+    text-decoration: underline;
+}
+
+.lukk-btn {
+
+    background: var(--bla);
+
+    color: white;
+
+    border: none;
+
+    border-radius: 10px;
+
+    padding: 12px 24px;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.lukk-btn:hover {
+
+    opacity: 0.9;
+}
+
+.hendelses-logg {
+
+    margin-top: 10px;
+
+    max-height: 150px;
+
+    overflow-y: auto;
+
+    border-top: 1px solid #ddd;
+
+    padding-top: 10px;
+}
+
+.logg-rad {
+
+    font-size: 14px;
+
+    margin-bottom: 5px;
+
+    padding: 4px 0;
+}
+
+#aktivArsklasse {
+
+    color: var(--bla);
+
+    font-weight: bold;
+}
+
+#omgangLengde {
+
+    color: #666;
+}
+.utvisning-liste {
+    margin-top: 6px;
+}
+
+.utvisning-kort {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    align-items: center;
+
+    gap: clamp(8px, 1vw, 14px);
+
+    margin-top: 6px;
+    padding: clamp(8px, 1vh, 11px)
+             clamp(10px, 1vw, 14px);
+
+    background: white;
+
+    border-left: 6px solid #07142f;
+    border-radius: 10px;
+}
+
+.utvisning-spiller {
+    min-width: 0;
+
+    color: #07142f;
+
+    font-size: clamp(15px, 1.05vw, 18px);
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+.utvisning-tid {
+    min-width: 58px;
+
+    color: #c00000;
+
+    font-size: clamp(19px, 1.35vw, 23px);
+    font-weight: bold;
+    font-variant-numeric: tabular-nums;
+
+    text-align: right;
+    white-space: nowrap;
+}
+
+.utvisning-fjern-btn {
+    width: clamp(32px, 2.5vw, 40px);
+    height: clamp(32px, 2.5vw, 40px);
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #999;
+    border-radius: 7px;
+
+    background: #f5f5f5;
+    color: #333;
+
+    font-size: 0;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.utvisning-fjern-btn::after {
+    content: "×";
+    font-size: clamp(20px, 1.5vw, 26px);
+    line-height: 1;
+}
+
+
+.utvisning-fjern-btn:hover {
+    background: #e8e8e8;
+}
+
+.utvisning-snart-ferdig {
+    background-color: #fff4d6;
+    border-left: 6px solid #f2a100;
+}
+
+.utvisning-snart-ferdig .utvisning-tid {
+    color: #d97706;
+    font-weight: 900;
+}
+
+/* =========================
+   HØYKONTRASTMODUS
+========================= */
+
+body.high-contrast {
+    background: #000;
+    color: #fff;
+}
+
+body.high-contrast .contrast-box {
+    background:#111;
+    color:white;
+    border:2px solid white;
+}
+
+body.high-contrast .musikk-panel h3 {
+    color:#ffff00;
+}
+
+body.high-contrast .header,
+body.high-contrast .center,
+body.high-contrast .side {
+    background: #000;
+    color: #fff;
+}
+
+body.high-contrast .team-card,
+body.high-contrast .status,
+body.high-contrast .timeout-status,
+body.high-contrast .utvisning-status,
+body.high-contrast .utvisning-kort,
+body.high-contrast .musikk-panel {
+    background: #111;
+    color: white;
+    border-color: #fff;
+}
+
+body.high-contrast .score {
+    color: #ffff00;
+}
+
+body.high-contrast .match-clock {
+    color: #ffff00;
+}
+
+body.high-contrast #kampstatus {
+    color: #00ffff;
+}
+
+body.high-contrast .action-btn,
+body.high-contrast .start-btn,
+body.high-contrast .stop-btn,
+body.high-contrast .timeout-btn,
+body.high-contrast .reset-btn,
+body.high-contrast .utvisning-btn {
+    border: 3px solid white;
+}
+
+body.high-contrast .utvisning-spiller {
+    color: white;
+}
+
+body.high-contrast .utvisning-tid {
+    color: #ffff00;
+}
+
+body.high-contrast .lag-rad {
+    color: white;
+}
+
+body.high-contrast .score-title {
+    border: 3px solid white;
+}
+
+body.high-contrast .lag-modal-content {
+    background: #111;
+    color: white;
+}
+
+body.high-contrast .lag-rad {
+    color: white;
+    border-bottom: 1px solid #444;
+}
+
+body.high-contrast .lag-rad:hover {
+    background: #333;
+}
+
+body.high-contrast #lagSearch {
+    background: #000;
+    color: white;
+    border: 1px solid white;
+}
+body.high-contrast input {
+    background: #000;
+    color: white;
+    border: 1px solid white;
+}
+
+body.high-contrast label {
+    color: white;
+}
+
+body.high-contrast
+.musikk-knapp-aktiv {
+    outline-color: #ffff00;
+    box-shadow: 0 0 0 3px #000;
+}
+.musikk-knapp-aktiv {
+    outline: 4px solid #06132b;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 3px white;
+}
+.musikk-stopp-btn {
+    background:#e52020;
+
+    color:white;
+
+    margin-top:10px;
+
+    width:100%;
+
+    border:none;
+
+    border-radius:15px;
+
+    padding:22px;
+
+    font-size:22px;
+
+    font-weight:bold;
+
+    cursor: pointer;
+}
+
+.musikk-stopp-btn:hover {
+    background:#111;
+}
+
+.team-card.locked {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+	.arsklasse-lock {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+.quick-toolbar{
+    background:#f5f5f5;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-wrap:wrap;
+
+    gap:12px;
+
+    padding:8px 12px;
+
+    border-bottom:1px solid #ccc;
+}
+
+.toolbar-link{
+    background:var(--bla);
+    color:white;
+
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    text-decoration:none;
+    white-space:nowrap;
+
+    padding:8px 14px;
+
+    border-radius:8px;
+
+    font-size:13px;
+    font-weight:bold;
+}
+
+.toolbar-link:hover{
+    filter:brightness(1.05);
+}
+
+body.high-contrast .quick-toolbar{
+    background:#000;
+    border-bottom:2px solid white;
+}
+
+body.high-contrast .toolbar-link{
+    background:#000;
+    color:#ffff00;
+    border:2px solid white;
+}
+
+body.high-contrast .toolbar-link:hover{
+    background:#222;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+
+    <button
+    class="header-button"
+    onclick="apnePublikumsskjerm()">
+    ÅPNE PUBLIKUMSSKJERM
+</button>
+
+    <div class="header-center">
+
+        <h1>Aure IL håndball kontrollpanel</h1>
+
+        <div class="beta">
+            Beta-versjon utviklet av Mats Langtinn
+        </div>
+
+    </div>
+
+   <div class="header-tools">
+
+    <div class="contrast-box">
+
+        <div class="switch">
+
+            <input type="checkbox" id="contrast">
+
+            <label for="contrast">
+                HC
+            </label>
+
+        </div>
+
+   </div>
+</div>
+
+</div>
+	
+<div class="quick-toolbar">
+
+    <a
+        href="https://www.handball.no/regioner/region-nord/kampaktivitet/seriereglement-20262027/seriereglement-20262027/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="toolbar-link">
+        📋 Seriereglement 2026/2027
+    </a>
+
+    <a
+        href="https://www.handball.no/regioner/nhf-sentralt/praktisk-info/praktiske-verktoy/administrative-bestemmelser/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="toolbar-link">
+        ⏱ Aldersregler og spilletider
+    </a>
+
+    <a
+        href="https://www.handball.no/regioner/nhf-sentralt/praktisk-info/lover-og-regler/spilleregler-handball/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="toolbar-link">
+        📖 Spilleregler
+    </a>
+
+</div>
+
+	
+<div class="main">
+
+    <!-- VENSTRE -->
+
+<div class="side">
+
+    <div class="team-score-row">
+
+        <div
+            class="team-card"
+            onclick="apneLagvelger('home')">
+		<img
+       	 	id="homeLogo"
+        	class="team-logo"
+        	src="logoer/default.png"
+        	alt="Hjemmelag">
+
+            <div id="homeName">
+                Velg hjemmelag
+            </div>
+
+            <small>
+                Trykk for å velge lag
+            </small>
+
+        </div>
+
+        <div
+            class="score"
+            id="homeScore">
+            0
+        </div>
+
+    </div>
+
+    <div class="timeout-panel">
+
+        <button
+            class="timeout-btn"
+            onclick="startTimeout('home')">
+            TIMEOUT
+        </button>
+
+        <div class="timeout-omganger">
+
+            <div>
+                1.omg
+                <span id="timeout1Home">○</span>
+            </div>
+
+            <div>
+                2.omg
+                <span id="timeout2Home">○</span>
+            </div>
+
+        </div>
+
+        <div
+            id="timeoutStatusHome"
+            class="timeout-status">
+            Ingen aktiv timeout
+        </div>
+
+    </div>
+
+    <div class="utvisning-panel">
+
+        <button
+            class="utvisning-btn"
+            onclick="registrerUtvisning('home')">
+            UTVISNING
+        </button>
+
+        <div
+            id="utvisningStatusHome"
+            class="utvisning-status">
+            Ingen aktive utvisninger
+        </div>
+
+        <div
+            id="utvisningListeHome"
+            class="utvisning-liste">
+        </div>
+
+    </div>
+
+    <button
+        class="goal-register-btn"
+        onclick="leggTilHjemmemal()">
+        MÅL!
+    </button>
+
+    <button
+        class="goal-correct-btn"
+        onclick="trekkFraHjemmemal()">
+        KORRIGER MÅL
+    </button>
+
+</div>
+
+    <!-- MIDTEN -->
+
+    <div class="center">
+
+        <div class="kamp-info">
+
+    <div id="aktivArsklasse"
+	style="color:#c75b5b;">
+
+        Ingen årsklasse valgt
+
+    </div>
+
+    <div id="kampstatus">
+
+        IKKE STARTET
+
+    </div>
+
+    <div id="omgangLengde">
+
+        --
+
+    </div>
+
+</div>
+
+        <div class="match-clock" id="kampKlokke">
+
+        00:00
+	</div>
+<button
+    id="startOmgang2Btn"
+    class="pause-avslutt-btn"
+    onclick="avsluttPauseTidlig()"
+    style="display:none;">
+
+    KLAR TIL Å STARTE 2. OMGANG
+
+</button>
+        <div class="button-grid">
+
+    <button
+    id="arsklasseBtn"
+    class="action-btn"
+    style="background:#2f64e2;"
+    onclick="apneArsklasseModal()">
+
+        VELG ÅRSKLASSE
+
+    </button>
+
+    <button class="action-btn dark"
+        onclick="spillLyd(LYDER.horn)">
+
+        🔊 HORN
+
+    </button>
+
+</div>
+
+        <button class="start-btn" onclick="startKlokke()">
+
+            START TID
+
+        </button>
+
+        <button class="stop-btn" onclick="stoppKlokke()">
+
+            STOPP TID
+
+        </button>
+
+<div class="musikk-panel">
+
+    <h3>
+        🎵 MUSIKK & HALL
+    </h3>
+
+    <div class="musikk-grid">
+
+        <button
+    class="action-btn btn-green"
+    onclick="spillMusikkKategori(
+        'oppvarming',
+        this
+    )">
+
+    OPPVARMING
+
+</button>
+
+        <button
+    class="action-btn btn-cyan"
+    onclick="spillMusikkKategori(
+        'innmarsj',
+        this
+    )">
+
+    INNMARSJ
+
+</button>
+
+        <button
+    class="action-btn white"
+    onclick="spillMusikkKategori(
+        'straffe',
+        this
+    )">
+
+    STRAFFEKAST
+
+</button>
+
+        <button
+    class="action-btn btn-orange"
+    onclick="sendFairplayTilPublikum()">
+    FAIRPLAY-HILSEN
+</button>
+
+
+        <button
+    class="action-btn btn-purple"
+    onclick="spillMusikkKategori(
+        'skapliv',
+        this
+    )">
+
+    SKAP LIV!
+
+</button>
+
+        <button
+    class="action-btn"
+    style="
+        background:#27a0d8;
+        color:white;
+    "
+    onclick="spillMusikkKategori(
+        'pause',
+        this
+    )">
+
+    PAUSE
+
+</button>
+<button
+    class="musikk-stopp-btn"
+    onclick="stoppHallmusikk()">
+
+    ■ STOPP MUSIKK
+
+</button>
+
+    </div>
+
+</div>
+
+	
+        <div class="status">
+
+            <h3>Status</h3>
+
+            <div class="status-row">
+                Publikumsskjerm:
+                🟢 Tilkoblet
+            </div>
+            <div class="status-row">
+
+    	    <strong>Siste hendelse</strong>
+
+	    </div>
+
+	<div id="sisteHendelse"
+	     class="status-row">
+
+  	     Ingen
+
+        </div>
+	
+	<div id="hendelsesLogg"
+	    class="hendelses-logg">
+	</div>
+
+	<button class="reset-btn" onclick="apneResetModal()">
+
+        ⚠ TILBAKESTILL ALT
+
+	</button>
+    </div>
+</div>
+
+<!-- HØYRE -->
+
+<div class="side">
+
+  <div class="team-score-row">
+
+    <div class="score" id="awayScore">
+        0
+    </div>
+
+    <div
+        class="team-card"
+        onclick="apneLagvelger('away')">
+
+        <img
+            id="awayLogo"
+            class="team-logo"
+            src="logoer/default.png"
+            alt="Bortelag">
+
+        <div id="awayName">
+            Velg bortelag
+		</div>
+    	<small>
+            Trykk for å velge lag
+        </small>
+  </div>
+  </div>
+
+
+    <div class="timeout-panel">
+
+        <button
+            class="timeout-btn"
+            onclick="startTimeout('away')">
+            TIMEOUT
+        </button>
+
+        <div class="timeout-omganger">
+
+            <div>
+                1.omg
+                <span id="timeout1Away">○</span>
+            </div>
+
+            <div>
+                2.omg
+                <span id="timeout2Away">○</span>
+            </div>
+
+        </div>
+
+        <div
+            id="timeoutStatusAway"
+            class="timeout-status">
+            Ingen aktiv timeout
+        </div>
+
+    </div>
+
+    <div class="utvisning-panel">
+
+        <button
+            class="utvisning-btn"
+            onclick="registrerUtvisning('away')">
+            UTVISNING
+        </button>
+
+        <div
+            id="utvisningStatusAway"
+            class="utvisning-status">
+            Ingen aktive utvisninger
+        </div>
+
+        <div
+            id="utvisningListeAway"
+            class="utvisning-liste">
+        </div>
+
+    </div>
+
+    <button
+        class="goal-register-btn"
+        onclick="leggTilBortemal()">
+        MÅL!
+    </button>
+
+    <button
+        class="goal-correct-btn"
+        onclick="trekkFraBortemal()">
+        KORRIGER MÅL
+    </button>
+
+</div>
+
+</div>
+
+<div id="lagModal" class="lag-modal">
+
+    <div class="lag-modal-content">
+
+        <h2>Velg lag</h2>
+
+        <input
+            type="search"
+            id="lagSearch"
+            placeholder="Søk klubb..."
+            oninput="byggLagListe()">
+
+        <div id="lagListe">
+        </div>
+
+        <div class="lag-modal-footer">
+
+            <div
+                class="reset-lagvalg"
+                onclick="fjernLagvalg()">
+
+                ↺ Tilbakestill lagvalg
+
+            </div>
+
+            <button
+                class="lukk-btn"
+                onclick="lukkLagvelger()">
+
+                LUKK
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+/*==================
+LYDER
+==================*/
+const LYDER = {
+    horn: "lyd/Horn.mp3"
+};
+let lydbibliotek = {};
+/*==================
+GLOBALE VARIABLER
+==================*/
+const DEBUG = false;
+const CACHE_NAME = "aure-handball-1.2.0";
+let hjemmeScore = 0;
+let borteScore = 0;
+let kampSekunder = 0;
+let klokkeIntervall = null;
+let kampKjører = false;
+let kampFase = "ikkeStartet";
+let valgtArsklasse = null;
+let omgangLengde = 0;
+let pauseLengde = 10;
+let timeoutAktiv = false;
+let timeoutIntervall = null;
+let timeoutForsinkelse = null;
+let aktivHallLyd = null;
+let aktivHallKategori = null;
+let aktivHallKnapp = null;
+let nesteSporIndeks = {};
+const kontinuerligeKategorier = [
+    "oppvarming",
+    "pause",
+    "skapliv"
+];
+
+let hallStoppTimer = null;
+let hallFadeTimer = null;
+let aktiveUtvisninger = [];
+let nesteUtvisningId = 1;
+let utvisningerPerSpiller = {};
+let spillereMedRodtKort = new Set();
+const utvisningLengdeSekunder = 120;
+let utvisningSide = null;
+let timeoutSekunder = 60;
+let lagretKampTid = 0;
+let timeoutLag = null;
+let timeoutBrukt = {
+    home: {
+        omgang1: false,
+        omgang2: false
+    },
+    away: {
+        omgang1: false,
+        omgang2: false
+    }
+};
+
+const timeoutMusikk =
+    new Audio("lyd/Snakke litt.mp3");
+
+timeoutMusikk.loop = true;
+	function fadeUtTimeoutMusikk(
+    varighet = 3000
+) {
+    const intervall = 50;
+
+    const steg =
+        Math.max(
+            1,
+            Math.round(
+                varighet / intervall
+            )
+        );
+
+    const volumPerSteg =
+        timeoutMusikk.volume / steg;
+
+    const fadeTimer =
+        setInterval(() => {
+
+        timeoutMusikk.volume =
+            Math.max(
+                0,
+                timeoutMusikk.volume -
+                volumPerSteg
+            );
+
+        if (
+            timeoutMusikk.volume <= 0
+        ) {
+            clearInterval(
+                fadeTimer
+            );
+
+            timeoutMusikk.pause();
+            timeoutMusikk.currentTime = 0;
+        }
+
+    }, intervall);
+}
+
+/* ==========================
+   DATA
+========================== */
+
+let klubber = [];
+
+const arsklasser = [
+
+    {
+        navn: "J/G 10",
+        omgangLengde: 15,
+        pauseLengde: 10
+    },
+
+    {
+        navn: "J/G 11",
+        omgangLengde: 15,
+        pauseLengde: 10
+    },
+
+    {
+        navn: "J/G 12",
+        omgangLengde: 20,
+        pauseLengde: 10
+    },
+
+    {
+        navn: "J/G 13",
+        omgangLengde: 20,
+        pauseLengde: 10
+    },
+
+    {
+        navn: "J/G 14",
+        omgangLengde: 20,
+        pauseLengde: 10
+    },
+
+    {
+        navn: "J/G 15",
+        omgangLengde: 25,
+        pauseLengde: 10
+    },
+
+    {
+        navn: "J/G 16",
+        omgangLengde: 30,
+        pauseLengde: 10
+    },
+
+    {
+        navn: "Senior",
+        omgangLengde: 30,
+        pauseLengde: 10
+    },
+    {
+    navn: "TEST (1 min)",
+    omgangLengde: 1,
+    pauseLengde: 1,
+	debug: true,
+    }
+
+];
+
+let aktivSide = "";
+
+async function lastInnKlubber() {
+
+    try {
+
+        const svar =
+            await fetch(
+                "data/klubber.json"
+            );
+
+        if (!svar.ok) {
+
+            throw new Error(
+                "Kunne ikke laste klubber.json"
+            );
+
+        }
+
+        klubber =
+            await svar.json();
+
+        console.log(
+            `${klubber.length} lag lastet`
+        );
+
+    }
+
+    catch (feil) {
+
+        console.error(
+            "Feil ved lasting av klubber:",
+            feil
+        );
+
+        alert(
+            "Kunne ikke laste laglisten."
+        );
+
+    }
+
+}
+
+	async function lastInnMusikk() {
+
+    try {
+
+        const svar =
+            await fetch(
+                "data/musikk.json"
+            );
+
+        if (!svar.ok) {
+
+            throw new Error(
+                "Kunne ikke laste musikk.json"
+            );
+        }
+
+        lydbibliotek =
+            await svar.json();
+
+        console.log(
+            "Musikkbibliotek lastet"
+        );
+
+    }
+
+    catch (feil) {
+
+        console.error(
+            "Feil ved lasting av musikk:",
+            feil
+        );
+
+        alert(
+            "Kunne ikke laste musikkbiblioteket."
+        );
+    }
+}
+
+	async function cacheManglendeMusikk() {
+
+    try {
+
+        const cache = await caches.open(CACHE_NAME);
+
+        const lydfiler = [];
+
+        Object.values(lydbibliotek).forEach(kategori => {
+
+            kategori.forEach(spor => {
+
+                if (spor.fil) {
+                    lydfiler.push(spor.fil);
+                }
+
+            });
+
+        });
+
+        const unikeLydfiler = [...new Set(lydfiler)];
+
+        console.log(
+            `Kontrollerer ${unikeLydfiler.length} lydfiler`
+        );
+
+        for (const fil of unikeLydfiler) {
+
+            const finnesICache =
+                await cache.match(fil);
+
+            if (!finnesICache) {
+
+                try {
+
+                    const respons =
+                        await fetch(fil);
+
+                    if (respons.ok) {
+
+                        await cache.put(
+                            fil,
+                            respons.clone()
+                        );
+
+                        console.log(
+                            "Cached:",
+                            fil
+                        );
+
+                    }
+
+                }
+                catch (error) {
+
+                    console.warn(
+                        "Kunne ikke cache:",
+                        fil
+                    );
+
+                }
+
+            }
+
+        }
+
+    }
+    catch (error) {
+
+        console.error(
+            "Feil ved caching av musikk",
+            error
+        );
+
+    }
+
+}
+	
+/* ==========================
+   LAGVELGER
+========================== */
+
+function apneLagvelger(side) {
+
+if (kampFase !== "ikkeStartet") {
+ 
+leggTilLogg(
+"Lagvalg er låst etter kampstart"
+);
+ 
+return;
+}
+ 
+aktivSide = side;
+ 
+document.getElementById(
+"lagModal"
+).style.display = "block";
+
+    aktivSide = side;
+
+    document.getElementById(
+        "lagModal"
+    ).style.display = "block";
+
+    byggLagListe();
+
+    setTimeout(() => {
+
+        document.getElementById(
+            "lagSearch"
+        ).focus();
+
+    }, 50);
+}
+
+function lukkLagvelger() {
+
+    document.getElementById(
+        "lagModal"
+    ).style.display = "none";
+
+    document.getElementById(
+        "lagSearch"
+    ).value = "";
+
+    byggLagListe();
+
+}
+function byggLagListe() {
+
+    const sok =
+        document.getElementById(
+            "lagSearch"
+        ).value.toLowerCase();
+
+    const liste =
+        document.getElementById(
+            "lagListe"
+        );
+
+	liste.innerHTML = "";
+
+   klubber
+        .filter(lag =>
+            lag.navn.toLowerCase()
+            .includes(sok)
+        )
+        .forEach(lag => {
+
+            liste.innerHTML += `
+<div class="lag-rad"
+     onclick="velgLag(
+         '${lag.navn}',
+         '${lag.logo}'
+     )">
+
+    <img
+        src="${lag.logo}"
+        class="lag-logo"
+        alt="${lag.navn}">
+
+    <div>
+        ${lag.navn}
+    </div>
+
+</div>
+`;
+
+        });
+}
+
+function velgLag(navn, logo) {
+
+    if (aktivSide === "home") {
+
+        document
+            .getElementById(
+                "homeName"
+            ).textContent = navn;
+
+        document
+            .getElementById(
+                "homeLogo"
+            ).src = logo;
+    }
+    else {
+
+        document
+            .getElementById(
+                "awayName"
+            ).textContent = navn;
+
+        document
+            .getElementById(
+                "awayLogo"
+            ).src = logo;
+    }
+
+    oppdaterPublikumsskjerm();
+
+    lukkLagvelger();
+}
+
+/* ==========================
+   MÅLTAVLE
+========================== */
+
+function leggTilHjemmemal() {
+
+    hjemmeScore++;
+
+    oppdaterScore();
+
+    sendMaalTilPublikum(
+    document.getElementById(
+        "homeName"
+    ).textContent
+);
+
+
+    spillMaalmusikk();
+
+    leggTilLogg(
+        "Hjemmemål"
+    );
+}
+
+function trekkFraHjemmemal() {
+
+    if (hjemmeScore > 0) {
+
+        hjemmeScore--;
+
+        oppdaterScore();
+
+	leggTilLogg("Korrigert hjemmemål");
+    }
+}
+
+function leggTilBortemal() {
+
+    borteScore++;
+
+    oppdaterScore();
+
+    sendMaalTilPublikum(
+    document.getElementById(
+        "awayName"
+    ).textContent
+);
+
+    spillMaalmusikk();
+
+    leggTilLogg(
+        "Bortemål"
+    );
+}
+
+function trekkFraBortemal() {
+
+    if (borteScore > 0) {
+
+        borteScore--;
+
+        oppdaterScore();
+
+	leggTilLogg("Korrigert bortemål");
+    }
+}
+
+function oppdaterScore() {
+
+    document.getElementById(
+        "homeScore"
+    ).textContent = hjemmeScore;
+
+    document.getElementById(
+        "awayScore"
+    ).textContent = borteScore;
+
+    sendScoreTilPublikum();
+}
+
+/*==================
+PUBLIKUMSVINDU
+=================*/
+
+let publikumsvindu = null;
+let automatiskPublikumForsokt = false;
+
+function apnePublikumsskjerm() {
+
+    if (
+        publikumsvindu &&
+        !publikumsvindu.closed
+    ) {
+        publikumsvindu.focus();
+        oppdaterPublikumsskjerm();
+        return;
+    }
+
+    publikumsvindu = window.open(
+    "publikum.html",
+    "publikumsskjerm",
+    `
+    popup=yes,
+    fullscreen=yes,
+    width=${screen.availWidth},
+    height=${screen.availHeight},
+    left=0,
+    top=0
+    `
+);
+
+    if (!publikumsvindu) {
+        alert(
+            "Nettleseren blokkerte publikumsskjermen. " +
+            "Tillat sprettoppvinduer og prøv igjen."
+        );
+        return;
+    }
+
+setTimeout(() => {
+
+    oppdaterPublikumsskjerm();
+
+    publikumsvindu.postMessage(
+        {
+            type: "fullscreen"
+        },
+        "*"
+    );
+
+}, 500);
+}
+
+function forsokAutomatiskPublikumsskjerm() {
+
+    if (automatiskPublikumForsokt) {
+        return;
+    }
+
+    automatiskPublikumForsokt = true;
+
+    if (
+        !publikumsvindu ||
+        publikumsvindu.closed
+    ) {
+        apnePublikumsskjerm();
+    }
+
+}
+	
+function sendKampklokkeTilPublikum() {
+
+    if (
+        !publikumsvindu ||
+        publikumsvindu.closed
+    ) {
+        return;
+    }
+
+    const tid =
+        document.getElementById(
+            "kampKlokke"
+        ).textContent;
+
+    publikumsvindu.postMessage(
+        {
+            type: "kampklokke",
+            tid: tid
+        },
+        "*"
+    );
+}
+function sendKampstatusTilPublikum() {
+    if (
+        !publikumsvindu ||
+        publikumsvindu.closed
+    ) {
+        return;
+    }
+
+    const status =
+        document.getElementById(
+            "kampstatus"
+        ).textContent;
+
+    publikumsvindu.postMessage(
+        {
+            type: "kampstatus",
+            status: status
+        },
+        "*"
+    );
+}
+
+function oppdaterPublikumsskjerm() {
+
+    sendKampklokkeTilPublikum();
+    sendKampstatusTilPublikum();
+    sendScoreTilPublikum();
+    sendLagTilPublikum();
+    sendUtvisningerTilPublikum();
+
+}
+
+function sendScoreTilPublikum() {
+
+    if (
+        !publikumsvindu ||
+        publikumsvindu.closed
+    ) {
+        return;
+    }
+
+    publikumsvindu.postMessage(
+        {
+            type: "score",
+            hjemme: hjemmeScore,
+            borte: borteScore
+        },
+        "*"
+    );
+}
+
+function sendLagTilPublikum() {
+
+    if (
+        !publikumsvindu ||
+        publikumsvindu.closed
+    ) {
+        return;
+    }
+
+    publikumsvindu.postMessage(
+        {
+            type: "lag",
+
+            hjemmelogo:
+                document.getElementById(
+                    "homeLogo"
+                ).src,
+
+            bortelogo:
+                document.getElementById(
+                    "awayLogo"
+                ).src,
+
+            hjemmenavn:
+                document.getElementById(
+                    "homeName"
+                ).textContent,
+
+            bortenavn:
+                document.getElementById(
+                    "awayName"
+                ).textContent
+        },
+        "*"
+    );
+}
+
+function sendMaalTilPublikum(
+    lagnavn
+) {
+
+    if (
+        !publikumsvindu ||
+        publikumsvindu.closed
+    ) {
+        return;
+    }
+
+    publikumsvindu.postMessage(
+        {
+            type: "maal",
+            lag: lagnavn
+        },
+        "*"
+    );
+}
+
+function sendUtvisningerTilPublikum() {
+
+    if (
+        !publikumsvindu ||
+        publikumsvindu.closed
+    ) {
+        return;
+    }
+
+    const hjemmelag =
+        aktiveUtvisninger
+            .filter(
+                utvisning =>
+                    utvisning.side === "home"
+            )
+            .map(
+    			utvisning => ({
+        			id: utvisning.id,
+        			spiller: utvisning.spiller,
+        			sekunder: utvisning.sekunder,
+
+        			antallUtvisninger:
+            			utvisningerPerSpiller[
+                		utvisning.spillerNokkel
+            			] || 0,
+
+        			direkteRodtKort:
+            			utvisning.direkteRodtKort || false
+    })
+);
+
+    const bortelag =
+        aktiveUtvisninger
+            .filter(
+                utvisning =>
+                    utvisning.side === "away"
+            )
+            .map(
+    			utvisning => ({
+        			id: utvisning.id,
+        			spiller: utvisning.spiller,
+        			sekunder: utvisning.sekunder,
+
+        			antallUtvisninger:
+            			utvisningerPerSpiller[
+                		utvisning.spillerNokkel
+            			] || 0,
+
+        			direkteRodtKort:
+            			utvisning.direkteRodtKort || false
+    })
+);
+
+    publikumsvindu.postMessage(
+        {
+            type: "utvisninger",
+            hjemmelag: hjemmelag,
+            bortelag: bortelag
+        },
+        "*"
+    );
+}
+
+function sendTimeoutTilPublikum(
+    tekst
+) {
+
+    if (
+        !publikumsvindu ||
+        publikumsvindu.closed
+    ) {
+        return;
+    }
+
+    publikumsvindu.postMessage(
+        {
+            type: "timeoutinfo",
+            tekst: tekst
+        },
+        "*"
+    );
+}
+
+function sendFairplayTilPublikum() {
+
+    if (
+        aktivHallLyd &&
+        !aktivHallLyd.paused
+    ) {
+        aktivHallLyd.pause();
+    }
+
+    if (
+        !publikumsvindu ||
+        publikumsvindu.closed
+    ) {
+        return;
+    }
+
+    publikumsvindu.postMessage(
+        {
+            type: "fairplay"
+        },
+        "*"
+    );
+}
+/* ==========================
+   KAMPKLOKKE
+========================== */
+
+function kampKanStartes() {
+
+    if (!valgtArsklasse) {
+
+        leggTilLogg(
+            "Velg årsklasse før kampen kan startes"
+        );
+
+        alert(
+            "Du må velge årsklasse før du starter kampen."
+        );
+
+        return false;
+    }
+
+    return true;
+}
+
+function startKlokke() {
+
+    if (!kampKanStartes()) {
+    return;
+    }
+    if (timeoutAktiv) {
+
+    alert(
+        "Kampklokken kan ikke startes mens timeouten pågår."
+    );
+
+    return;
+}
+    if (kampKjører) {
+    return;
+    }
+
+    kampKjører = true;
+
+if (kampFase === "omgang1") {
+
+    settKampstatus("1. OMGANG");
+
+}
+else if (kampFase === "omgang2") {
+
+   settKampstatus("2. OMGANG");
+
+}
+
+if (kampFase === "ikkeStartet") {
+
+    kampFase = "omgang1";
+
+    settKampstatus("1. OMGANG");
+
+document
+    .querySelectorAll(".team-card")
+    .forEach(kort => {
+
+        kort.classList.add(
+            "locked"
+        );
+
+    });
+
+document
+    .getElementById(
+        "arsklasseBtn"
+    )
+    .disabled = true;
+	
+document
+    .getElementById(
+        "arsklasseBtn"
+    )
+    .classList.add(
+        "arsklasse-lock"
+    );
+}
+else if (
+    kampFase === "klarForOmgang2"
+) {
+
+    kampFase = "omgang2";
+
+    kampSekunder = 0;
+
+    settKampstatus("2. OMGANG");
+
+}
+
+    klokkeIntervall = setInterval(() => {
+
+    if (kampFase === "pause") {
+
+        kampSekunder--;
+
+    }
+    else {
+
+        kampSekunder++;
+
+    }
+
+    if (
+        kampFase === "omgang1" ||
+        kampFase === "omgang2"
+    ) {
+        tellNedUtvisninger();
+    }
+
+    oppdaterKlokkeVisning();
+
+    kontrollerKampstatus();
+
+}, 1000);
+
+    leggTilLogg(
+        "Klokke startet"
+    );
+}
+
+function stoppKlokke() {
+
+    if (!kampKjører) {
+
+        return;
+    }
+
+    clearInterval(
+        klokkeIntervall
+    );
+
+    kampKjører = false;
+
+    settKampstatus("STOPPET");
+
+    leggTilLogg(
+        "Klokke stoppet"
+    );
+}
+
+function oppdaterKlokkeVisning() {
+
+    const minutter =
+        Math.floor(kampSekunder / 60);
+
+    const sekunder =
+        kampSekunder % 60;
+
+    document.getElementById(
+        "kampKlokke"
+    ).textContent =
+        `${String(minutter).padStart(2,"0")}:${String(sekunder).padStart(2,"0")}`;
+
+    sendKampklokkeTilPublikum();
+}
+
+function kontrollerKampstatus() {
+
+    const omgangSekunder =
+        omgangLengde * 60;
+
+    /* Slutt 1. omgang */
+
+    if (
+    kampFase === "omgang1" &&
+    kampSekunder >= omgangSekunder
+) {
+
+    // Stopper kampklokken
+    clearInterval(klokkeIntervall);
+    kampKjører = false;
+
+    // Spiller horn umiddelbart
+    spillLyd(
+        LYDER.horn);
+
+    settKampstatus("OMGANG FERDIG");
+
+    leggTilLogg(
+        "1. omgang ferdig"
+    );
+
+    // Venter 3 sekunder før pause starter
+    setTimeout(() => {
+
+        kampFase = "pause";
+
+        kampSekunder =
+            pauseLengde * 60;
+
+        document
+            .getElementById(
+                "startOmgang2Btn"
+            )
+            .style.display =
+            "block";
+
+        settKampstatus("PAUSE");
+
+        oppdaterKlokkeVisning();
+
+        startKlokke();
+
+    }, 3000);
+
+    return;
+}
+
+    /* Slutt pause */
+
+    if (
+    kampFase === "pause" &&
+    kampSekunder <= 0
+) {
+
+    kampSekunder = 0;
+
+    stoppKlokke();
+
+    document
+        .getElementById(
+            "startOmgang2Btn"
+        )
+        .style.display =
+        "none";
+
+    kampFase = "klarForOmgang2";
+
+    settKampstatus("KLAR FOR 2. OMGANG");
+
+    oppdaterKlokkeVisning();
+
+    leggTilLogg(
+        "Pause ferdig"
+    );
+
+    return;
+}
+/* Slutt 2. omgang */
+if (
+    kampFase === "omgang2" &&
+    kampSekunder >= omgangSekunder
+) {
+
+    stoppKlokke();
+
+spillLyd(LYDER.horn);
+
+    kampFase = "ferdig";
+
+    settKampstatus("KAMP FERDIG");
+
+    leggTilLogg(
+        "Kamp avsluttet"
+    );
+
+    return;
+}
+}
+
+function settKampstatus(nyStatus) {
+
+    document
+        .getElementById("kampstatus")
+        .textContent =
+        nyStatus;
+
+    sendKampstatusTilPublikum();
+}
+/* ==========================
+   TIMEOUT
+========================== */
+
+function startTimeout(side) {
+stoppHallmusikk(
+    false,
+    false
+);
+    /* Timeout kan bare tas i en omgang */
+    if (
+        kampFase !== "omgang1" &&
+        kampFase !== "omgang2"
+    ) {
+        alert(
+            "Timeout kan bare tas mens en omgang pågår."
+        );
+
+        return;
+    }
+
+    /* Unngå flere samtidige timeouter */
+    if (timeoutAktiv) {
+        return;
+    }
+
+    const omgang =
+        kampFase === "omgang1"
+            ? "omgang1"
+            : "omgang2";
+
+    /* Kontroller om laget har brukt timeouten */
+    if (timeoutBrukt[side][omgang]) {
+        alert(
+            "Laget har allerede brukt timeout i denne omgangen."
+        );
+
+        return;
+    }
+
+    timeoutAktiv = true;
+    timeoutLag = side;
+
+    timeoutBrukt[side][omgang] = true;
+
+    /* Lagre kampens tidspunkt */
+    lagretKampTid = kampSekunder;
+
+    /* Stopp ordinær kampklokke */
+    clearInterval(klokkeIntervall);
+    klokkeIntervall = null;
+    kampKjører = false;
+
+    /* Horn spilles umiddelbart */
+    spillLyd("lyd/Horn.mp3");
+
+    markerTimeout(side, omgang);
+
+    settKampstatus("TIMEOUT");
+
+const lagnavn =
+    side === "home"
+        ? document
+            .getElementById(
+                "homeName"
+            )
+            .textContent
+        : document
+            .getElementById(
+                "awayName"
+            )
+            .textContent;
+
+sendTimeoutTilPublikum(
+    "TIMEOUT<br><br>" +
+    lagnavn
+);
+
+    oppdaterTimeoutStatus(
+        side,
+        "Timeout starter om 3 sekunder"
+    );
+
+    leggTilLogg(
+        side === "home"
+            ? "Timeout hjemmelag"
+            : "Timeout bortelag"
+    );
+
+    /* Pause før nedtellingen starter */
+    timeoutForsinkelse = setTimeout(() => {
+
+        timeoutForsinkelse = null;
+
+        timeoutSekunder = 60;
+        kampSekunder = timeoutSekunder;
+
+        oppdaterKlokkeVisning();
+
+        timeoutMusikk.currentTime = 0;
+		timeoutMusikk.volume = 1;
+		
+        timeoutMusikk.play().catch(error => {
+            console.log(
+                "Kunne ikke spille timeoutmusikk:",
+                error
+            );
+        });
+
+        oppdaterTimeoutStatus(
+            side,
+            "Timeout pågår"
+        );
+
+        startTimeoutNedtelling();
+
+    }, 3000);
+}
+
+function startTimeoutNedtelling() {
+
+    clearInterval(timeoutIntervall);
+
+    timeoutIntervall = setInterval(() => {
+
+        timeoutSekunder--;
+
+        kampSekunder =
+            timeoutSekunder;
+
+        oppdaterKlokkeVisning();
+
+        /* Horn når 10 sekunder gjenstår */
+       if (timeoutSekunder === 10) {
+
+    		spillLyd("lyd/Horn.mp3");
+
+    		oppdaterTimeoutStatus(
+        		timeoutLag,
+        		"10 sekunder igjen"
+    		);
+
+}
+
+		if (timeoutSekunder === 10) {
+
+    		fadeUtTimeoutMusikk(
+       		 8000
+    		);
+
+}
+
+        /* Timeout ferdig */
+        if (timeoutSekunder <= 0) {
+
+            avsluttTimeout();
+        }
+
+    }, 1000);
+}
+	
+
+function avsluttTimeout() {
+
+    clearInterval(timeoutIntervall);
+    timeoutIntervall = null;
+
+    timeoutSekunder = 0;
+    kampSekunder = 0;
+
+    oppdaterKlokkeVisning();
+
+    /* Stopp timeoutmusikken */
+    if (!timeoutMusikk.paused) {
+    timeoutMusikk.pause();
+	}
+
+	timeoutMusikk.currentTime = 0;
+	timeoutMusikk.volume = 1;
+
+    /* Horn ved avsluttet timeout */
+spillLyd(
+    "lyd/Horn.mp3"
+);
+
+spillLyd("lyd/Horn.mp3");
+
+kampSekunder = lagretKampTid;
+oppdaterKlokkeVisning();
+
+settKampstatus("STOPPET");
+
+sendTimeoutTilPublikum("");
+
+    oppdaterTimeoutStatus(
+        timeoutLag,
+        "Timeout ferdig"
+    );
+
+    leggTilLogg(
+        "Timeout ferdig"
+    );
+
+    timeoutAktiv = false;
+    timeoutLag = null;
+
+    /*
+    Kampklokken startes ikke her.
+    Operatøren må trykke START TID.
+    */
+}
+
+function markerTimeout(side, omgang) {
+
+    let indikatorId;
+
+    if (
+        side === "home" &&
+        omgang === "omgang1"
+    ) {
+        indikatorId =
+            "timeout1Home";
+    }
+    else if (
+        side === "home" &&
+        omgang === "omgang2"
+    ) {
+        indikatorId =
+            "timeout2Home";
+    }
+    else if (
+        side === "away" &&
+        omgang === "omgang1"
+    ) {
+        indikatorId =
+            "timeout1Away";
+    }
+    else {
+        indikatorId =
+            "timeout2Away";
+    }
+
+    const indikator =
+        document.getElementById(
+            indikatorId
+        );
+
+    indikator.textContent = "●";
+    indikator.style.color = "#c75b5b";
+}
+
+function oppdaterTimeoutStatus(
+    side,
+    tekst
+) {
+
+    const statusId =
+        side === "home"
+            ? "timeoutStatusHome"
+            : "timeoutStatusAway";
+
+    document
+        .getElementById(statusId)
+        .textContent = tekst;
+}
+
+/* ==========================
+   UTVISNINGER
+========================== */
+
+function registrerUtvisning(side) {
+stoppHallmusikk(
+    false,
+    false
+);
+
+spillMusikkKategori(
+    "utvisning",
+    null
+);
+
+    if (
+        kampFase !== "omgang1" &&
+        kampFase !== "omgang2"
+    ) {
+
+        alert(
+            "Utvisning kan bare registreres under kamp."
+        );
+
+        return;
+    }
+
+    if (kampKjører) {
+
+        stoppKlokke();
+
+    }
+
+    utvisningSide = side;
+
+    document
+        .getElementById(
+            "utvisningSpiller"
+        )
+        .value = "";
+
+	document.getElementById(
+    		"direkteRodtKort"
+		).checked = false;
+
+    document
+        .getElementById(
+            "utvisningModal"
+        )
+        .style.display = "block";
+
+    setTimeout(() => {
+
+        document
+            .getElementById(
+                "utvisningSpiller"
+            )
+            .focus();
+
+    }, 50);
+}
+function bekreftUtvisning() {
+    const nummerInput =
+        document
+            .getElementById(
+                "utvisningSpiller"
+            )
+            .value
+            .trim();
+
+    const direkteRodtKort =
+        document
+            .getElementById(
+                "direkteRodtKort"
+            )
+            .checked;
+
+    /*
+    Kontroller at spillernummer er angitt før
+    spillerNokkel opprettes.
+    */
+    if (!nummerInput) {
+        alert(
+            "Angi spillernummer."
+        );
+
+        return;
+    }
+
+    /*
+    Normaliserer for eksempel 08 til 8, slik at samme
+    spiller ikke kan registreres under ulike skrivemåter.
+    */
+    const nummerVerdi =
+        Number(nummerInput);
+
+    if (
+        !Number.isInteger(nummerVerdi) ||
+        nummerVerdi < 1 ||
+        nummerVerdi > 999
+    ) {
+        alert(
+            "Angi et gyldig spillernummer mellom 1 og 999."
+        );
+
+        return;
+    }
+
+    const nummer =
+        String(nummerVerdi);
+
+    /*
+    Nøkkelen skiller mellom samme spillernummer
+    på hjemme- og bortelag.
+    */
+    const spillerNokkel =
+        utvisningSide + "_" + nummer;
+
+    /*
+    En spiller med rødt kort skal være sperret
+    resten av kampen, også etter at utvisningstiden
+    er ferdig eller kortet er fjernet manuelt.
+    */
+    if (
+        spillereMedRodtKort.has(
+            spillerNokkel
+        )
+    ) {
+        alert(
+            `Spiller #${nummer} har rødt kort og kan ikke registreres med ny utvisning.`
+        );
+
+        leggTilLogg(
+            `Avvist utvisning: spiller #${nummer} har rødt kort`
+        );
+
+        return;
+    }
+
+    /*
+    Hindrer samtidig aktiv utvisning på samme spiller.
+    */
+    const alleredeUtvist =
+        aktiveUtvisninger.some(
+            utvisning =>
+                utvisning.spiller === nummer &&
+                utvisning.side === utvisningSide
+        );
+
+    if (alleredeUtvist) {
+        alert(
+            `Spiller #${nummer} har allerede en aktiv utvisning.`
+        );
+
+        return;
+    }
+
+    if (
+        !utvisningerPerSpiller[
+            spillerNokkel
+        ]
+    ) {
+        utvisningerPerSpiller[
+            spillerNokkel
+        ] = 0;
+    }
+
+    utvisningerPerSpiller[
+        spillerNokkel
+    ]++;
+
+    const antallUtvisninger =
+        utvisningerPerSpiller[
+            spillerNokkel
+        ];
+
+    const tredjeUtvisning =
+        antallUtvisninger >= 3;
+
+    /*
+    Spilleren får rødt kort enten ved direkte rødt
+    eller ved tredje utvisning.
+    */
+    const harRodtKort =
+        direkteRodtKort ||
+        tredjeUtvisning;
+
+    if (harRodtKort) {
+        spillereMedRodtKort.add(
+            spillerNokkel
+        );
+    }
+
+    if (tredjeUtvisning) {
+        alert(
+            `Spiller #${nummer} har nå fått sin tredje utvisning og er registrert med rødt kort.`
+        );
+
+        leggTilLogg(
+            `⚠ Tredje utvisning på #${nummer} - rødt kort`
+        );
+    }
+
+    const nyUtvisning = {
+    id: nesteUtvisningId,
+    side: utvisningSide,
+    spiller: nummer,
+    spillerNokkel: spillerNokkel,
+    sekunder: utvisningLengdeSekunder,
+    direkteRodtKort: direkteRodtKort,
+    tredjeUtvisning: tredjeUtvisning,
+    harRodtKort: harRodtKort
+    };
+
+    nesteUtvisningId++;
+
+    aktiveUtvisninger.push(
+        nyUtvisning
+    );
+
+    if (direkteRodtKort) {
+        leggTilLogg(
+            `Direkte rødt kort #${nummer}`
+        );
+    }
+    else if (!tredjeUtvisning) {
+        leggTilLogg(
+            `Utvisning #${nummer}`
+        );
+    }
+
+    oppdaterUtvisningVisning();
+    sendUtvisningerTilPublikum();
+    lukkUtvisningModal();
+}
+function lukkUtvisningModal() {
+
+    document
+        .getElementById(
+            "utvisningModal"
+        )
+        .style.display = "none";
+}
+function oppdaterUtvisningVisning() {
+
+    byggUtvisningListe(
+        "home",
+        "utvisningListeHome",
+        "utvisningStatusHome"
+    );
+
+    byggUtvisningListe(
+        "away",
+        "utvisningListeAway",
+        "utvisningStatusAway"
+    );
+}
+
+function byggUtvisningListe(
+    side,
+    listeId,
+    statusId
+) {
+
+    const liste =
+        document.getElementById(
+            listeId
+        );
+
+    const status =
+        document.getElementById(
+            statusId
+        );
+
+    const utvisninger =
+        aktiveUtvisninger.filter(
+            utvisning =>
+                utvisning.side === side
+        );
+
+    liste.innerHTML = "";
+
+    if (utvisninger.length === 0) {
+
+        status.textContent =
+            "Ingen aktive utvisninger";
+
+        return;
+    }
+
+    status.textContent =
+        utvisninger.length === 1
+            ? "1 aktiv utvisning"
+            : utvisninger.length +
+              " aktive utvisninger";
+
+    utvisninger.forEach(
+        utvisning => {
+
+            const minutter =
+                Math.floor(
+                    utvisning.sekunder / 60
+                );
+
+            const sekunder =
+                utvisning.sekunder % 60;
+
+            const tid =
+                String(minutter)
+                    .padStart(2, "0") +
+                ":" +
+                String(sekunder)
+                    .padStart(2, "0");
+
+            const varslingKlasse =
+    utvisning.sekunder <= 15
+        ? "utvisning-snart-ferdig"
+        : "";
+
+const rodtKortVarsel =
+    utvisning.harRodtKort
+        ? "utvisning-rodtkort"
+        : "";
+
+liste.insertAdjacentHTML(
+    "beforeend",
+    `
+   <div class="
+    utvisning-kort
+    ${varslingKlasse}
+    ${rodtKortVarsel}">
+
+                    <div class="utvisning-spiller">
+    #${utvisning.spiller}
+	${utvisning.harRodtKort ? " 🟥" : ""}
+    (${utvisningerPerSpiller[utvisning.spillerNokkel]})
+</div>
+
+                    <div class="utvisning-tid">
+                        ${tid}
+                    </div>
+
+                    <button
+                        class="utvisning-fjern-btn"
+                        onclick="fjernUtvisningManuelt(${utvisning.id})">
+
+                        FJERN UTVISNING
+
+                    </button>
+
+                </div>
+                `
+            );
+        }
+    );
+}
+
+function tellNedUtvisninger() {
+
+    if (
+        aktiveUtvisninger.length === 0
+    ) {
+        return;
+    }
+
+    aktiveUtvisninger.forEach(
+        utvisning => {
+
+            if (utvisning.sekunder > 0) {
+                utvisning.sekunder--;
+            }
+
+        }
+    );
+
+    const ferdigeUtvisninger =
+        aktiveUtvisninger.filter(
+            utvisning =>
+                utvisning.sekunder <= 0
+        );
+
+    ferdigeUtvisninger.forEach(
+        utvisning => {
+
+            const lag =
+                utvisning.side === "home"
+                    ? "hjemmelag"
+                    : "bortelag";
+
+            leggTilLogg(
+                "Utvisning ferdig: spiller " +
+                utvisning.spiller +
+                ", " +
+                lag
+            );
+
+        }
+    );
+
+    aktiveUtvisninger =
+        aktiveUtvisninger.filter(
+            utvisning =>
+                utvisning.sekunder > 0
+        );
+
+    oppdaterUtvisningVisning();
+    sendUtvisningerTilPublikum();
+}
+
+function fjernUtvisningManuelt(id) {
+    const utvisning =
+        aktiveUtvisninger.find(
+            element =>
+                element.id === id
+        );
+
+    if (!utvisning) {
+        return;
+    }
+
+    const spillerNokkel =
+        utvisning.spillerNokkel;
+
+   const harRodtKort =
+    utvisning.harRodtKort === true ||
+    spillereMedRodtKort.has(
+        spillerNokkel
+    );
+
+    /*
+    Rødt kort krever en ekstra bekreftelse fordi
+    handlingen også opphever spillerens sperre.
+    */
+    if (harRodtKort) {
+        const bekreftet =
+            window.confirm(
+                `Spiller #${utvisning.spiller} er registrert med rødt kort.\n\n` +
+                `Vil du kansellere det røde kortet og gjøre spilleren tilgjengelig igjen?`
+            );
+
+        if (!bekreftet) {
+            return;
+        }
+    }
+
+    /*
+    Fjern det aktive utvisningskortet.
+    */
+    aktiveUtvisninger =
+        aktiveUtvisninger.filter(
+            element =>
+                element.id !== id
+        );
+
+    /*
+    En manuelt kansellert utvisning skal ikke telle
+    i spillerens totale antall utvisninger.
+    */
+    if (
+        utvisningerPerSpiller[
+            spillerNokkel
+        ] > 0
+    ) {
+        utvisningerPerSpiller[
+            spillerNokkel
+        ]--;
+    }
+
+    /*
+    Fjern nøkkelen helt dersom spilleren ikke lenger
+    har noen registrerte utvisninger.
+    */
+    if (
+        utvisningerPerSpiller[
+            spillerNokkel
+        ] <= 0
+    ) {
+        delete utvisningerPerSpiller[
+            spillerNokkel
+        ];
+    }
+
+    /*
+    Hvis det kansellerte kortet ga rødt kort,
+    fjernes spillerens kampvarige sperre.
+    */
+    if (harRodtKort) {
+        spillereMedRodtKort.delete(
+            spillerNokkel
+        );
+
+        leggTilLogg(
+            `Rødt kort kansellert: spiller #${utvisning.spiller}`
+        );
+    }
+    else {
+        leggTilLogg(
+            `Utvisning kansellert: spiller #${utvisning.spiller}`
+        );
+    }
+
+    oppdaterUtvisningVisning();
+    sendUtvisningerTilPublikum();
+}
+
+/*===========================
+AVBRYT PAUSE
+===========================*/
+function avsluttPauseTidlig() {
+
+    stoppKlokke();
+
+    kampSekunder = 0;
+
+    kampFase = "klarForOmgang2";
+
+    settKampstatus(
+          "KLAR FOR 2. OMGANG"
+          );
+
+    document
+        .getElementById(
+            "startOmgang2Btn"
+        )
+        .style.display =
+        "none";
+
+    oppdaterKlokkeVisning();
+
+    leggTilLogg(
+        "Pause avsluttet manuelt"
+    );
+}
+
+/*===========================
+LUKK POPUPVINDUER MED ESC
+===========================*/
+
+document.addEventListener("keydown", function(event) {
+
+    if (event.key === "Escape") {
+
+        lukkLagvelger();
+	lukkArsklasseModal();
+	lukkResetModal();
+	lukkUtvisningModal();
+
+    }
+
+});
+
+function fjernLagvalg() {
+
+    if (aktivSide === "home") {
+
+        document
+            .getElementById("homeLogo")
+            .src =
+            "logoer/default.png";
+
+        document
+            .getElementById("homeName")
+            .textContent =
+            "Velg hjemmelag";
+
+    } else {
+
+        document
+            .getElementById("awayLogo")
+            .src =
+            "logoer/default.png";
+
+        document
+            .getElementById("awayName")
+            .textContent =
+            "Velg bortelag";
+    }
+
+    lukkLagvelger();
+}
+
+/*=====================
+STATUSFELT
+=====================*/
+function leggTilLogg(tekst) {
+
+    document
+        .getElementById(
+            "sisteHendelse"
+        ).textContent = tekst;
+
+    const logg =
+        document.getElementById(
+            "hendelsesLogg"
+        );
+
+    const tidspunkt =
+        new Date()
+        .toLocaleTimeString(
+            "no-NO",
+            {
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit"
+            }
+        );
+
+    logg.insertAdjacentHTML(
+        "afterbegin",
+        `
+        <div class="logg-rad">
+            ${tidspunkt} - ${tekst}
+        </div>
+        `
+    );
+}
+
+/*===================
+TILBAKESTILL ALT
+===================*/
+function apneResetModal() {
+
+    document
+        .getElementById(
+            "resetModal"
+        )
+        .style.display = "block";
+}
+
+function lukkResetModal() {
+
+    document
+        .getElementById(
+            "resetModal"
+        )
+        .style.display = "none";
+}
+
+function bekreftReset() {
+
+    /* Stopp klokken */
+
+    clearInterval(klokkeIntervall);
+
+    kampKjører = false;
+
+    /* Nullstill tid */
+
+    kampSekunder = 0;
+
+    oppdaterKlokkeVisning();
+
+    /* Nullstill kampstatus */
+kampFase = "ikkeStartet";
+
+valgtArsklasse = null;
+omgangLengde = 0;
+pauseLengde = 10;
+
+document
+    .getElementById("aktivArsklasse")
+    .textContent =
+    "Ingen årsklasse valgt";
+
+document
+    .getElementById("aktivArsklasse")
+    .style.color =
+    "#c75b5b";
+
+document
+    .getElementById("omgangLengde")
+    .textContent =
+    "--";
+
+settKampstatus("IKKE STARTET");
+
+document
+    .getElementById("startOmgang2Btn")
+    .style.display = "none";
+
+    /* Nullstill score */
+
+    hjemmeScore = 0;
+    borteScore = 0;
+
+    oppdaterScore();
+
+    /* Nullstill lag */
+
+    document
+        .getElementById("homeLogo")
+        .src = "logoer/default.png";
+
+    document
+        .getElementById("homeName")
+        .textContent = "Velg hjemmelag";
+
+    document
+        .getElementById("awayLogo")
+        .src = "logoer/default.png";
+
+    document
+        .getElementById("awayName")
+        .textContent = "Velg bortelag";
+
+    /* Nullstill logg */
+
+    document
+        .getElementById("hendelsesLogg")
+        .innerHTML = "";
+
+    document
+        .getElementById("sisteHendelse")
+        .textContent = "Ingen";
+
+    settKampstatus("IKKE STARTET");
+
+/* Nullstill timeout */
+clearInterval(timeoutIntervall);
+clearTimeout(timeoutForsinkelse);
+
+timeoutIntervall = null;
+timeoutForsinkelse = null;
+
+timeoutMusikk.pause();
+timeoutMusikk.currentTime = 0;
+
+timeoutAktiv = false;
+timeoutSekunder = 60;
+lagretKampTid = 0;
+timeoutLag = null;
+
+timeoutBrukt = {
+    home: {
+        omgang1: false,
+        omgang2: false
+    },
+    away: {
+        omgang1: false,
+        omgang2: false
+    }
+};
+
+document
+    .getElementById("timeout1Home")
+    .textContent = "○";
+
+document
+    .getElementById("timeout2Home")
+    .textContent = "○";
+
+document
+    .getElementById("timeout1Away")
+    .textContent = "○";
+
+document
+    .getElementById("timeout2Away")
+    .textContent = "○";
+
+document
+    .getElementById("timeout1Home")
+    .style.color = "";
+
+document
+    .getElementById("timeout2Home")
+    .style.color = "";
+
+document
+    .getElementById("timeout1Away")
+    .style.color = "";
+
+document
+    .getElementById("timeout2Away")
+    .style.color = "";
+
+document
+    .getElementById("timeoutStatusHome")
+    .textContent =
+    "Ingen aktiv timeout";
+
+document
+    .getElementById("timeoutStatusAway")
+    .textContent =
+    "Ingen aktiv timeout";
+
+/* Nullstill utvisninger og røde kort */
+aktiveUtvisninger = [];
+nesteUtvisningId = 1;
+utvisningerPerSpiller = {};
+spillereMedRodtKort.clear();
+
+oppdaterUtvisningVisning();
+/* Stopp musikk og hall */
+stoppHallmusikk(false);
+
+document
+    .querySelectorAll(".team-card")
+    .forEach(kort => {
+
+        kort.classList.remove(
+            "locked"
+        );
+
+    });
+
+document
+    .getElementById(
+        "arsklasseBtn"
+    )
+    .disabled = false;
+	
+document
+    .getElementById(
+        "arsklasseBtn"
+    )
+    .classList.remove(
+        "arsklasse-lock"
+    );
+
+oppdaterPublikumsskjerm();
+
+leggTilLogg(
+    "Kamp tilbakestilt"
+);
+
+    lukkResetModal();
+}
+
+function lukkResetModal() {
+
+    document
+        .getElementById(
+            "resetModal"
+        )
+        .style.display = "none";
+}
+
+
+/*=====================
+TRYKK UTENFOR VINDU LUKKER VINDU
+=====================*/
+
+window.addEventListener("click", function(event) {
+
+    const lagModal =
+        document.getElementById(
+            "lagModal"
+        );
+
+    const resetModal =
+        document.getElementById(
+            "resetModal"
+        );
+
+    const arsklasseModal =
+    	document.getElementById(
+       	     "arsklasseModal"
+	 );
+
+    const utvisningModal =
+    	document.getElementById(
+        	     "utvisningModal"
+	 );
+
+    if (event.target === lagModal) {
+
+        lukkLagvelger();
+
+    }
+
+    if (event.target === resetModal) {
+
+        lukkResetModal();
+
+    }
+    if (event.target === arsklasseModal)  {
+
+	lukkArsklasseModal();
+
+    }
+    if (event.target === utvisningModal)  {
+
+  	 lukkUtvisningModal();
+          }
+
+
+});
+
+/*=====================
+VELG ÅRSKLASSE
+=====================*/
+function apneArsklasseModal() {
+
+    if (
+        kampFase !== "ikkeStartet"
+    ) {
+
+        leggTilLogg(
+            "Årsklasse er låst etter kampstart"
+        );
+
+        return;
+    }
+
+    document
+        .getElementById(
+            "arsklasseModal"
+        )
+        .style.display = "block";
+
+    byggArsklasseListe();
+
+}
+
+function lukkArsklasseModal() {
+
+    document
+        .getElementById(
+            "arsklasseModal"
+        )
+        .style.display = "none";
+	document.body.focus();
+}
+
+function byggArsklasseListe() {
+    const liste =
+        document.getElementById(
+            "arsklasseListe"
+        );
+
+    liste.innerHTML = "";
+
+    arsklasser
+        .filter(klasse =>
+            DEBUG || !klasse.debug
+        )
+        .forEach(klasse => {
+
+            liste.innerHTML += `
+                <div
+                    class="lag-rad"
+                    onclick="velgArsklasse('${klasse.navn}')">
+                    ${klasse.navn}
+                </div>
+            `;
+        });
+}
+function velgArsklasse(navn) {
+
+    const klasse =
+        arsklasser.find(
+            k => k.navn === navn
+        );
+
+    valgtArsklasse = navn;
+
+    omgangLengde =
+        klasse.omgangLengde;
+
+    pauseLengde =
+        klasse.pauseLengde;
+
+    document
+	.getElementById(
+	    "aktivArsklasse"
+	    )
+	.textContent = navn;
+
+    document
+	.getElementById("aktivArsklasse")
+	.style.color = "var(--bla)";
+
+    document
+        .getElementById(
+            "omgangLengde"
+        )
+    
+    .textContent =
+    klasse.omgangLengde + " min";
+
+    leggTilLogg(
+        "Årsklasse valgt: " +
+        navn
+    );
+
+    lukkArsklasseModal();
+}
+
+/*=====================
+SPILL LYD
+=====================*/
+function spillLyd(filnavn) {
+
+    const lyd = new Audio(filnavn);
+
+    lyd.play().catch(error => {
+        console.log(
+            "Kunne ikke spille lyd:",
+            error
+        );
+    });
+}
+
+function spillMaalmusikk() {
+
+    spillMusikkKategori(
+        "maal",
+        null
+    );
+
+}
+/* ==========================
+   MUSIKK OG HALL
+========================== */
+
+function spillMusikkKategori(
+    kategori,
+    knapp
+) {
+
+    const spilleliste =
+        lydbibliotek[kategori];
+
+    if (
+        !spilleliste ||
+        spilleliste.length === 0
+    ) {
+        leggTilLogg(
+            "Ingen lydfiler i kategorien " +
+            kategori
+        );
+
+        return;
+    }
+
+    /*
+    Stopper eventuell annen hallmusikk før
+    et nytt spor starter.
+    */
+    stoppHallmusikk(false,
+	false
+	);
+
+  if (
+    nesteSporIndeks[kategori] ===
+    undefined
+) {
+    nesteSporIndeks[kategori] = 0;
+}
+
+const spor =
+    spilleliste[
+        nesteSporIndeks[kategori]
+    ];
+
+nesteSporIndeks[kategori]++;
+
+if (
+    nesteSporIndeks[kategori] >=
+    spilleliste.length
+) {
+    nesteSporIndeks[kategori] = 0;
+}
+
+    aktivHallKategori = kategori;
+    aktivHallKnapp = knapp;
+
+    aktivHallLyd =
+        new Audio(spor.fil);
+
+    aktivHallLyd.loop = false;
+
+    markerAktivMusikkKnapp(
+        knapp,
+        true
+    );
+
+    aktivHallLyd.addEventListener(
+        "loadedmetadata",
+        function startValgtSpor() {
+
+            const startTid =
+                Number.isFinite(spor.start)
+                    ? spor.start
+                    : 0;
+
+            aktivHallLyd.currentTime =
+                startTid;
+
+            startFadeInn(
+                aktivHallLyd,
+                spor
+            );
+
+            aktivHallLyd.play()
+                .then(() => {
+
+                    leggTilLogg(
+                        "Spiller: " +
+                        spor.navn
+                    );
+
+                    planleggStopp(
+                        aktivHallLyd,
+                        spor
+                    );
+
+                })
+                .catch(error => {
+
+                    console.log(
+                        "Kunne ikke spille musikk:",
+                        error
+                    );
+
+                    leggTilLogg(
+                        "Kunne ikke spille: " +
+                        spor.navn
+                    );
+
+                    ryddHallmusikk();
+                });
+        },
+        {
+            once: true
+        }
+    );
+
+    aktivHallLyd.addEventListener(
+    "ended",
+    function () {
+
+        if (
+            kontinuerligeKategorier.includes(
+                kategori
+            )
+        ) {
+
+            spillMusikkKategori(
+                kategori,
+                aktivHallKnapp
+            );
+
+            return;
+        }
+
+        ryddHallmusikk(true);
+    }
+);
+}
+
+function startFadeInn(
+    lyd,
+    spor
+) {
+
+    clearInterval(hallFadeTimer);
+
+    const sluttVolum =
+        typeof spor.volum === "number"
+            ? Math.min(
+                Math.max(spor.volum, 0),
+                1
+            )
+            : 1;
+
+    const fadeInn =
+        typeof spor.fadeIn === "number"
+            ? spor.fadeIn
+            : 0;
+
+    if (fadeInn <= 0) {
+        lyd.volume = sluttVolum;
+        return;
+    }
+
+    lyd.volume = 0;
+
+    const intervall = 50;
+
+    const antallSteg =
+        Math.max(
+            1,
+            Math.round(
+                fadeInn * 1000 / intervall
+            )
+        );
+
+    const volumPerSteg =
+        sluttVolum / antallSteg;
+
+    hallFadeTimer =
+        setInterval(() => {
+
+            if (
+                !aktivHallLyd ||
+                aktivHallLyd !== lyd
+            ) {
+                clearInterval(
+                    hallFadeTimer
+                );
+
+                return;
+            }
+
+            lyd.volume =
+                Math.min(
+                    sluttVolum,
+                    lyd.volume +
+                    volumPerSteg
+                );
+
+            if (
+                lyd.volume >= sluttVolum
+            ) {
+                clearInterval(
+                    hallFadeTimer
+                );
+
+                hallFadeTimer = null;
+            }
+
+        }, intervall);
+}
+
+function startFadeUt(
+    lyd,
+    sekunder,
+    etterFade
+) {
+
+    clearInterval(hallFadeTimer);
+
+    if (
+        !lyd ||
+        sekunder <= 0
+    ) {
+        etterFade();
+        return;
+    }
+
+    const intervall = 50;
+
+    const startVolum =
+        lyd.volume;
+
+    const antallSteg =
+        Math.max(
+            1,
+            Math.round(
+                sekunder * 1000 /
+                intervall
+            )
+        );
+
+    const volumPerSteg =
+        startVolum / antallSteg;
+
+    hallFadeTimer =
+        setInterval(() => {
+
+            if (
+                !aktivHallLyd ||
+                aktivHallLyd !== lyd
+            ) {
+                clearInterval(
+                    hallFadeTimer
+                );
+
+                return;
+            }
+
+            lyd.volume =
+                Math.max(
+                    0,
+                    lyd.volume -
+                    volumPerSteg
+                );
+
+            if (lyd.volume <= 0) {
+
+                clearInterval(
+                    hallFadeTimer
+                );
+
+                hallFadeTimer = null;
+
+                etterFade();
+            }
+
+        }, intervall);
+}
+
+function planleggStopp(
+    lyd,
+    spor
+) {
+
+    clearTimeout(hallStoppTimer);
+
+    if (
+        !Number.isFinite(spor.stopp)
+    ) {
+        return;
+    }
+
+    const fadeUt =
+        typeof spor.fadeOut === "number"
+            ? spor.fadeOut
+            : 0;
+
+    const startFadeVed =
+        Math.max(
+            lyd.currentTime,
+            spor.stopp - fadeUt
+        );
+
+    const ventetid =
+        Math.max(
+            0,
+            (
+                startFadeVed -
+                lyd.currentTime
+            ) * 1000
+        );
+
+    hallStoppTimer =
+        setTimeout(() => {
+
+            startFadeUt(
+                lyd,
+                fadeUt,
+                function () {
+
+                    if (
+                        spor.loop &&
+                        aktivHallLyd === lyd
+                    ) {
+
+                        lyd.currentTime =
+                            Number.isFinite(
+                                spor.start
+                            )
+                                ? spor.start
+                                : 0;
+
+                        startFadeInn(
+                            lyd,
+                            spor
+                        );
+
+                        lyd.play();
+
+                        planleggStopp(
+                            lyd,
+                            spor
+                        );
+
+                        return;
+                    }
+
+                    lyd.pause();
+
+                    ryddHallmusikk(true);
+                }
+            );
+
+        }, ventetid);
+}
+
+function stoppHallmusikk(
+    brukFade = true,
+    oppdaterStatus = true
+) {
+
+
+    clearTimeout(hallStoppTimer);
+    hallStoppTimer = null;
+
+    clearInterval(hallFadeTimer);
+    hallFadeTimer = null;
+
+    if (!aktivHallLyd) {
+
+    ryddHallmusikk();
+    return;
+}
+
+    const lydSomStoppes =
+        aktivHallLyd;
+
+    if (
+        brukFade &&
+        !lydSomStoppes.paused
+    ) {
+        startFadeUt(
+            lydSomStoppes,
+            1,
+            function () {
+
+                lydSomStoppes.pause();
+                lydSomStoppes.currentTime = 0;
+
+
+ryddHallmusikk();
+            }
+        );
+
+        return;
+    }
+
+    lydSomStoppes.pause();
+lydSomStoppes.currentTime = 0;
+
+ryddHallmusikk();
+}
+
+function ryddHallmusikk() {
+
+    clearTimeout(hallStoppTimer);
+    clearInterval(hallFadeTimer);
+
+    hallStoppTimer = null;
+    hallFadeTimer = null;
+
+    if (aktivHallKnapp) {
+        markerAktivMusikkKnapp(
+            aktivHallKnapp,
+            false
+        );
+    }
+
+    aktivHallLyd = null;
+    aktivHallKategori = null;
+    aktivHallKnapp = null;   
+}
+
+function markerAktivMusikkKnapp(
+    knapp,
+    aktiv
+) {
+
+    if (!knapp) {
+        return;
+    }
+
+    knapp.classList.toggle(
+        "musikk-knapp-aktiv",
+        aktiv
+    );
+}
+
+
+/*======================
+EVENTLISTENER
+======================*/
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Enter" &&
+            document.getElementById(
+                "utvisningModal"
+            ).style.display === "block"
+        ) {
+
+            bekreftUtvisning();
+
+        }
+
+    }
+);
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "F5" ||
+            (event.ctrlKey &&
+             event.key.toLowerCase() === "r")
+        ) {
+
+            event.preventDefault();
+
+            apneResetModal();
+
+        }
+
+    }
+);
+
+window.addEventListener(
+    "beforeunload",
+    function(event) {
+
+        event.preventDefault();
+
+        event.returnValue = "";
+
+    }
+);
+
+window.addEventListener(
+    "message",
+    function(event) {
+
+        if (
+            event.data &&
+            event.data.type ===
+            "fairplayFerdig"
+        ) {
+
+            if (
+                aktivHallLyd
+            ) {
+
+                aktivHallLyd.play();
+
+            }
+
+        }
+
+    }
+);
+
+/* =========================
+   HØYKONTRAST
+========================= */
+
+document
+    .getElementById("contrast")
+    .addEventListener(
+        "change",
+        function () {
+
+            document.body.classList.toggle(
+                "high-contrast",
+                this.checked
+            );
+
+        }
+    );
+
+document.addEventListener(
+    "pointerdown",
+    function() {
+
+        forsokAutomatiskPublikumsskjerm();
+
+    },
+    { once: true }
+);
+
+(async () => {
+
+    await lastInnKlubber();
+
+    await lastInnMusikk();
+
+    await cacheManglendeMusikk();
+
+})();
+
+if (
+    "serviceWorker"
+    in navigator
+) {
+
+    navigator.serviceWorker
+        .register(
+            "service-worker.js"
+        )
+        .then(() => {
+
+            console.log(
+                "Service Worker registrert"
+            );
+
+        })
+        .catch(feil => {
+
+            console.error(
+                feil
+            );
+
+        });
+
+}
+
+console.log(window.getScreenDetails);
+
+	navigator.permissions.query({
+    name: "window-management"
+})
+.then(result => {
+    console.log(result.state);
+})
+.catch(console.error);
+	
+</script>
+
+<!-- ===== TILBAKESTILL ALT ===== -->
+
+<div id="resetModal"
+     class="lag-modal">
+
+    <div class="lag-modal-content">
+
+        <h2>
+            Tilbakestill hele kampen?
+        </h2>
+
+        <p>
+
+            Alle mål, timeout,
+            utvisninger og logg
+            vil bli slettet.
+
+        </p>
+
+        <div class="reset-buttons">
+
+            <button
+                class="stop-btn"
+                onclick="bekreftReset()">
+
+                JA, NULLSTILL ALT
+
+            </button>
+
+            <button
+                class="header-button"
+                onclick="lukkResetModal()">
+
+                AVBRYT
+
+            </button>
+
+        </div>
+    </div>
+
+</div>
+
+<!-- ===== VELG ÅRSKLASSE ===== -->
+<div id="arsklasseModal"
+     class="lag-modal">
+
+    <div class="lag-modal-content">
+
+        <h2>Velg årsklasse</h2>
+
+        <div id="arsklasseListe">
+        </div>
+
+        <div class="lag-modal-footer">
+    <div></div>
+            <button
+                class="lukk-btn"
+                onclick="lukkArsklasseModal()">
+
+                LUKK
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+<!-- ===== REGISTRER UTVISNING ===== -->
+
+<div id="utvisningModal"
+     class="lag-modal">
+
+    <div class="lag-modal-content">
+
+        <h2>Registrer utvisning</h2>
+
+        <div style="margin-top:15px;">
+
+            <label for="utvisningSpiller">
+                Spillernummer
+            </label>
+
+            <input
+                type="number"
+                id="utvisningSpiller"
+                min="1"
+                max="999"
+                style="
+                    width:100%;
+                    padding:12px;
+                    margin-top:8px;
+                    font-size:20px;
+                ">
+		        </div>
+<div style="margin-top:15px;">
+    <label>
+        <input
+            type="checkbox"
+            id="direkteRodtKort">
+        Direkte rødt kort
+    </label>
+</div>
+		
+        <div class="lag-modal-footer">
+
+            <div></div>
+
+            <button
+                class="lukk-btn"
+                onclick="bekreftUtvisning()">
+
+                REGISTRER
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+</body>
+</html>
