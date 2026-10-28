@@ -1767,7 +1767,7 @@ body.high-contrast .toolbar-link:hover{
 LYDER
 ==================*/
 const LYDER = {
-    horn: "lyd/Horn2.wav"
+    horn: "lyd/Horn2.mp3"
 };
 let lydbibliotek = {};
 /*==================
@@ -3001,7 +3001,7 @@ stoppHallmusikk(
     kampKjører = false;
 
     /* Horn spilles umiddelbart */
-    spillLyd("lyd/Horn2.wav");
+    spillLyd("lyd/Horn2.mp3");
 
     markerTimeout(side, omgang);
 	visAngreTimeoutKnapp(side);
@@ -3082,7 +3082,7 @@ function startTimeoutNedtelling() {
         /* Horn når 10 sekunder gjenstår */
        if (timeoutSekunder === 10) {
 
-    		spillLyd("lyd/Horn2.wav");
+    		spillLyd("lyd/Horn2.mp3");
 
     		oppdaterTimeoutStatus(
         		timeoutLag,
