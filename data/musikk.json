@@ -28,8 +28,8 @@
 	    {"navn": "In my dreams", "fil": "lyd/Wig Wam - In My Dreams.mp3", "start": 2, "stopp": 15, "volum": 0.4, "fadeIn": 0, "fadeOut": 3, "loop": false}
         ],
     "timeout": [
-        { "navn": "Snakke litt", "fil": "lyd/Snakke litt.mp3", "start": 0, "stopp": 33, "volum": 0.7, "fadeIn": 0, "fadeOut": 0, "loop": true},
-	    { "navn": "Bear necessities", "fil": "lyd/Disney-The bare necessities (The jungle book).mp3", "start": 40, "stopp": 108, "volum": 0.7, "fadeIn": 1, "fadeOut": 3, "loop": false}
+        { "navn": "Snakke litt", "fil": "lyd/Snakke litt.mp3", "start": 0, "stopp": 33, "volum": 0.4, "fadeIn": 0, "fadeOut": 0, "loop": true},
+	    { "navn": "Bear necessities", "fil": "lyd/Disney-The bare necessities (The jungle book).mp3", "start": 40, "stopp": 108, "volum": 0.4, "fadeIn": 1, "fadeOut": 3, "loop": false}
         ],
     "utvisning": [
         {"navn": "Oops I did it again", "fil": "lyd/Britney Spears - Oops I Did It Again.mp3", "start": 101,"stopp": 113, "volum": 0.4, "fadeIn": 1, "fadeOut": 3, "loop": false},
