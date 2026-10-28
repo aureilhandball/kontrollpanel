@@ -68,7 +68,7 @@
 	    {"navn": "80s energy", "fil": "lyd/Best 80s MIX Energy Songs  Rock, Dance, and Pop Legends.mp3", "start": 0, "volum": 0.6, "fadeIn": 0, "fadeOut": 3, "loop": false}
         ],
     "innmarsj": [
-        { "navn": "Eye of the tiger", "fil": "lyd/Survivor - Eye Of the Tiger.mp3", "start": 0, "stopp": 120, "volum": 1, "fadeIn": 0, "fadeOut": 0, "loop": false},
-        { "navn": "Thunderstruck", "fil": "lyd/ACDC - Thunderstruck (Official Video).mp3", "start": 0, "stopp": 120, "volum": 1, "fadeIn": 0, "fadeOut": 0, "loop": false}
+        { "navn": "Eye of the tiger", "fil": "lyd/Survivor - Eye Of the Tiger.mp3", "start": 0, "stopp": 120, "volum": 0.6, "fadeIn": 0, "fadeOut": 0, "loop": false},
+        { "navn": "Thunderstruck", "fil": "lyd/ACDC - Thunderstruck (Official Video).mp3", "start": 0, "stopp": 120, "volum": 0.6, "fadeIn": 0, "fadeOut": 0, "loop": false}
         ]
     }
