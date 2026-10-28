@@ -1459,11 +1459,9 @@ body.high-contrast .toolbar-link:hover{
 <button
     id="startOmgang2Btn"
     class="pause-avslutt-btn"
-    onclick="avsluttPauseTidlig()"
+    onclick="handterSentralAvsluttKnapp()"
     style="display:none;">
-
     KLAR TIL Å STARTE 2. OMGANG
-
 </button>
         <div class="button-grid">
 
@@ -2887,6 +2885,27 @@ function settKampstatus(nyStatus) {
 /* ==========================
    TIMEOUT
 ========================== */
+function visAvsluttTimeoutKnapp() {
+    const knapp = document.getElementById(
+        "startOmgang2Btn"
+    );
+
+    knapp.textContent = "Avslutt timeout - klar til å fortsette kampen";
+    knapp.style.display = "block";
+}
+
+function skjulAvsluttTimeoutKnapp() {
+    const knapp = document.getElementById(
+        "startOmgang2Btn"
+    );
+
+    knapp.style.display = "none";
+    knapp.textContent =
+        "KLAR TIL Å STARTE 2. OMGANG";
+}
+	
+	
+	
 function visAngreTimeoutKnapp(side) {
     const knappId =
         side === "home"
@@ -3004,8 +3023,9 @@ stoppHallmusikk(
     spillLyd("lyd/Horn2.mp3");
 
     markerTimeout(side, omgang);
-	visAngreTimeoutKnapp(side);
-    settKampstatus("TIMEOUT");
+visAngreTimeoutKnapp(side);
+visAvsluttTimeoutKnapp();
+settKampstatus("TIMEOUT");
 
 const lagnavn =
     side === "home"
@@ -3153,11 +3173,12 @@ function angreTimeout() {
     timeoutOmgang = null;
 
     skjulAngreTimeoutKnapper();
+skjulAvsluttTimeoutKnapp();
 
-    oppdaterTimeoutStatus(
-        avbruttLag,
-        "Timeout angret"
-    );
+oppdaterTimeoutStatus(
+    avbruttLag,
+    "Timeout angret"
+);
 
     settKampstatus("STOPPET");
     sendTimeoutTilPublikum("");
@@ -3210,11 +3231,12 @@ function avsluttTimeout() {
     timeoutOmgang = null;
 
     skjulAngreTimeoutKnapper();
+skjulAvsluttTimeoutKnapp();
 
-    /*
-    Kampklokken startes ikke her.
-    Operatøren må trykke START TID.
-    */
+/*
+Kampklokken startes ikke her.
+Operatøren må trykke START TID.
+*/
 }
 
 function markerTimeout(side, omgang) {
@@ -3279,11 +3301,6 @@ function registrerUtvisning(side) {
 stoppHallmusikk(
     false,
     false
-);
-
-spillMusikkKategori(
-    "utvisning",
-    null
 );
 
     if (
@@ -3777,9 +3794,22 @@ function fjernUtvisningManuelt(id) {
 }
 
 /*===========================
-AVBRYT PAUSE
+AVBRYT PAUSE ELLER TIMEOUT
 ===========================*/
-function avsluttPauseTidlig() {
+function handterSentralAvsluttKnapp() {
+    if (timeoutAktiv) {
+        avsluttTimeout();
+        return;
+    }
+
+    if (kampFase === "pause") {
+        avsluttPauseTidlig();
+    }
+}
+	
+	
+	
+	function avsluttPauseTidlig() {
 
     stoppKlokke();
 
@@ -3947,9 +3977,7 @@ document
 
 settKampstatus("IKKE STARTET");
 
-document
-    .getElementById("startOmgang2Btn")
-    .style.display = "none";
+skjulAvsluttTimeoutKnapp();
 
     /* Nullstill score */
 
