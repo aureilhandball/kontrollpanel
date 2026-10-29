@@ -1255,19 +1255,28 @@ if (
 
 }
 
-	// ============================================================
+// ============================================================
 // REKLAMEDEL AV SKJERMEN
 // ============================================================
 
-// Inneholder reklamene som lastes fra data/reklame.json.
+// Inneholder alle reklamer som lastes fra reklame.json.
 let reklamer = [];
 
+// Inneholder bare aktive reklamer som kan vises under kamp.
+let kampReklamer = [];
 
-/**
- * Laster reklamedata fra data/reklame.json.
- * Hvis lasting mislykkes, settes reklamelisten til tom slik
- * at resten av publikumsskjermen kan fortsette å fungere.
- */
+// Holder rede på hvilken kampreklame som vises.
+let kampReklameIndeks = 0;
+
+// Inneholder ID-en til setTimeout som styrer rotasjonen.
+// Vi trenger denne for å kunne stoppe en pågående rotasjon.
+let reklameTimer = null;
+
+
+// ------------------------------------------------------------
+// LASTER REKLAMEDATA
+// ------------------------------------------------------------
+
 async function lastReklamer() {
     try {
         console.log("Laster reklamer fra data/reklame.json...");
@@ -1293,47 +1302,286 @@ async function lastReklamer() {
         reklamer = data.reklamer;
 
         console.log("Reklamedata lastet:", data);
-        console.log("Antall reklamer:", reklamer.length);
-        console.log("Reklameliste:", reklamer);
-		if (reklamer.length > 0) {
-    visTestReklame(reklamer[0]);
-}
+        console.log("Antall reklamer totalt:", reklamer.length);
+
+        klargjorKampReklamer();
 
     } catch (error) {
         reklamer = [];
+        kampReklamer = [];
+
+        stoppReklameRotasjon();
+        skjulReklamefelt();
 
         console.error("Feil ved lasting av reklamer:", error);
     }
 }
 
-	function visTestReklame(reklame) {
-    const container = document.getElementById("reklameContainer");
-    const bilde = document.getElementById("reklameBilde");
+
+// ------------------------------------------------------------
+// FILTRERER OG SORTERER KAMPREKLAMENE
+// ------------------------------------------------------------
+
+function klargjorKampReklamer() {
+    kampReklamer = reklamer
+        .filter(reklame => {
+            const erAktiv = reklame.aktiv === true;
+
+            const erBilde = reklame.type === "bilde";
+
+            const harGyldigFil =
+                typeof reklame.fil === "string" &&
+                reklame.fil.trim() !== "";
+
+            const harVisningsliste =
+                Array.isArray(reklame.visning);
+
+            const kanVisesUnderKamp =
+                harVisningsliste &&
+                reklame.visning.includes("kamp");
+
+            return (
+                erAktiv &&
+                erBilde &&
+                harGyldigFil &&
+                kanVisesUnderKamp
+            );
+        })
+        .sort((a, b) => {
+            const rekkefolgeA =
+                Number.isFinite(Number(a.rekkefolge))
+                    ? Number(a.rekkefolge)
+                    : 9999;
+
+            const rekkefolgeB =
+                Number.isFinite(Number(b.rekkefolge))
+                    ? Number(b.rekkefolge)
+                    : 9999;
+
+            return rekkefolgeA - rekkefolgeB;
+        });
+
+    console.log(
+        "Aktive reklamer for kamp:",
+        kampReklamer
+    );
+
+    startKampReklamer();
+}
+
+
+// ------------------------------------------------------------
+// STARTER KAMPREKLAMENE
+// ------------------------------------------------------------
+
+function startKampReklamer() {
+    stoppReklameRotasjon();
+
+    kampReklameIndeks = 0;
+
+    if (kampReklamer.length === 0) {
+        console.log(
+            "Ingen aktive kampreklamer. Reklamefeltet skjules."
+        );
+
+        skjulReklamefelt();
+        return;
+    }
+
+    visReklamefelt();
+    visNesteKampReklame();
+}
+
+
+// ------------------------------------------------------------
+// VISER NESTE REKLAME
+// ------------------------------------------------------------
+
+function visNesteKampReklame() {
+    if (kampReklamer.length === 0) {
+        skjulReklamefelt();
+        return;
+    }
+
+    if (kampReklameIndeks >= kampReklamer.length) {
+        kampReklameIndeks = 0;
+    }
+
+    const reklame = kampReklamer[kampReklameIndeks];
+
+    visKampReklame(reklame);
+}
+
+
+// ------------------------------------------------------------
+// VISER ÉN BESTEMT KAMPREKLAME
+// ------------------------------------------------------------
+
+function visKampReklame(reklame) {
+    const container =
+        document.getElementById("reklameContainer");
+
+    const bilde =
+        document.getElementById("reklameBilde");
 
     if (!container || !bilde) {
-        console.error("Fant ikke reklameContainer eller reklameBilde.");
+        console.error(
+            "Fant ikke reklameContainer eller reklameBilde."
+        );
+
+        stoppReklameRotasjon();
         return;
     }
 
     if (!reklame || !reklame.fil) {
-        console.error("Reklamen mangler gyldig bildefil.");
+        console.error(
+            "Reklamen mangler en gyldig bildefil."
+        );
+
+        gaaTilNesteKampReklame();
         return;
     }
 
-    bilde.src = reklame.fil;
-    bilde.alt = reklame.navn || "Reklame";
+    bilde.onload = function () {
+        visReklamefelt();
 
-    console.log("Viser testreklame:", reklame.navn);
+        console.log(
+            "Viser kampreklame:",
+            reklame.navn || reklame.id
+        );
+
+        planleggNesteKampReklame(reklame);
+    };
+
+    bilde.onerror = function () {
+        console.error(
+            "Kunne ikke laste reklamebildet:",
+            reklame.fil
+        );
+
+        gaaTilNesteKampReklame();
+    };
+
+    bilde.alt = reklame.navn || "Reklame";
+    bilde.src = reklame.fil;
 }
 
-// Starter innlasting av reklamedata når publikumssiden åpnes.
+
+// ------------------------------------------------------------
+// PLANLEGGER NESTE REKLAME
+// ------------------------------------------------------------
+
+function planleggNesteKampReklame(reklame) {
+    stoppReklameRotasjon();
+
+    if (kampReklamer.length <= 1) {
+        console.log(
+            "Kun én kampreklame. Rotasjon startes ikke."
+        );
+
+        return;
+    }
+
+    const oppgittVarighet = Number(reklame.varighet);
+
+    const varighetISekunder =
+        Number.isFinite(oppgittVarighet) &&
+        oppgittVarighet > 0
+            ? oppgittVarighet
+            : 10;
+
+    const varighetIMillisekunder =
+        varighetISekunder * 1000;
+
+    console.log(
+        `Neste reklame vises om ${varighetISekunder} sekunder.`
+    );
+
+    reklameTimer = setTimeout(() => {
+        gaaTilNesteKampReklame();
+    }, varighetIMillisekunder);
+}
+
+
+// ------------------------------------------------------------
+// GÅR VIDERE TIL NESTE KAMPREKLAME
+// ------------------------------------------------------------
+
+function gaaTilNesteKampReklame() {
+    stoppReklameRotasjon();
+
+    if (kampReklamer.length === 0) {
+        skjulReklamefelt();
+        return;
+    }
+
+    kampReklameIndeks =
+        (kampReklameIndeks + 1) % kampReklamer.length;
+
+    visNesteKampReklame();
+}
+
+
+// ------------------------------------------------------------
+// STOPPER EN EVENTUELL PÅGÅENDE TIMER
+// ------------------------------------------------------------
+
+function stoppReklameRotasjon() {
+    if (reklameTimer !== null) {
+        clearTimeout(reklameTimer);
+        reklameTimer = null;
+    }
+}
+
+
+// ------------------------------------------------------------
+// VISER OG SKJULER REKLAMEFELTET
+// ------------------------------------------------------------
+
+function visReklamefelt() {
+    const container =
+        document.getElementById("reklameContainer");
+
+    if (!container) {
+        console.error(
+            "Fant ikke reklameContainer."
+        );
+
+        return;
+    }
+
+    container.style.display = "flex";
+}
+
+
+function skjulReklamefelt() {
+    const container =
+        document.getElementById("reklameContainer");
+
+    const bilde =
+        document.getElementById("reklameBilde");
+
+    if (container) {
+        container.style.display = "none";
+    }
+
+    if (bilde) {
+        bilde.removeAttribute("src");
+        bilde.alt = "";
+    }
+}
+
+
+// ------------------------------------------------------------
+// STARTER INNLASTING AV REKLAMENE
+// ------------------------------------------------------------
+
 lastReklamer();
 
 
 // ============================================================
 // SLUTT REKLAMEDEL AV SKJERMEN
 // ============================================================
-
 </script>
 
 </body>
