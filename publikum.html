@@ -551,19 +551,10 @@ line-height: 1;
     left: 50%;
     transform: translateX(-50%);
 
-    bottom: clamp(190px, 21vh, 440px);
-
-    width: clamp(600px, 50vw, 1400px);
-    height: clamp(80px, 9vh, 180px);
-
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: clamp(8px, 0.6vw, 18px);
-
     display: flex;
     align-items: center;
     justify-content: center;
 
-    padding: clamp(8px, 1vh, 20px) clamp(20px, 2vw, 50px);
     box-sizing: border-box;
 
     overflow: hidden;
@@ -571,6 +562,36 @@ line-height: 1;
     z-index: 20;
 }
 
+#reklameContainer.reklame-kamp {
+    bottom: clamp(190px, 21vh, 440px);
+
+    width: clamp(600px, 50vw, 1400px);
+    height: clamp(80px, 9vh, 180px);
+
+    background: rgba(0, 0, 0, 0.5);
+
+    border-radius: clamp(8px, 0.6vw, 18px);
+
+    padding:
+        clamp(8px, 1vh, 20px)
+        clamp(20px, 2vw, 50px);
+}
+
+#reklameContainer.reklame-pause {
+    bottom: clamp(160px, 17vh, 360px);
+
+    width: clamp(1000px, 75vw, 2200px);
+    height: clamp(300px, 32vh, 700px);
+
+    background: rgba(0, 0, 0, 0.72);
+
+    border-radius: clamp(12px, 0.8vw, 24px);
+
+    padding:
+        clamp(20px, 2vh, 40px)
+        clamp(30px, 3vw, 80px);
+}
+	
 #reklameBilde {
     display: block;
     max-width: 100%;
@@ -1422,12 +1443,39 @@ function klargjorPauseReklamer() {
         pauseReklamer
     );
 }
+
+function settReklameModus(modus) {
+    const container =
+        document.getElementById("reklameContainer");
+
+    if (!container) {
+        console.error(
+            "Fant ikke reklameContainer."
+        );
+
+        return;
+    }
+
+    container.classList.remove(
+        "reklame-kamp",
+        "reklame-pause"
+    );
+
+    if (modus === "kamp") {
+        container.classList.add("reklame-kamp");
+    }
+
+    if (modus === "pause") {
+        container.classList.add("reklame-pause");
+    }
+}
 	
 // ------------------------------------------------------------
 // STARTER KAMPREKLAMENE
 // ------------------------------------------------------------
 
 function startKampReklamer() {
+	settReklameModus("kamp");
     stoppReklameRotasjon();
 
     kampReklameIndeks = 0;
