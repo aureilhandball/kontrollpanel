@@ -66,6 +66,7 @@ body {
     animation: testHopp 1s ease-out;
 }
 
+	
 /* Sponsorfelt */
 
 #sponsorContainer {
@@ -540,6 +541,45 @@ line-height: 1;
     flex-shrink: 0;
 }
 
+/* ============================================================
+   REKLAMEDEL AV SKJERMEN
+   ============================================================ */
+
+#reklameContainer {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 130px;
+
+    width: 70%;
+    height: 120px;
+
+    background: rgba(0, 0, 0, 0.5);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 10px 30px;
+    box-sizing: border-box;
+
+    overflow: hidden;
+    z-index: 20;
+}
+
+#reklameBilde {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+}
+
+/* ============================================================
+   SLUTT REKLAMEDEL AV SKJERMEN
+   ============================================================ */
+	
 </style>
 </head>
 
@@ -611,6 +651,11 @@ UTVIST
     src="bilder/ball.png"
     alt="maalball">
 
+	<!-- Reklamefelt -->
+ <div id="reklameContainer">
+	 <img id="reklameBilde" src="" alt="">
+ 
+ </div>
    <!-- Sponsorfelt -->
 
 <div id="sponsorContainer">
@@ -1246,6 +1291,9 @@ async function lastReklamer() {
         console.log("Reklamedata lastet:", data);
         console.log("Antall reklamer:", reklamer.length);
         console.log("Reklameliste:", reklamer);
+		if (reklamer.length > 0) {
+    visTestReklame(reklamer[0]);
+}
 
     } catch (error) {
         reklamer = [];
@@ -1254,6 +1302,25 @@ async function lastReklamer() {
     }
 }
 
+	function visTestReklame(reklame) {
+    const container = document.getElementById("reklameContainer");
+    const bilde = document.getElementById("reklameBilde");
+
+    if (!container || !bilde) {
+        console.error("Fant ikke reklameContainer eller reklameBilde.");
+        return;
+    }
+
+    if (!reklame || !reklame.fil) {
+        console.error("Reklamen mangler gyldig bildefil.");
+        return;
+    }
+
+    bilde.src = reklame.fil;
+    bilde.alt = reklame.navn || "Reklame";
+
+    console.log("Viser testreklame:", reklame.navn);
+}
 
 // Starter innlasting av reklamedata når publikumssiden åpnes.
 lastReklamer();
