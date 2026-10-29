@@ -4,7 +4,7 @@
     {
       "id": "sponsor-test-001",
       "navn": "Test sponsor",
-      "fil": "reklame/sponsorer/aure taxi hvit.png",
+      "fil": "reklame/sponsorer/lokaltaxi aure hvit.png",
       "type": "bilde",
       "visning": [
         "kamp",
