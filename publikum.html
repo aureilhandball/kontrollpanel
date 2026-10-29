@@ -1206,6 +1206,62 @@ if (
 
 }
 
+	// ============================================================
+// REKLAMEDEL AV SKJERMEN
+// ============================================================
+
+// Inneholder reklamene som lastes fra data/reklame.json.
+let reklamer = [];
+
+
+/**
+ * Laster reklamedata fra data/reklame.json.
+ * Hvis lasting mislykkes, settes reklamelisten til tom slik
+ * at resten av publikumsskjermen kan fortsette å fungere.
+ */
+async function lastReklamer() {
+    try {
+        console.log("Laster reklamer fra data/reklame.json...");
+
+        const response = await fetch("data/reklame.json", {
+            cache: "no-store"
+        });
+
+        if (!response.ok) {
+            throw new Error(
+                `Kunne ikke laste reklame.json. HTTP-status: ${response.status}`
+            );
+        }
+
+        const data = await response.json();
+
+        if (!Array.isArray(data.reklamer)) {
+            throw new Error(
+                'reklame.json inneholder ikke en gyldig "reklamer"-liste.'
+            );
+        }
+
+        reklamer = data.reklamer;
+
+        console.log("Reklamedata lastet:", data);
+        console.log("Antall reklamer:", reklamer.length);
+        console.log("Reklameliste:", reklamer);
+
+    } catch (error) {
+        reklamer = [];
+
+        console.error("Feil ved lasting av reklamer:", error);
+    }
+}
+
+
+// Starter innlasting av reklamedata når publikumssiden åpnes.
+lastReklamer();
+
+
+// ============================================================
+// SLUTT REKLAMEDEL AV SKJERMEN
+// ============================================================
 
 </script>
 
