@@ -1265,6 +1265,9 @@ let reklamer = [];
 // Inneholder bare aktive reklamer som kan vises under kamp.
 let kampReklamer = [];
 
+// Inneholder bare aktive reklamer som kan vises i pausen.
+let pauseReklamer = [];
+
 // Holder rede på hvilken kampreklame som vises.
 let kampReklameIndeks = 0;
 
@@ -1304,6 +1307,7 @@ async function lastReklamer() {
         console.log("Reklamedata lastet:", data);
         console.log("Antall reklamer totalt:", reklamer.length);
 
+		klargjorPauseReklamer();
         klargjorKampReklamer();
 
     } catch (error) {
@@ -1370,6 +1374,55 @@ function klargjorKampReklamer() {
 }
 
 
+// ------------------------------------------------------------
+// FILTRERER OG SORTERER PAUSEREKLAMENE
+// ------------------------------------------------------------
+
+function klargjorPauseReklamer() {
+    pauseReklamer = reklamer
+        .filter(reklame => {
+            const erAktiv = reklame.aktiv === true;
+
+            const erBilde = reklame.type === "bilde";
+
+            const harGyldigFil =
+                typeof reklame.fil === "string" &&
+                reklame.fil.trim() !== "";
+
+            const harVisningsliste =
+                Array.isArray(reklame.visning);
+
+            const kanVisesIPause =
+                harVisningsliste &&
+                reklame.visning.includes("pause");
+
+            return (
+                erAktiv &&
+                erBilde &&
+                harGyldigFil &&
+                kanVisesIPause
+            );
+        })
+        .sort((a, b) => {
+            const rekkefolgeA =
+                Number.isFinite(Number(a.rekkefolge))
+                    ? Number(a.rekkefolge)
+                    : 9999;
+
+            const rekkefolgeB =
+                Number.isFinite(Number(b.rekkefolge))
+                    ? Number(b.rekkefolge)
+                    : 9999;
+
+            return rekkefolgeA - rekkefolgeB;
+        });
+
+    console.log(
+        "Aktive reklamer for pause:",
+        pauseReklamer
+    );
+}
+	
 // ------------------------------------------------------------
 // STARTER KAMPREKLAMENE
 // ------------------------------------------------------------
