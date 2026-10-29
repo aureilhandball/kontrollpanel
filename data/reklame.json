@@ -13,6 +13,20 @@
       "varighet": 10,
       "aktiv": true,
       "rekkefolge": 10
+    },
+
+     {
+      "id": "sponsor-test-002",
+      "navn": "Åpen kiosk",
+      "fil": "reklame/sponsorer/redkiosk.png",
+      "type": "bilde",
+      "visning": [
+        "kamp",
+        "pause"
+      ],
+      "varighet": 5,
+      "aktiv": true,
+      "rekkefolge": 20
     }
   ]
 }
