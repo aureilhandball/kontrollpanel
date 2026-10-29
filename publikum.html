@@ -1292,6 +1292,13 @@ let pauseReklamer = [];
 // Holder rede på hvilken kampreklame som vises.
 let kampReklameIndeks = 0;
 
+// Holder rede på hvilken pausereklame som vises.
+let pauseReklameIndeks = 0;
+
+// Forteller hvilken reklamemodus som er aktiv.
+// Mulige verdier er "kamp" og "pause".
+let aktivReklameModus = "kamp";
+	
 // Inneholder ID-en til setTimeout som styrer rotasjonen.
 // Vi trenger denne for å kunne stoppe en pågående rotasjon.
 let reklameTimer = null;
@@ -1475,10 +1482,13 @@ function settReklameModus(modus) {
 // ------------------------------------------------------------
 
 function startKampReklamer() {
-	settReklameModus("kamp");
+    aktivReklameModus = "kamp";
+
     stoppReklameRotasjon();
 
     kampReklameIndeks = 0;
+
+    settReklameModus("kamp");
 
     if (kampReklamer.length === 0) {
         console.log(
@@ -1544,30 +1554,216 @@ function visKampReklame(reklame) {
     }
 
     bilde.onload = function () {
-        visReklamefelt();
+    if (aktivReklameModus !== "kamp") {
+        return;
+    }
 
-        console.log(
-            "Viser kampreklame:",
-            reklame.navn || reklame.id
-        );
+    visReklamefelt();
 
-        planleggNesteKampReklame(reklame);
-    };
+    console.log(
+        "Viser kampreklame:",
+        reklame.navn || reklame.id
+    );
+
+    planleggNesteKampReklame(reklame);
+};
 
     bilde.onerror = function () {
-        console.error(
-            "Kunne ikke laste reklamebildet:",
-            reklame.fil
-        );
+    if (aktivReklameModus !== "kamp") {
+        return;
+    }
 
-        gaaTilNesteKampReklame();
-    };
+    console.error(
+        "Kunne ikke laste reklamebildet:",
+        reklame.fil
+    );
+
+    gaaTilNesteKampReklame();
+};
 
     bilde.alt = reklame.navn || "Reklame";
     bilde.src = reklame.fil;
 }
 
 
+// ------------------------------------------------------------
+// STARTER PAUSEREKLAMENE
+// ------------------------------------------------------------
+
+function startPauseReklamer() {
+    aktivReklameModus = "pause";
+
+    stoppReklameRotasjon();
+
+    pauseReklameIndeks = 0;
+
+    settReklameModus("pause");
+
+    if (pauseReklamer.length === 0) {
+        console.log(
+            "Ingen aktive pausereklamer. Reklamefeltet skjules."
+        );
+
+        skjulReklamefelt();
+        return;
+    }
+
+    visReklamefelt();
+    visNestePauseReklame();
+}
+
+// ------------------------------------------------------------
+// VISER NESTE PAUSEREKLAME
+// ------------------------------------------------------------
+
+function visNestePauseReklame() {
+    if (aktivReklameModus !== "pause") {
+        return;
+    }
+
+    if (pauseReklamer.length === 0) {
+        skjulReklamefelt();
+        return;
+    }
+
+    if (pauseReklameIndeks >= pauseReklamer.length) {
+        pauseReklameIndeks = 0;
+    }
+
+    const reklame =
+        pauseReklamer[pauseReklameIndeks];
+
+    visPauseReklame(reklame);
+}
+
+// ------------------------------------------------------------
+// VISER ÉN BESTEMT PAUSEREKLAME
+// ------------------------------------------------------------
+
+function visPauseReklame(reklame) {
+    const container =
+        document.getElementById("reklameContainer");
+
+    const bilde =
+        document.getElementById("reklameBilde");
+
+    if (!container || !bilde) {
+        console.error(
+            "Fant ikke reklameContainer eller reklameBilde."
+        );
+
+        stoppReklameRotasjon();
+        return;
+    }
+
+    if (!reklame || !reklame.fil) {
+        console.error(
+            "Pausereklamen mangler en gyldig bildefil."
+        );
+
+        gaaTilNestePauseReklame();
+        return;
+    }
+
+    bilde.onload = function () {
+        if (aktivReklameModus !== "pause") {
+            return;
+        }
+
+        visReklamefelt();
+
+        console.log(
+            "Viser pausereklame:",
+            reklame.navn || reklame.id
+        );
+
+        planleggNestePauseReklame(reklame);
+    };
+
+    bilde.onerror = function () {
+        if (aktivReklameModus !== "pause") {
+            return;
+        }
+
+        console.error(
+            "Kunne ikke laste pausereklamen:",
+            reklame.fil
+        );
+
+        gaaTilNestePauseReklame();
+    };
+
+    bilde.alt = reklame.navn || "Pausereklame";
+    bilde.src = reklame.fil;
+}
+
+// ------------------------------------------------------------
+// PLANLEGGER NESTE PAUSEREKLAME
+// ------------------------------------------------------------
+
+function planleggNestePauseReklame(reklame) {
+    stoppReklameRotasjon();
+
+    if (aktivReklameModus !== "pause") {
+        return;
+    }
+
+    if (pauseReklamer.length <= 1) {
+        console.log(
+            "Kun én pausereklame. Rotasjon startes ikke."
+        );
+
+        return;
+    }
+
+    const oppgittVarighet =
+        Number(reklame.varighet);
+
+    const varighetISekunder =
+        Number.isFinite(oppgittVarighet) &&
+        oppgittVarighet > 0
+            ? oppgittVarighet
+            : 10;
+
+    const varighetIMillisekunder =
+        varighetISekunder * 1000;
+
+    console.log(
+        `Neste pausereklame vises om ${varighetISekunder} sekunder.`
+    );
+
+    reklameTimer = setTimeout(() => {
+        if (aktivReklameModus !== "pause") {
+            return;
+        }
+
+        gaaTilNestePauseReklame();
+    }, varighetIMillisekunder);
+}
+
+// ------------------------------------------------------------
+// GÅR VIDERE TIL NESTE PAUSEREKLAME
+// ------------------------------------------------------------
+
+function gaaTilNestePauseReklame() {
+    stoppReklameRotasjon();
+
+    if (aktivReklameModus !== "pause") {
+        return;
+    }
+
+    if (pauseReklamer.length === 0) {
+        skjulReklamefelt();
+        return;
+    }
+
+    pauseReklameIndeks =
+        (pauseReklameIndeks + 1) %
+        pauseReklamer.length;
+
+    visNestePauseReklame();
+}
+	
 // ------------------------------------------------------------
 // PLANLEGGER NESTE REKLAME
 // ------------------------------------------------------------
