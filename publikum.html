@@ -90,14 +90,14 @@ body {
     height: clamp(220px, 18vh, 420px);
     width: auto;
 	display:block;
-	objectfit:contain;
+	object-fit:contain;
 }
 
 #fairplay {
     height: clamp(200px, 16vh, 400px);
     width: auto;
 	display:block;
-	objectfit:contain;
+	object-fit:contain;
 }
 
 #hjemmescore {
@@ -547,23 +547,27 @@ line-height: 1;
 
 #reklameContainer {
     position: absolute;
+
     left: 50%;
     transform: translateX(-50%);
-    bottom: 130px;
 
-    width: 70%;
-    height: 120px;
+    bottom: clamp(190px, 21vh, 440px);
+
+    width: clamp(600px, 50vw, 1400px);
+    height: clamp(80px, 9vh, 180px);
 
     background: rgba(0, 0, 0, 0.5);
+    border-radius: clamp(8px, 0.6vw, 18px);
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    padding: 10px 30px;
+    padding: clamp(8px, 1vh, 20px) clamp(20px, 2vw, 50px);
     box-sizing: border-box;
 
     overflow: hidden;
+
     z-index: 20;
 }
 
