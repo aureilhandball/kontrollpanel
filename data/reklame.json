@@ -1,0 +1,18 @@
+{
+  "versjon": 1,
+  "reklamer": [
+    {
+      "id": "sponsor-test-001",
+      "navn": "Test sponsor",
+      "fil": "reklame/sponsorer/test-sponsor.png",
+      "type": "bilde",
+      "visning": [
+        "kamp",
+        "pause"
+      ],
+      "varighet": 10,
+      "aktiv": true,
+      "rekkefolge": 10
+    }
+  ]
+}
