@@ -3047,6 +3047,8 @@ function kontrollerKampstatus() {
 
         settKampstatus("PAUSE");
 
+		sendReklameModusTilPublikum("pause");
+
         oppdaterKlokkeVisning();
 
         startKlokke();
@@ -3077,6 +3079,8 @@ function kontrollerKampstatus() {
     kampFase = "klarForOmgang2";
 
     settKampstatus("KLAR FOR 2. OMGANG");
+
+	sendReklameModusTilPublikum("kamp");
 
     oppdaterKlokkeVisning();
 
@@ -4055,6 +4059,8 @@ function handterSentralAvsluttKnapp() {
     settKampstatus(
           "KLAR FOR 2. OMGANG"
           );
+		
+	sendReklameModusTilPublikum("kamp");
 
     document
         .getElementById(
