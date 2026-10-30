@@ -207,3 +207,28 @@ self.addEventListener("activate", event => {
             .then(() => self.clients.claim())
     );
 });
+
+// ============================================================
+// MELDINGER FRA KONTROLLPANELET
+// ============================================================
+
+self.addEventListener("message", event => {
+    if (event.data?.type !== "HENT_APPVERSJON") {
+        return;
+    }
+
+    const svar = {
+        type: "APPVERSJON",
+        versjon: CACHE_VERSION,
+        cacheNavn: CACHE_NAME
+    };
+
+    if (event.ports && event.ports[0]) {
+        event.ports[0].postMessage(svar);
+        return;
+    }
+
+    if (event.source) {
+        event.source.postMessage(svar);
+    }
+});
