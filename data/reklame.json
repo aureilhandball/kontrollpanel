@@ -11,7 +11,7 @@
         "pause"
       ],
       "varighet": 10,
-      "aktiv": true,
+      "aktiv": false,
       "rekkefolge": 10
     },
 
