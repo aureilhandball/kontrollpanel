@@ -22,22 +22,21 @@
       "visning": [
         "pause"
       ],
-      "varighet": 20,
+      "varighet": 10,
       "aktiv": true,
       "rekkefolge": 20
     },
 
     {
-      "id": "sponsor-test-003",
-      "navn": "Åpen kiosk blå",
-      "fil": "reklame/sponsorer/kiosk.png",
+      "id": "klubbinfo-001",
+      "navn": "Julekalender J14",
+      "fil": "reklame/julekalender.png",
       "type": "bilde",
       "visning": [
-        "kamp",
         "pause"
       ],
-      "varighet": 8,
-      "aktiv": false,
+      "varighet": 20,
+      "aktiv": true,
       "rekkefolge": 30
     }
   ]
