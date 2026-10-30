@@ -9,6 +9,7 @@ const FILER = [
     "./manifest.json",
     "./data/klubber.json",
     "./data/musikk.json",
+    "./data/reklame.json",
     "./bilder/spiller.png",
     "./bilder/nhf.png",
     "./bilder/nhfrn1.png",
@@ -59,6 +60,16 @@ const FILER = [
     "./video/fairplay.mp4"
 ];
 
+const NETWORK_FIRST = [
+    "./",
+    "./index.html",
+    "./publikum.html",
+    "./manifest.json",
+    "./data/klubber.json",
+    "./data/musikk.json",
+    "./data/reklame.json"
+];
+
 self.addEventListener("install", event => {
     self.skipWaiting();
 
@@ -80,42 +91,95 @@ self.addEventListener("install", event => {
     );
 });
 
-self.addEventListener(
-    "fetch",
-    event => {
+self.addEventListener("fetch", event => {
+    const request = event.request;
 
+    if (request.method !== "GET") {
+        return;
+    }
+
+    const url = new URL(request.url);
+
+    if (url.origin !== self.location.origin) {
+        return;
+    }
+
+    const relativSti =
+        "./" + url.pathname
+            .replace("/kontrollpanel/", "");
+
+    const brukNetworkFirst =
+        NETWORK_FIRST.includes(relativSti);
+
+    if (brukNetworkFirst) {
         event.respondWith(
+            fetch(request)
+                .then(async response => {
+                    if (
+                        response &&
+                        response.ok
+                    ) {
+                        const cache =
+                            await caches.open(CACHE_NAME);
 
-            caches.match(
-                event.request
-            )
-
-            .then(response => {
-
-                if (response) {
+                        await cache.put(
+                            request,
+                            response.clone()
+                        );
+                    }
 
                     return response;
+                })
+                .catch(async () => {
+                    const cachedResponse =
+                        await caches.match(request);
 
+                    if (cachedResponse) {
+                        return cachedResponse;
+                    }
+
+                    return caches.match(
+                        "./index.html"
+                    );
+                })
+        );
+
+        return;
+    }
+
+    event.respondWith(
+        caches.match(request)
+            .then(cachedResponse => {
+                if (cachedResponse) {
+                    return cachedResponse;
                 }
 
-                return fetch(
-                    event.request
-                );
+                return fetch(request)
+                    .then(async response => {
+                        if (
+                            response &&
+                            response.ok
+                        ) {
+                            const cache =
+                                await caches.open(CACHE_NAME);
 
+                            await cache.put(
+                                request,
+                                response.clone()
+                            );
+                        }
+
+                        return response;
+                    });
             })
-
             .catch(() => {
-
                 return caches.match(
                     "./index.html"
                 );
-
             })
+    );
+});
 
-        );
-
-    }
-);
 self.addEventListener("activate", event => {
     event.waitUntil(
         caches.keys()
