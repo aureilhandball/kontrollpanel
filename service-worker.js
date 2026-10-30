@@ -1,5 +1,6 @@
-const CACHE_VERSION = "1.3.5";
+const CACHE_VERSION = "1.4.0";
 const CACHE_NAME = `aure-handball-${CACHE_VERSION}`;
+const MUSIKK_CACHE_NAME = "aure-handball-musikk";
 
 const FILER = [
     "./",
@@ -117,12 +118,28 @@ self.addEventListener(
 );
 self.addEventListener("activate", event => {
     event.waitUntil(
-        caches.keys().then(cacheNames =>
-            Promise.all(
-                cacheNames
-                    .filter(name => name !== CACHE_NAME)
-                    .map(name => caches.delete(name))
-            )
-        ).then(() => self.clients.claim())
+        caches.keys()
+            .then(cacheNames => {
+                return Promise.all(
+                    cacheNames
+                        .filter(name => {
+                            const erGammelAppCache =
+                                name.startsWith("aure-handball-") &&
+                                name !== CACHE_NAME &&
+                                name !== MUSIKK_CACHE_NAME;
+
+                            return erGammelAppCache;
+                        })
+                        .map(name => {
+                            console.log(
+                                "Sletter gammel app-cache:",
+                                name
+                            );
+
+                            return caches.delete(name);
+                        })
+                );
+            })
+            .then(() => self.clients.claim())
     );
 });
