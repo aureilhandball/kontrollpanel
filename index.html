@@ -1985,7 +1985,6 @@ let lydbibliotek = {};
 GLOBALE VARIABLER
 ==================*/
 const DEBUG = false;
-const CACHE_NAME = "aure-handball-1.5.0";
 let hjemmeScore = 0;
 let borteScore = 0;
 let kampSekunder = 0;
@@ -5134,7 +5133,7 @@ const APP_OPPDATERING_UTSATT_TIL =
     "aureAppOppdateringUtsattTil";
 
 const EN_TIME_I_MILLISEKUNDER =
-    60 * 1000;
+    60 * 60 * 1000;
 	
 async function hentAppVersjon() {
     try {
