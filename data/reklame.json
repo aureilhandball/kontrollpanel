@@ -10,7 +10,7 @@
         "kamp",
         "pause"
       ],
-      "varighet": 10,
+      "varighet": 20,
       "aktiv": true,
       "rekkefolge": 10
     },
@@ -23,7 +23,7 @@
       "visning": [
         "pause"
       ],
-      "varighet": 10,
+      "varighet": 20,
       "aktiv": true,
       "rekkefolge": 20
     },
@@ -50,7 +50,7 @@
         "kamp",
         "pause"
       ],
-      "varighet": 10,
+      "varighet": 8,
       "aktiv": true,
       "rekkefolge": 40
     }
