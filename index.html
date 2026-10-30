@@ -1985,6 +1985,7 @@ let lydbibliotek = {};
 GLOBALE VARIABLER
 ==================*/
 const DEBUG = false;
+const MUSIKK_CACHE_NAME = "aure-handball-musikk";
 let hjemmeScore = 0;
 let borteScore = 0;
 let kampSekunder = 0;
@@ -2234,7 +2235,7 @@ async function lastInnKlubber() {
 
     try {
 
-        const cache = await caches.open(CACHE_NAME);
+        const cache = await caches.open(MUSIKK_CACHE_NAME);
 
         const lydfiler = [];
 
