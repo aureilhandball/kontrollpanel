@@ -5014,11 +5014,12 @@ document.addEventListener(
 window.addEventListener(
     "beforeunload",
     function(event) {
+        if (tillatReloadUtenBekreftelse) {
+            return;
+        }
 
         event.preventDefault();
-
         event.returnValue = "";
-
     }
 );
 
@@ -5124,6 +5125,7 @@ console.log(window.getScreenDetails);
 // ============================================================
 
 let appReloadUtfort = false;
+let tillatReloadUtenBekreftelse = false;
 
 let appOppdateringTilgjengelig = false;
 let appOppdateringTimer = null;
@@ -5323,11 +5325,13 @@ function oppdaterAppNa() {
     }
 
     console.log(
-        "Brukeren har valgt å oppdatere appen nå."
-    );
+    "Brukeren har valgt å oppdatere appen nå."
+	);
 
-    window.location.reload();
-}
+	tillatReloadUtenBekreftelse = true;
+
+	window.location.reload();
+	}
 
 function utsettAppOppdatering() {
     const utsattTil =
