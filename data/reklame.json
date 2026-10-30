@@ -7,6 +7,7 @@
       "fil": "reklame/sponsorer/lokaltaxi aure hvit.png",
       "type": "bilde",
       "visning": [
+        "kamp",
         "pause"
       ],
       "varighet": 10,
