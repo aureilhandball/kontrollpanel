@@ -1247,6 +1247,156 @@ body.high-contrast .toolbar-link:hover{
     background:#222;
 }
 
+/* ============================================================
+   VARSEL OM NY APPVERSJON
+   ============================================================ */
+
+.app-oppdatering-bakgrunn {
+    position: fixed;
+    inset: 0;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+    box-sizing: border-box;
+
+    background: rgba(0, 0, 0, 0.82);
+
+    z-index: 100000;
+}
+
+.app-oppdatering-bakgrunn.vises {
+    display: flex;
+}
+
+.app-oppdatering-dialog {
+    width: min(620px, calc(100vw - 40px));
+
+    padding: 34px;
+    box-sizing: border-box;
+
+    background: #ffffff;
+    color: #161616;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 24px 70px rgba(0, 0, 0, 0.55);
+
+    text-align: center;
+}
+
+.app-oppdatering-ikon {
+    width: 72px;
+    height: 72px;
+
+    margin: 0 auto 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #c8102e;
+    color: #ffffff;
+
+    font-size: 46px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.app-oppdatering-dialog h2 {
+    margin: 0 0 16px;
+
+    font-size: clamp(26px, 3vw, 38px);
+    line-height: 1.15;
+}
+
+.app-oppdatering-dialog p {
+    margin: 0 auto 16px;
+
+    max-width: 520px;
+
+    font-size: clamp(17px, 1.6vw, 21px);
+    line-height: 1.5;
+}
+
+.app-oppdatering-advarsel {
+    padding: 12px 14px;
+
+    background: #fff4dd;
+    color: #5b3a00;
+
+    border: 1px solid #e5bd65;
+    border-radius: 10px;
+
+    font-weight: 600;
+}
+
+.app-oppdatering-knapper {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    margin-top: 26px;
+}
+
+.app-oppdatering-knapp {
+    width: 100%;
+    min-height: 56px;
+
+    padding: 13px 20px;
+
+    border-radius: 10px;
+
+    font: inherit;
+    font-size: 18px;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.app-oppdatering-knapp-primaer {
+    border: 2px solid #c8102e;
+
+    background: #c8102e;
+    color: #ffffff;
+}
+
+.app-oppdatering-knapp-primaer:hover,
+.app-oppdatering-knapp-primaer:focus-visible {
+    background: #9f0d25;
+    border-color: #9f0d25;
+}
+
+.app-oppdatering-knapp-sekundaer {
+    border: 2px solid #555555;
+
+    background: #ffffff;
+    color: #222222;
+}
+
+.app-oppdatering-knapp-sekundaer:hover,
+.app-oppdatering-knapp-sekundaer:focus-visible {
+    background: #eeeeee;
+}
+
+.app-oppdatering-knapp:focus-visible {
+    outline: 4px solid rgba(0, 102, 204, 0.35);
+    outline-offset: 3px;
+}
+
+body.app-oppdatering-vises {
+    overflow: hidden;
+}
+
+/* ============================================================
+   SLUTT VARSEL OM NY APPVERSJON
+   ============================================================ */
+	
 </style>
 </head>
 
@@ -1759,6 +1909,69 @@ body.high-contrast .toolbar-link:hover{
 
 </div>
 
+<!-- =========================================================
+     VARSEL OM NY APPVERSJON
+     ========================================================= -->
+
+<div
+    id="appOppdateringBakgrunn"
+    class="app-oppdatering-bakgrunn"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="appOppdateringTittel"
+    aria-describedby="appOppdateringBeskrivelse"
+>
+    <div class="app-oppdatering-dialog">
+
+        <div
+            class="app-oppdatering-ikon"
+            aria-hidden="true"
+        >
+            ↻
+        </div>
+
+        <h2 id="appOppdateringTittel">
+            Ny versjon er tilgjengelig
+        </h2>
+
+        <p id="appOppdateringBeskrivelse">
+            En ny versjon av appen er tilgjengelig.
+            Oppdater kontrollpanelet så snart som mulig når det er trygt
+            å laste siden på nytt.
+        </p>
+
+        <p class="app-oppdatering-advarsel">
+            Pågående kampstyring vil bli avbrutt
+            dersom du oppdaterer nå.
+        </p>
+
+        <div class="app-oppdatering-knapper">
+
+            <button
+                id="oppdaterAppNaKnapp"
+                class="app-oppdatering-knapp app-oppdatering-knapp-primaer"
+                type="button"
+            >
+                Oppdater nå
+            </button>
+
+            <button
+                id="utsettAppOppdateringKnapp"
+                class="app-oppdatering-knapp app-oppdatering-knapp-sekundaer"
+                type="button"
+            >
+                Utsett i 1 time
+            </button>
+
+        </div>
+
+    </div>
+</div>
+
+<!-- =========================================================
+     SLUTT VARSEL OM NY APPVERSJON
+     ========================================================= -->
+	
 <script>
 
 /*==================
@@ -4911,6 +5124,15 @@ console.log(window.getScreenDetails);
 // ============================================================
 
 let appReloadUtfort = false;
+
+let appOppdateringTilgjengelig = false;
+let appOppdateringTimer = null;
+
+const APP_OPPDATERING_UTSATT_TIL =
+    "aureAppOppdateringUtsattTil";
+
+const EN_TIME_I_MILLISEKUNDER =
+    60 * 60 * 1000;
 	
 async function hentAppVersjon() {
     try {
@@ -5031,24 +5253,196 @@ async function sjekkEtterAppOppdatering() {
         );
     }
 }
+	
+function visAppOppdateringsvarsel() {
+    const bakgrunn =
+        document.getElementById("appOppdateringBakgrunn");
+
+    const oppdaterKnapp =
+        document.getElementById("oppdaterAppNaKnapp");
+
+    if (!bakgrunn || !oppdaterKnapp) {
+        console.error(
+            "Fant ikke oppdateringsdialogen i HTML."
+        );
+        return;
+    }
+
+    bakgrunn.classList.add("vises");
+    document.body.classList.add("app-oppdatering-vises");
+
+    oppdaterKnapp.focus();
+
+    console.log(
+        "Viser varsel om tilgjengelig appoppdatering."
+    );
+}
+
+function skjulAppOppdateringsvarsel() {
+    const bakgrunn =
+        document.getElementById("appOppdateringBakgrunn");
+
+    if (!bakgrunn) {
+        return;
+    }
+
+    bakgrunn.classList.remove("vises");
+    document.body.classList.remove("app-oppdatering-vises");
+}
+function oppdaterAppNa() {
+    if (appReloadUtfort) {
+        return;
+    }
+
+    appReloadUtfort = true;
+
+    if (appOppdateringTimer !== null) {
+        clearTimeout(appOppdateringTimer);
+        appOppdateringTimer = null;
+    }
+
+    localStorage.removeItem(
+        APP_OPPDATERING_UTSATT_TIL
+    );
+
+    const oppdaterKnapp =
+        document.getElementById("oppdaterAppNaKnapp");
+
+    const utsettKnapp =
+        document.getElementById(
+            "utsettAppOppdateringKnapp"
+        );
+
+    if (oppdaterKnapp) {
+        oppdaterKnapp.disabled = true;
+        oppdaterKnapp.textContent = "Oppdaterer...";
+    }
+
+    if (utsettKnapp) {
+        utsettKnapp.disabled = true;
+    }
+
+    console.log(
+        "Brukeren har valgt å oppdatere appen nå."
+    );
+
+    window.location.reload();
+}
+
+function utsettAppOppdatering() {
+    const utsattTil =
+        Date.now() + EN_TIME_I_MILLISEKUNDER;
+
+    localStorage.setItem(
+        APP_OPPDATERING_UTSATT_TIL,
+        String(utsattTil)
+    );
+
+    skjulAppOppdateringsvarsel();
+
+    planleggAppOppdateringsvarsel();
+
+    console.log(
+        "Appoppdateringen er utsatt i én time."
+    );
+}
+
+function planleggAppOppdateringsvarsel() {
+    if (!appOppdateringTilgjengelig) {
+        return;
+    }
+
+    if (appOppdateringTimer !== null) {
+        clearTimeout(appOppdateringTimer);
+        appOppdateringTimer = null;
+    }
+
+    const lagretVerdi =
+        localStorage.getItem(
+            APP_OPPDATERING_UTSATT_TIL
+        );
+
+    const utsattTil =
+        Number(lagretVerdi);
+
+    if (
+        !Number.isFinite(utsattTil) ||
+        utsattTil <= Date.now()
+    ) {
+        localStorage.removeItem(
+            APP_OPPDATERING_UTSATT_TIL
+        );
+
+        visAppOppdateringsvarsel();
+        return;
+    }
+
+    const tidIgjen =
+        utsattTil - Date.now();
+
+    console.log(
+        `Oppdateringsvarselet vises igjen om ${Math.ceil(
+            tidIgjen / 60000
+        )} minutter.`
+    );
+
+    appOppdateringTimer = setTimeout(() => {
+        appOppdateringTimer = null;
+
+        localStorage.removeItem(
+            APP_OPPDATERING_UTSATT_TIL
+        );
+
+        visAppOppdateringsvarsel();
+    }, tidIgjen);
+}
+
+function handterTilgjengeligAppOppdatering() {
+    appOppdateringTilgjengelig = true;
+
+    console.log(
+        "Ny appversjon har overtatt og er klar til bruk."
+    );
+
+    planleggAppOppdateringsvarsel();
+}
+
 navigator.serviceWorker.addEventListener(
     "controllerchange",
     () => {
-        if (appReloadUtfort) {
-            return;
-        }
-
-        appReloadUtfort = true;
-
-        console.log(
-            "Ny appversjon har overtatt. Laster kontrollpanelet på nytt."
-        );
-
-        window.location.reload();
+        handterTilgjengeligAppOppdatering();
     }
 );
 
+function kobleAppOppdateringsknapper() {
+    const oppdaterKnapp =
+        document.getElementById("oppdaterAppNaKnapp");
+
+    const utsettKnapp =
+        document.getElementById(
+            "utsettAppOppdateringKnapp"
+        );
+
+    if (!oppdaterKnapp || !utsettKnapp) {
+        console.error(
+            "Fant ikke knappene i oppdateringsdialogen."
+        );
+        return;
+    }
+
+    oppdaterKnapp.addEventListener(
+        "click",
+        oppdaterAppNa
+    );
+
+    utsettKnapp.addEventListener(
+        "click",
+        utsettAppOppdatering
+    );
+}
+	
 // Henter og viser versjonsnummeret når kontrollpanelet åpnes.
+kobleAppOppdateringsknapper();
 hentAppVersjon();
 sjekkEtterAppOppdatering();
 	
