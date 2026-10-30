@@ -57,6 +57,7 @@ const FILER = [
     "./logoer/tronderlyn.png",
     "./logoer/utleira.png",
     "./logoer/valder.png",
+    "./lyd/Horn2.mp3",
     "./video/fairplay.mp4"
 ];
 
