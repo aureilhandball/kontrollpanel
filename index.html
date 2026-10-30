@@ -4910,6 +4910,8 @@ console.log(window.getScreenDetails);
 // APPVERSJON OG OPPDATERING
 // ============================================================
 
+let appReloadUtfort = false;
+	
 async function hentAppVersjon() {
     try {
         if (!("serviceWorker" in navigator)) {
@@ -4996,11 +4998,60 @@ async function hentAppVersjon() {
     }
 }
 
+async function sjekkEtterAppOppdatering() {
+    try {
+        if (!("serviceWorker" in navigator)) {
+            return;
+        }
+
+        const registrering =
+            await navigator.serviceWorker.getRegistration();
+
+        if (!registrering) {
+            console.warn(
+                "Fant ingen Service Worker-registrering."
+            );
+            return;
+        }
+
+        console.log(
+            "Sjekker etter ny appversjon..."
+        );
+
+        await registrering.update();
+
+        console.log(
+            "Oppdateringssjekk fullført."
+        );
+
+    } catch (error) {
+        console.error(
+            "Kunne ikke sjekke etter appoppdatering:",
+            error
+        );
+    }
+}
+navigator.serviceWorker.addEventListener(
+    "controllerchange",
+    () => {
+        if (appReloadUtfort) {
+            return;
+        }
+
+        appReloadUtfort = true;
+
+        console.log(
+            "Ny appversjon har overtatt. Laster kontrollpanelet på nytt."
+        );
+
+        window.location.reload();
+    }
+);
 
 // Henter og viser versjonsnummeret når kontrollpanelet åpnes.
 hentAppVersjon();
-
-
+sjekkEtterAppOppdatering();
+	
 // ============================================================
 // SLUTT APPVERSJON OG OPPDATERING
 // ============================================================
