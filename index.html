@@ -2629,14 +2629,36 @@ function sendKampstatusTilPublikum() {
     );
 }
 
-function oppdaterPublikumsskjerm() {
+function sendReklameModusTilPublikum(modus) {
+    if (
+        !publikumsvindu ||
+        publikumsvindu.closed
+    ) {
+        return;
+    }
 
+    publikumsvindu.postMessage(
+        {
+            type: "reklamemodus",
+            modus: modus
+        },
+        "*"
+    );
+}
+
+function oppdaterPublikumsskjerm() {
     sendKampklokkeTilPublikum();
     sendKampstatusTilPublikum();
     sendScoreTilPublikum();
     sendLagTilPublikum();
     sendUtvisningerTilPublikum();
 
+    if (kampFase === "pause") {
+        sendReklameModusTilPublikum("pause");
+    }
+    else {
+        sendReklameModusTilPublikum("kamp");
+    }
 }
 
 function sendScoreTilPublikum() {
