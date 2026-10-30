@@ -39,6 +39,20 @@
       "varighet": 20,
       "aktiv": true,
       "rekkefolge": 30
+    },
+
+    {
+      "id": "klubbinfo-002",
+      "navn": "Din reklame her",
+      "fil": "reklame/dinreklameher.png",
+      "type": "bilde",
+      "visning": [
+        "kamp",
+        "pause"
+      ],
+      "varighet": 10,
+      "aktiv": true,
+      "rekkefolge": 40
     }
   ]
 }
