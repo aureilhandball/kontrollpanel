@@ -553,7 +553,29 @@ line-height: 1;
 /* ============================================================
    REKLAMEDEL AV SKJERMEN
    ============================================================ */
+#reklameOverskrift {
+    position: absolute;
 
+    left: 50%;
+    transform: translateX(-50%);
+
+    bottom: clamp(145px, 13.5vh, 310px);
+
+    color: rgba(255, 255, 255, 0.8);
+
+    font-size: clamp(16px, 1.3vw, 30px);
+    font-weight: 600;
+
+    letter-spacing: 0.12em;
+
+    text-align: center;
+    white-space: nowrap;
+
+    z-index: 21;
+
+    display: none;
+}
+	
 #reklameContainer {
     position: absolute;
 
@@ -686,6 +708,8 @@ UTVIST
     alt="maalball">
 
 	<!-- Reklamefelt -->
+ <div id="reklameOverskrift" >I SAMARBEID MED</div>
+	
  <div id="reklameContainer">
 	 <img id="reklameBilde" src="" alt="">
  
@@ -1505,10 +1529,12 @@ function startKampReklamer() {
         );
 
         skjulReklamefelt();
+		skjulReklameOverskrift();
         return;
     }
 
     visReklamefelt();
+	visReklameOverskrift();
     visNesteKampReklame();
 }
 
@@ -1602,6 +1628,7 @@ function visKampReklame(reklame) {
 function startPauseReklamer() {
     aktivReklameModus = "pause";
 
+	skjulReklameOverskrift();	
     stoppReklameRotasjon();
 
     pauseReklameIndeks = 0;
@@ -1843,6 +1870,33 @@ function stoppReklameRotasjon() {
 // ------------------------------------------------------------
 // VISER OG SKJULER REKLAMEFELTET
 // ------------------------------------------------------------
+
+function visReklameOverskrift() {
+    const overskrift =
+        document.getElementById("reklameOverskrift");
+
+    if (!overskrift) {
+        console.error(
+            "Fant ikke reklameOverskrift."
+        );
+
+        return;
+    }
+
+    overskrift.style.display = "block";
+}
+
+
+function skjulReklameOverskrift() {
+    const overskrift =
+        document.getElementById("reklameOverskrift");
+
+    if (!overskrift) {
+        return;
+    }
+
+    overskrift.style.display = "none";
+}
 
 function visReklamefelt() {
     const container =
