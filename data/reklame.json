@@ -38,7 +38,7 @@
         "pause"
       ],
       "varighet": 8,
-      "aktiv": true,
+      "aktiv": false,
       "rekkefolge": 30
     }
   ]
