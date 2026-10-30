@@ -72,32 +72,41 @@ body {
 #sponsorContainer {
     position: absolute;
 
+    left: 0;
+    right: 0;
     bottom: clamp(20px, 2vh, 50px);
-    left: 50%;
 
-    transform: translateX(-50%);
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    gap: clamp(35px, 3.5vw, 90px);
+    height: clamp(120px, 12vh, 280px);
 
     z-index: 20;
+
+    pointer-events: none;
 }
 
 #nhf {
-    height: clamp(220px, 18vh, 420px);
+    position: absolute;
+
+    left: clamp(80px, 8vw, 260px);
+    bottom: 0;
+
+    height: clamp(130px, 11vh, 260px);
     width: auto;
-	display:block;
-	object-fit:contain;
+
+    display: block;
+    object-fit: contain;
 }
 
 #fairplay {
-    height: clamp(200px, 16vh, 400px);
+    position: absolute;
+
+    right: clamp(80px, 8vw, 260px);
+    bottom: 0;
+
+    height: clamp(120px, 10vh, 240px);
     width: auto;
-	display:block;
-	object-fit:contain;
+
+    display: block;
+    object-fit: contain;
 }
 
 #hjemmescore {
