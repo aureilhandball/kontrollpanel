@@ -1264,9 +1264,9 @@ body.high-contrast .toolbar-link:hover{
 
         <h1>Aure IL håndball kontrollpanel</h1>
 
-        <div class="beta">
-            Beta-versjon utviklet av Mats Langtinn
-        </div>
+        <div class="beta" id="appVersjonTekst">
+    Beta-versjon • utviklet av Mats Langtinn
+</div>
 
     </div>
 
@@ -4905,6 +4905,105 @@ console.log(window.getScreenDetails);
     console.log(result.state);
 })
 .catch(console.error);
+
+// ============================================================
+// APPVERSJON OG OPPDATERING
+// ============================================================
+
+async function hentAppVersjon() {
+    try {
+        if (!("serviceWorker" in navigator)) {
+            console.warn(
+                "Nettleseren støtter ikke Service Worker."
+            );
+            return;
+        }
+
+        const registrering =
+            await navigator.serviceWorker.ready;
+
+        const serviceWorker =
+            navigator.serviceWorker.controller ||
+            registrering.active;
+
+        if (!serviceWorker) {
+            console.warn(
+                "Fant ingen aktiv Service Worker."
+            );
+            return;
+        }
+
+        const kanal = new MessageChannel();
+
+        const svar = await new Promise((resolve, reject) => {
+            const tidsgrense = setTimeout(() => {
+                reject(
+                    new Error(
+                        "Service Workeren svarte ikke på versjonsforespørselen."
+                    )
+                );
+            }, 3000);
+
+            kanal.port1.onmessage = event => {
+                clearTimeout(tidsgrense);
+                resolve(event.data);
+            };
+
+            serviceWorker.postMessage(
+                {
+                    type: "HENT_APPVERSJON"
+                },
+                [
+                    kanal.port2
+                ]
+            );
+        });
+
+        if (
+            !svar ||
+            svar.type !== "APPVERSJON" ||
+            !svar.versjon
+        ) {
+            console.warn(
+                "Mottok ikke gyldig appversjon fra Service Workeren."
+            );
+            return;
+        }
+
+        const versjonTekst =
+            document.getElementById("appVersjonTekst");
+
+        if (!versjonTekst) {
+            console.warn(
+                "Fant ikke elementet appVersjonTekst."
+            );
+            return;
+        }
+
+        versjonTekst.textContent =
+            `Beta-versjon ${svar.versjon} • utviklet av Mats Langtinn`;
+
+        console.log(
+            "Aktiv appversjon:",
+            svar.versjon
+        );
+
+    } catch (error) {
+        console.error(
+            "Kunne ikke hente appversjonen:",
+            error
+        );
+    }
+}
+
+
+// Henter og viser versjonsnummeret når kontrollpanelet åpnes.
+hentAppVersjon();
+
+
+// ============================================================
+// SLUTT APPVERSJON OG OPPDATERING
+// ============================================================
 	
 </script>
 
