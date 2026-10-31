@@ -924,11 +924,131 @@ body.high-contrast .timeout-angre-btn {
     font-size: 20px;
 }
 
-.egendefinert-oppsett p {
-    margin: 0;
-    color: #444;
-    font-size: 15px;
-    line-height: 1.4;
+.egendefinert-valg {
+    margin-top: 18px;
+}
+
+.egendefinert-etikett {
+    margin-bottom: 8px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.egendefinert-kontroll {
+    display: grid;
+    grid-template-columns: 54px 1fr 54px;
+    align-items: center;
+    gap: 10px;
+}
+
+.egendefinert-kontroll button {
+    height: 48px;
+    border: none;
+    border-radius: 10px;
+    background: var(--bla);
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.egendefinert-kontroll button:hover {
+    filter: brightness(1.08);
+}
+
+.egendefinert-kontroll button:disabled {
+    background: #aaa;
+    color: #eee;
+    cursor: not-allowed;
+    filter: none;
+}
+
+.egendefinert-verdi {
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border: 2px solid #d3d3d3;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    font-variant-numeric: tabular-nums;
+}
+
+.egendefinert-valg.deaktivert {
+    opacity: 0.5;
+}
+
+.egendefinert-hjelpetekst {
+    min-height: 18px;
+    margin-top: 6px;
+    text-align: center;
+    color: #666;
+    font-size: 13px;
+}
+
+.egendefinert-oppsummering {
+    margin-top: 20px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    text-align: center;
+    background: white;
+    border-radius: 10px;
+}
+
+.egendefinert-oppsummering span {
+    color: #666;
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.egendefinert-oppsummering strong {
+    color: var(--mork);
+    font-size: 18px;
+}
+
+.egendefinert-bruk-btn {
+    width: 100%;
+    margin-top: 15px;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    background: var(--gronn);
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.egendefinert-bruk-btn:hover {
+    filter: brightness(1.05);
+}
+
+body.high-contrast .egendefinert-etikett,
+body.high-contrast .egendefinert-hjelpetekst {
+    color: white;
+}
+
+body.high-contrast .egendefinert-verdi,
+body.high-contrast .egendefinert-oppsummering {
+    background: #000;
+    color: white;
+    border: 2px solid white;
+}
+
+body.high-contrast .egendefinert-oppsummering span,
+body.high-contrast .egendefinert-oppsummering strong {
+    color: white;
+}
+
+body.high-contrast .egendefinert-kontroll button {
+    border: 2px solid white;
 }
 
 body.high-contrast .egendefinert-arsklasse-rad {
@@ -2064,6 +2184,11 @@ let kampFase = "ikkeStartet";
 let valgtArsklasse = null;
 let omgangLengde = 0;
 let pauseLengde = 10;
+
+let egendefinertAntallOmganger = 2;
+let egendefinertOmgangstid = 10;
+let egendefinertPausetid = 2;
+	
 let timeoutAktiv = false;
 let timeoutIntervall = null;
 let timeoutForsinkelse = null;
@@ -4599,7 +4724,175 @@ function visEgendefinertOppsett() {
     egendefinertOppsett.classList.toggle(
         "vises"
     );
+
+    if (
+        egendefinertOppsett.classList.contains(
+            "vises"
+        )
+    ) {
+        oppdaterEgendefinertVisning();
+    }
 }
+
+function endreEgendefinertOmganger(endring) {
+    const nyVerdi =
+        egendefinertAntallOmganger +
+        endring;
+
+    if (
+        nyVerdi < 1 ||
+        nyVerdi > 4
+    ) {
+        return;
+    }
+
+    egendefinertAntallOmganger =
+        nyVerdi;
+
+    oppdaterEgendefinertVisning();
+}
+
+function endreEgendefinertOmgangstid(endring) {
+    const nyVerdi =
+        egendefinertOmgangstid +
+        endring;
+
+    if (
+        nyVerdi < 1 ||
+        nyVerdi > 60
+    ) {
+        return;
+    }
+
+    egendefinertOmgangstid =
+        nyVerdi;
+
+    oppdaterEgendefinertVisning();
+}
+
+function endreEgendefinertPausetid(endring) {
+    if (
+        egendefinertAntallOmganger === 1
+    ) {
+        return;
+    }
+
+    const nyVerdi =
+        egendefinertPausetid +
+        endring;
+
+    if (
+        nyVerdi < 0 ||
+        nyVerdi > 30
+    ) {
+        return;
+    }
+
+    egendefinertPausetid =
+        nyVerdi;
+
+    oppdaterEgendefinertVisning();
+}
+
+function oppdaterEgendefinertVisning() {
+    document
+        .getElementById(
+            "egendefinertAntallOmganger"
+        )
+        .textContent =
+        egendefinertAntallOmganger;
+
+    document
+        .getElementById(
+            "egendefinertOmgangstid"
+        )
+        .textContent =
+        egendefinertOmgangstid +
+        " min";
+
+    document
+        .getElementById(
+            "egendefinertPausetid"
+        )
+        .textContent =
+        egendefinertPausetid +
+        " min";
+
+    const pauseValg =
+        document.getElementById(
+            "egendefinertPauseValg"
+        );
+
+    const pauseMinus =
+        document.getElementById(
+            "egendefinertPauseMinus"
+        );
+
+    const pausePluss =
+        document.getElementById(
+            "egendefinertPausePluss"
+        );
+
+    const pauseInfo =
+        document.getElementById(
+            "egendefinertPauseInfo"
+        );
+
+    const oppsummering =
+        document.getElementById(
+            "egendefinertOppsummering"
+        );
+
+    const bareEnOmgang =
+        egendefinertAntallOmganger === 1;
+
+    pauseMinus.disabled =
+        bareEnOmgang;
+
+    pausePluss.disabled =
+        bareEnOmgang;
+
+    pauseValg.classList.toggle(
+        "deaktivert",
+        bareEnOmgang
+    );
+
+    pauseInfo.textContent =
+        bareEnOmgang
+            ? "Ikke relevant ved én omgang"
+            : "";
+
+    if (bareEnOmgang) {
+        oppsummering.textContent =
+            "1 × " +
+            egendefinertOmgangstid +
+            " min";
+    }
+    else {
+        oppsummering.textContent =
+            egendefinertAntallOmganger +
+            " × " +
+            egendefinertOmgangstid +
+            " min • " +
+            egendefinertPausetid +
+            " min pause";
+    }
+}
+
+function brukEgendefinertOppsett() {
+    console.log(
+        "Test av egendefinert kampoppsett:",
+        {
+            antallOmganger:
+                egendefinertAntallOmganger,
+            omgangstid:
+                egendefinertOmgangstid,
+            pausetid:
+                egendefinertPausetid
+        }
+    );
+}
+	
 function velgArsklasse(navn) {
 
     const klasse =
@@ -5643,17 +5936,115 @@ sjekkEtterAppOppdatering();
         </div>
 
         <div
-            id="egendefinertOppsett"
-            class="egendefinert-oppsett">
+    id="egendefinertOppsett"
+    class="egendefinert-oppsett">
 
-            <h3>Egendefinert kampoppsett</h3>
+    <h3>Egendefinert kampoppsett</h3>
 
-            <p>
-                Her kommer valg for antall omganger,
-                omgangstid og pausetid.
-            </p>
-
+    <div class="egendefinert-valg">
+        <div class="egendefinert-etikett">
+            Antall omganger
         </div>
+
+        <div class="egendefinert-kontroll">
+            <button
+                type="button"
+                onclick="endreEgendefinertOmganger(-1)">
+                −
+            </button>
+
+            <div
+                id="egendefinertAntallOmganger"
+                class="egendefinert-verdi">
+                2
+            </div>
+
+            <button
+                type="button"
+                onclick="endreEgendefinertOmganger(1)">
+                +
+            </button>
+        </div>
+    </div>
+
+    <div class="egendefinert-valg">
+        <div class="egendefinert-etikett">
+            Omgangstid
+        </div>
+
+        <div class="egendefinert-kontroll">
+            <button
+                type="button"
+                onclick="endreEgendefinertOmgangstid(-1)">
+                −
+            </button>
+
+            <div
+                id="egendefinertOmgangstid"
+                class="egendefinert-verdi">
+                10 min
+            </div>
+
+            <button
+                type="button"
+                onclick="endreEgendefinertOmgangstid(1)">
+                +
+            </button>
+        </div>
+    </div>
+
+    <div
+        id="egendefinertPauseValg"
+        class="egendefinert-valg">
+
+        <div class="egendefinert-etikett">
+            Pausetid
+        </div>
+
+        <div class="egendefinert-kontroll">
+            <button
+                id="egendefinertPauseMinus"
+                type="button"
+                onclick="endreEgendefinertPausetid(-1)">
+                −
+            </button>
+
+            <div
+                id="egendefinertPausetid"
+                class="egendefinert-verdi">
+                2 min
+            </div>
+
+            <button
+                id="egendefinertPausePluss"
+                type="button"
+                onclick="endreEgendefinertPausetid(1)">
+                +
+            </button>
+        </div>
+
+        <div
+            id="egendefinertPauseInfo"
+            class="egendefinert-hjelpetekst">
+        </div>
+    </div>
+
+    <div class="egendefinert-oppsummering">
+        <span>Kampoppsett</span>
+
+        <strong id="egendefinertOppsummering">
+            2 × 10 min • 2 min pause
+        </strong>
+    </div>
+
+    <button
+        type="button"
+        class="egendefinert-bruk-btn"
+        onclick="brukEgendefinertOppsett()">
+        BRUK OPPSETT
+    </button>
+
+</div>
 
         <div class="lag-modal-footer">
             <div></div>
