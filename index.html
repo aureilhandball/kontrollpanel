@@ -3276,6 +3276,43 @@ if (
             return;
         }
 
+                /*
+        Hvis pausetiden er satt til 0,
+        hopper vi over hele pausefasen.
+        */
+        if (pauseLengde === 0) {
+            kampFase =
+                "klarForOmgang2";
+
+            kampSekunder = 0;
+
+            document
+                .getElementById(
+                    "startOmgang2Btn"
+                )
+                .style.display =
+                "block";
+
+            settKampstatus(
+                "KLAR FOR 2. OMGANG"
+            );
+
+            sendReklameModusTilPublikum(
+                "kamp"
+            );
+
+            oppdaterKlokkeVisning();
+
+            leggTilLogg(
+                "Ingen pause – klar for 2. omgang"
+            );
+
+            return;
+        }
+
+        /*
+        Ordinær pause.
+        */
         kampFase = "pause";
 
         kampSekunder =
