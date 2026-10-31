@@ -5063,12 +5063,14 @@ pauseLengde =
 	.style.color = "var(--bla)";
 
     document
-        .getElementById(
-            "omgangLengde"
-        )
-    
+    .getElementById(
+        "omgangLengde"
+    )
     .textContent =
-    klasse.omgangLengde + " min";
+    antallOmganger +
+    " × " +
+    omgangLengde +
+    " min";
 
     leggTilLogg(
         "Årsklasse valgt: " +
