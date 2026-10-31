@@ -4880,8 +4880,65 @@ function oppdaterEgendefinertVisning() {
 }
 
 function brukEgendefinertOppsett() {
+    if (
+        kampFase !== "ikkeStartet"
+    ) {
+        leggTilLogg(
+            "Kampoppsett er låst etter kampstart"
+        );
+        return;
+    }
+
+    valgtArsklasse =
+        "Egendefinert";
+
+    omgangLengde =
+        egendefinertOmgangstid;
+
+    pauseLengde =
+        egendefinertPausetid;
+
+    document
+        .getElementById(
+            "aktivArsklasse"
+        )
+        .textContent =
+        "Egendefinert";
+
+    document
+        .getElementById(
+            "aktivArsklasse"
+        )
+        .style.color =
+        "var(--bla)";
+
+    document
+        .getElementById(
+            "omgangLengde"
+        )
+        .textContent =
+        egendefinertAntallOmganger +
+        " × " +
+        egendefinertOmgangstid +
+        " min";
+
+    leggTilLogg(
+        "Egendefinert kampoppsett valgt: " +
+        egendefinertAntallOmganger +
+        " × " +
+        egendefinertOmgangstid +
+        " min" +
+        (
+            egendefinertAntallOmganger > 1
+                ? ", pause " +
+                  egendefinertPausetid +
+                  " min"
+                : ""
+        )
+    );
+
     console.log(
-        "Test av egendefinert kampoppsett:",
+        "Egendefinert kampoppsett valgt:",
         {
             antallOmganger:
                 egendefinertAntallOmganger,
@@ -4891,6 +4948,8 @@ function brukEgendefinertOppsett() {
                 egendefinertPausetid
         }
     );
+
+    lukkArsklasseModal();
 }
 	
 function velgArsklasse(navn) {
