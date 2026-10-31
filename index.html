@@ -889,6 +889,75 @@ body.high-contrast .timeout-angre-btn {
     border-top: 1px solid #ddd;
 }
 
+/* ============================================================
+   EGENDEFINERT KAMPOPPSETT
+   ============================================================ */
+
+.egendefinert-arsklasse-rad {
+    margin-top: 12px;
+    padding-top: 16px;
+    border-top: 2px solid #cfcfcf;
+    font-weight: bold;
+    color: var(--bla);
+}
+
+.egendefinert-arsklasse-rad:hover {
+    background: #eef3ff;
+}
+
+.egendefinert-oppsett {
+    display: none;
+    margin-top: 16px;
+    padding: 18px;
+    background: #f5f7fb;
+    border: 2px solid var(--bla);
+    border-radius: 14px;
+}
+
+.egendefinert-oppsett.vises {
+    display: block;
+}
+
+.egendefinert-oppsett h3 {
+    margin: 0 0 8px 0;
+    color: var(--mork);
+    font-size: 20px;
+}
+
+.egendefinert-oppsett p {
+    margin: 0;
+    color: #444;
+    font-size: 15px;
+    line-height: 1.4;
+}
+
+body.high-contrast .egendefinert-arsklasse-rad {
+    color: #ffff00;
+    border-top-color: white;
+}
+
+body.high-contrast .egendefinert-arsklasse-rad:hover {
+    background: #333;
+}
+
+body.high-contrast .egendefinert-oppsett {
+    background: #111;
+    color: white;
+    border-color: #ffff00;
+}
+
+body.high-contrast .egendefinert-oppsett h3 {
+    color: #ffff00;
+}
+
+body.high-contrast .egendefinert-oppsett p {
+    color: white;
+}
+
+/* ============================================================
+   SLUTT EGENDEFINERT KAMPOPPSETT
+   ============================================================ */
+
 .reset-lagvalg {
 
     cursor: pointer;
@@ -4438,17 +4507,23 @@ window.addEventListener("click", function(event) {
 VELG ÅRSKLASSE
 =====================*/
 function apneArsklasseModal() {
-
     if (
         kampFase !== "ikkeStartet"
     ) {
-
         leggTilLogg(
             "Årsklasse er låst etter kampstart"
         );
-
         return;
     }
+
+    const egendefinertOppsett =
+        document.getElementById(
+            "egendefinertOppsett"
+        );
+
+    egendefinertOppsett.classList.remove(
+        "vises"
+    );
 
     document
         .getElementById(
@@ -4457,17 +4532,25 @@ function apneArsklasseModal() {
         .style.display = "block";
 
     byggArsklasseListe();
-
 }
 
 function lukkArsklasseModal() {
-
     document
         .getElementById(
             "arsklasseModal"
         )
         .style.display = "none";
-	document.body.focus();
+
+    const egendefinertOppsett =
+        document.getElementById(
+            "egendefinertOppsett"
+        );
+
+    egendefinertOppsett.classList.remove(
+        "vises"
+    );
+
+    document.body.focus();
 }
 
 function byggArsklasseListe() {
@@ -4483,15 +4566,39 @@ function byggArsklasseListe() {
             DEBUG || !klasse.debug
         )
         .forEach(klasse => {
-
-            liste.innerHTML += `
+            liste.insertAdjacentHTML(
+                "beforeend",
+                `
                 <div
                     class="lag-rad"
                     onclick="velgArsklasse('${klasse.navn}')">
                     ${klasse.navn}
                 </div>
-            `;
+                `
+            );
         });
+
+    liste.insertAdjacentHTML(
+        "beforeend",
+        `
+        <div
+            class="lag-rad egendefinert-arsklasse-rad"
+            onclick="visEgendefinertOppsett()">
+            ⚙ Egendefinert
+        </div>
+        `
+    );
+}
+
+function visEgendefinertOppsett() {
+    const egendefinertOppsett =
+        document.getElementById(
+            "egendefinertOppsett"
+        );
+
+    egendefinertOppsett.classList.toggle(
+        "vises"
+    );
 }
 function velgArsklasse(navn) {
 
@@ -5529,28 +5636,35 @@ sjekkEtterAppOppdatering();
 <!-- ===== VELG ÅRSKLASSE ===== -->
 <div id="arsklasseModal"
      class="lag-modal">
-
     <div class="lag-modal-content">
-
         <h2>Velg årsklasse</h2>
 
         <div id="arsklasseListe">
         </div>
 
-        <div class="lag-modal-footer">
-    <div></div>
-            <button
-                class="lukk-btn"
-                onclick="lukkArsklasseModal()">
+        <div
+            id="egendefinertOppsett"
+            class="egendefinert-oppsett">
 
-                LUKK
+            <h3>Egendefinert kampoppsett</h3>
 
-            </button>
+            <p>
+                Her kommer valg for antall omganger,
+                omgangstid og pausetid.
+            </p>
 
         </div>
 
-    </div>
+        <div class="lag-modal-footer">
+            <div></div>
 
+            <button
+                class="lukk-btn"
+                onclick="lukkArsklasseModal()">
+                LUKK
+            </button>
+        </div>
+    </div>
 </div>
 <!-- ===== REGISTRER UTVISNING ===== -->
 
