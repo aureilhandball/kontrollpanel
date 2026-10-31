@@ -2182,6 +2182,7 @@ let klokkeIntervall = null;
 let kampKjører = false;
 let kampFase = "ikkeStartet";
 let valgtArsklasse = null;
+let antallOmganger = 2;
 let omgangLengde = 0;
 let pauseLengde = 10;
 
@@ -3059,6 +3060,28 @@ function kampKanStartes() {
     return true;
 }
 
+function avsluttKamp() {
+    clearInterval(
+        klokkeIntervall
+    );
+
+    klokkeIntervall = null;
+    kampKjører = false;
+    kampFase = "ferdig";
+
+    settKampstatus(
+        "KAMP FERDIG"
+    );
+
+    sendReklameModusTilPublikum(
+        "kamp"
+    );
+
+    leggTilLogg(
+        "Kamp avsluttet"
+    );
+}
+	
 function startKlokke() {
 
     if (!kampKanStartes()) {
@@ -3203,29 +3226,55 @@ function kontrollerKampstatus() {
     const omgangSekunder =
         omgangLengde * 60;
 
-    /* Slutt 1. omgang */
-
-    if (
+   /* Slutt 1. omgang */
+if (
     kampFase === "omgang1" &&
     kampSekunder >= omgangSekunder
 ) {
+    clearInterval(
+        klokkeIntervall
+    );
 
-    // Stopper kampklokken
-    clearInterval(klokkeIntervall);
+    klokkeIntervall = null;
     kampKjører = false;
 
-    // Spiller horn umiddelbart
     spillLyd(
-        LYDER.horn);
+        LYDER.horn
+    );
 
-    settKampstatus("OMGANG FERDIG");
+    /*
+    Hvis kampen bare har én omgang,
+    avsluttes kampen direkte.
+    */
+    if (antallOmganger === 1) {
+        avsluttKamp();
+        return;
+    }
+
+    /*
+    Ved flere omganger beholdes dagens
+    overgang til pause.
+    */
+    settKampstatus(
+        "OMGANG FERDIG"
+    );
 
     leggTilLogg(
         "1. omgang ferdig"
     );
 
-    // Venter 3 sekunder før pause starter
     setTimeout(() => {
+        /*
+        Sikkerhetskontroll:
+        Hvis kampen er tilbakestilt eller
+        endret i løpet av de tre sekundene,
+        skal pausen ikke startes.
+        */
+        if (
+            kampFase !== "omgang1"
+        ) {
+            return;
+        }
 
         kampFase = "pause";
 
@@ -3239,14 +3288,16 @@ function kontrollerKampstatus() {
             .style.display =
             "block";
 
-        settKampstatus("PAUSE");
+        settKampstatus(
+            "PAUSE"
+        );
 
-		sendReklameModusTilPublikum("pause");
+        sendReklameModusTilPublikum(
+            "pause"
+        );
 
         oppdaterKlokkeVisning();
-
         startKlokke();
-
     }, 3000);
 
     return;
@@ -3289,19 +3340,11 @@ if (
     kampFase === "omgang2" &&
     kampSekunder >= omgangSekunder
 ) {
-
-    stoppKlokke();
-
-spillLyd(LYDER.horn);
-
-    kampFase = "ferdig";
-
-    settKampstatus("KAMP FERDIG");
-
-    leggTilLogg(
-        "Kamp avsluttet"
+    spillLyd(
+        LYDER.horn
     );
 
+    avsluttKamp();
     return;
 }
 }
@@ -4390,8 +4433,8 @@ function bekreftReset() {
 
     /* Nullstill kampstatus */
 kampFase = "ikkeStartet";
-
 valgtArsklasse = null;
+antallOmganger = 2;
 omgangLengde = 0;
 pauseLengde = 10;
 
@@ -4741,7 +4784,7 @@ function endreEgendefinertOmganger(endring) {
 
     if (
         nyVerdi < 1 ||
-        nyVerdi > 4
+        nyVerdi > 2
     ) {
         return;
     }
@@ -4890,13 +4933,16 @@ function brukEgendefinertOppsett() {
     }
 
     valgtArsklasse =
-        "Egendefinert";
+    "Egendefinert";
 
-    omgangLengde =
-        egendefinertOmgangstid;
+antallOmganger =
+    egendefinertAntallOmganger;
 
-    pauseLengde =
-        egendefinertPausetid;
+omgangLengde =
+    egendefinertOmgangstid;
+
+pauseLengde =
+    egendefinertPausetid;
 
     document
         .getElementById(
@@ -4961,11 +5007,13 @@ function velgArsklasse(navn) {
 
     valgtArsklasse = navn;
 
-    omgangLengde =
-        klasse.omgangLengde;
+antallOmganger = 2;
 
-    pauseLengde =
-        klasse.pauseLengde;
+omgangLengde =
+    klasse.omgangLengde;
+
+pauseLengde =
+    klasse.pauseLengde;
 
     document
 	.getElementById(
