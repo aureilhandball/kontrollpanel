@@ -2163,7 +2163,7 @@ body.app-oppdatering-vises {
 LYDER
 ==================*/
 const LYDER = {
-    horn: "lyd/Horn2.mp3"
+    horn: "lyd/Horn.mp3"
 };
 let lydbibliotek = {};
 /*==================
@@ -3529,7 +3529,7 @@ stoppHallmusikk(
     kampKjører = false;
 
     /* Horn spilles umiddelbart */
-    spillLyd("lyd/Horn2.mp3");
+    spillLyd("lyd/Horn.mp3");
 
     markerTimeout(side, omgang);
 visAngreTimeoutKnapp(side);
@@ -3611,7 +3611,7 @@ function startTimeoutNedtelling() {
         /* Horn når 10 sekunder gjenstår */
        if (timeoutSekunder === 10) {
 
-    		spillLyd("lyd/Horn2.mp3");
+    		spillLyd("lyd/Horn.mp3");
 
     		oppdaterTimeoutStatus(
         		timeoutLag,
