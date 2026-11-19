@@ -1,4 +1,4 @@
-const CACHE_VERSION = "1.4.5";
+const CACHE_VERSION = "1.4.6";
 const CACHE_NAME = `aure-handball-${CACHE_VERSION}`;
 const MUSIKK_CACHE_NAME = "aure-handball-musikk";
 
@@ -57,7 +57,7 @@ const FILER = [
     "./logoer/tronderlyn.png",
     "./logoer/utleira.png",
     "./logoer/valder.png",
-    "./lyd/Horn2.mp3",
+    "./lyd/Horn.mp3",
     "./video/fairplay.mp4"
 ];
 
