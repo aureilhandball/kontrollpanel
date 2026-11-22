@@ -1,4 +1,4 @@
-const CACHE_VERSION = "1.4.7";
+const CACHE_VERSION = "1.4.8";
 const CACHE_NAME = `aure-handball-${CACHE_VERSION}`;
 const MUSIKK_CACHE_NAME = "aure-handball-musikk";
 
