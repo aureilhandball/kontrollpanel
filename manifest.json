@@ -1,5 +1,5 @@
 {
-    "name": "Aure IL Håndball Kontrollpanel",
+    "name": "Matchpanel",
     "short_name": "Håndballkamp",
     "start_url": "./index.html",
     "scope": "./",
