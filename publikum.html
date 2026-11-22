@@ -853,6 +853,18 @@ function gjenopprettPublikumStatus() {
             Number(status.bortescore);
     }
 
+	if (
+    typeof status.kampstatus === "string" &&
+    status.kampstatus.trim() !== ""
+) {
+    document
+        .getElementById(
+            "kampstatus"
+        )
+        .textContent =
+        status.kampstatus;
+}
+	
     if (
         typeof status.hjemmelogo === "string" &&
         status.hjemmelogo.trim() !== ""
@@ -1022,14 +1034,19 @@ window.addEventListener(
 
             case "kampstatus":
 
-                document
-                    .getElementById(
-                        "kampstatus"
-                    )
-                    .textContent =
-                    event.data.status;
+    document
+        .getElementById(
+            "kampstatus"
+        )
+        .textContent =
+        event.data.status;
 
-                break;
+    lagrePublikumStatus({
+        kampstatus:
+            event.data.status
+    });
+
+    break;
 
 		case "reklamemodus":
     if (event.data.modus === "pause") {
