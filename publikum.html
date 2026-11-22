@@ -763,6 +763,150 @@ let hjemmemaal = 0;
 let bortemaal = 0;
 const debugMode = false;
 
+const PUBLIKUM_STATUS_NOKKEL = "aureHandballPublikumStatus";
+
+function lesLagretPublikumStatus() {
+    try {
+        const lagretStatus =
+            localStorage.getItem(
+                PUBLIKUM_STATUS_NOKKEL
+            );
+
+        if (!lagretStatus) {
+            return {};
+        }
+
+        const status =
+            JSON.parse(lagretStatus);
+
+        if (
+            !status ||
+            typeof status !== "object"
+        ) {
+            return {};
+        }
+
+        return status;
+    }
+    catch (error) {
+        console.error(
+            "Kunne ikke lese lagret publikumsstatus:",
+            error
+        );
+
+        return {};
+    }
+}
+
+function lagrePublikumStatus(endringer) {
+    try {
+        const gjeldendeStatus =
+            lesLagretPublikumStatus();
+
+        const oppdatertStatus = {
+            ...gjeldendeStatus,
+            ...endringer
+        };
+
+        localStorage.setItem(
+            PUBLIKUM_STATUS_NOKKEL,
+            JSON.stringify(
+                oppdatertStatus
+            )
+        );
+    }
+    catch (error) {
+        console.error(
+            "Kunne ikke lagre publikumsstatus:",
+            error
+        );
+    }
+}
+
+function gjenopprettPublikumStatus() {
+    const status =
+        lesLagretPublikumStatus();
+
+    if (
+        Number.isFinite(
+            Number(status.hjemmescore)
+        )
+    ) {
+        document
+            .getElementById(
+                "hjemmescore"
+            )
+            .textContent =
+            Number(status.hjemmescore);
+    }
+
+    if (
+        Number.isFinite(
+            Number(status.bortescore)
+        )
+    ) {
+        document
+            .getElementById(
+                "bortescore"
+            )
+            .textContent =
+            Number(status.bortescore);
+    }
+
+    if (
+        typeof status.hjemmelogo === "string" &&
+        status.hjemmelogo.trim() !== ""
+    ) {
+        document
+            .getElementById(
+                "hjemmelogo"
+            )
+            .src =
+            status.hjemmelogo;
+    }
+
+    if (
+        typeof status.bortelaglogo === "string" &&
+        status.bortelaglogo.trim() !== ""
+    ) {
+        document
+            .getElementById(
+                "bortelaglogo"
+            )
+            .src =
+            status.bortelaglogo;
+    }
+
+    if (
+        typeof status.hjemmenavn === "string" &&
+        status.hjemmenavn.trim() !== ""
+    ) {
+        document
+            .getElementById(
+                "hjemmelagnavn"
+            )
+            .textContent =
+            status.hjemmenavn;
+    }
+
+    if (
+        typeof status.bortenavn === "string" &&
+        status.bortenavn.trim() !== ""
+    ) {
+        document
+            .getElementById(
+                "bortelagnavn"
+            )
+            .textContent =
+            status.bortenavn;
+    }
+
+    console.log(
+        "Gjenopprettet publikumsstatus:",
+        status
+    );
+}
+
 function oppdaterScore() {
 
     document.getElementById(
@@ -898,17 +1042,29 @@ window.addEventListener(
 
 	    case "score":
 
-   		 document
-       		 .getElementById("hjemmescore")
-        	.textContent =
- 	         event.data.hjemme;
+    document
+        .getElementById(
+            "hjemmescore"
+        )
+        .textContent =
+        event.data.hjemme;
 
-	         document
-        	 .getElementById("bortescore")
-                 .textContent =
-                 event.data.borte;
+    document
+        .getElementById(
+            "bortescore"
+        )
+        .textContent =
+        event.data.borte;
 
-    		break;
+    lagrePublikumStatus({
+        hjemmescore:
+            event.data.hjemme,
+
+        bortescore:
+            event.data.borte
+    });
+
+    break;
 
                 case "maal":
 
@@ -956,31 +1112,49 @@ window.addEventListener(
 
 	    case "lag":
 
-    	    document
-       	        .getElementById("hjemmelogo")
-        	.src =
-        	event.data.hjemmelogo;
+    document
+        .getElementById(
+            "hjemmelogo"
+        )
+        .src =
+        event.data.hjemmelogo;
 
-    	    document
-        	.getElementById("bortelaglogo")
-        	.src =
-        	event.data.bortelogo;
+    document
+        .getElementById(
+            "bortelaglogo"
+        )
+        .src =
+        event.data.bortelogo;
 
-	    document
-    		.getElementById(
-        	"hjemmelagnavn"
-    		)
-    		.textContent =
-    		event.data.hjemmenavn;
+    document
+        .getElementById(
+            "hjemmelagnavn"
+        )
+        .textContent =
+        event.data.hjemmenavn;
 
-	    document
-    		.getElementById(
-        	"bortelagnavn"
-    		)
-    		.textContent =
-    		event.data.bortenavn;
+    document
+        .getElementById(
+            "bortelagnavn"
+        )
+        .textContent =
+        event.data.bortenavn;
 
-    	    break;
+    lagrePublikumStatus({
+        hjemmelogo:
+            event.data.hjemmelogo,
+
+        bortelaglogo:
+            event.data.bortelogo,
+
+        hjemmenavn:
+            event.data.hjemmenavn,
+
+        bortenavn:
+            event.data.bortenavn
+    });
+
+    break;
         }
     }
 );
@@ -1945,6 +2119,7 @@ function skjulReklamefelt() {
 // STARTER INNLASTING AV REKLAMENE
 // ------------------------------------------------------------
 
+gjenopprettPublikumStatus();
 lastReklamer();
 
 
